@@ -26,9 +26,10 @@ class AppHelper
             $sender = "plawrk"; // This is who the message appears to be from.
             $numbers = $receipientno; // A single number or a comma-seperated list of numbers
             $message = "Dear User Please use OTP $otp Regards Planetwork";
-            // 612 chars or less
+            
             // A single number or a comma-seperated list of numbers
             $message = urlencode($message);
+
             $data = "username=".$username."&hash=".$hash."&message=".$message."&sender=".$sender."&numbers=".$numbers."&test=".$test;
             $ch = curl_init('http://api.textlocal.in/send/?');
             curl_setopt($ch, CURLOPT_POST, true);

@@ -32,7 +32,7 @@ class AuthController extends Controller
     public function verifyOtp(Request $request){
 
         $user = User::where('mobile', $request['mobile'])
-                 ->where('two_factor_secret', $request['otp'])->first();
+                 ->where('otp', $request['otp'])->first();
         if(!$user){
             return response()->json([
                 'message' => 'Invalid OTP'
@@ -49,7 +49,8 @@ class AuthController extends Controller
 
     public function getOtp(Request $request){
         
-        $user = User::where('mobile', $request['mobile'])->first();
+        $user = User::where('mobile', $request['mobile'])
+            ->where('imei', $request['imei'])->first();
         if(!$user){
             return response()->json([
                 'status' => 0,
@@ -59,7 +60,7 @@ class AuthController extends Controller
 
         $randomOtp = rand(100000, 999999); 
         User::where('mobile',  $request['mobile'])
-                    ->update(['two_factor_secret' => $randomOtp]);
+                    ->update(['otp' => $randomOtp]);
         
         AppHelper::sendLoginOtp($request['mobile'], $randomOtp);
         return response()->json([

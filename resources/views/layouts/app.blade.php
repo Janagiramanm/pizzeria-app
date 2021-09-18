@@ -24,7 +24,7 @@
         
         <div class=" grid grid-cols-12 min-h-screen bg-gray-100">
             <div class="col-span-12 row-span-1 bg-gray-100 fixed">  @livewire('navigation-menu') </div>
-            <div class="col-span-2 h-screen sticky mt-0">
+            <div class="col-span-2 h-screen sticky top-0">
                 
                         <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-14 md:relative md:h-screen z-10 w-full">
 
