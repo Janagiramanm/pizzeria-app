@@ -59,7 +59,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $randomOtp = rand(10000, 99999); 
+        $randomOtp = rand(1000, 9999); 
         User::where('mobile',  $request['mobile'])
                     ->update(['otp' => $randomOtp]);
         
