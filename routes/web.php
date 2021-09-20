@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 
 
+use App\Http\Livewire\Roles;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +27,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('tasks', TaskController::class);
+
+Route::get('roles', Roles::class);
 
 
 // Route::get('/tasks', [TaskController::class, 'index'])->middleware(['auth'])->name('tasks');

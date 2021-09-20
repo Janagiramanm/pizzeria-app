@@ -39,7 +39,16 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+             'name' => 'required',
+             'description' => 'required'
+             ]);
+         
+          $task = new Task();
+          $task->name = $request->input('name');
+          $task->description = $request->input('description');
+          $task->save();
+          return redirect( route('tasks.index'))->withSuccess('Task added successfully!');
     }
 
     /**
