@@ -41,7 +41,10 @@
                         <td class="border px-4 py-2">{{ $task->name }}</td>
                         <td class="border px-4 py-2">{{ $task->description}}</td>
                         <td class="border px-4 py-2">
-                         <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" wire:click="deleteId({{ $task->id }})" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
+                                <!-- <button wire:click="edit({{$task->id}})" class="btn btn-sm btn-outline-danger py-0">Edit</button> | 
+                                <button wire:click="destroy({{$task->id}})" class="btn btn-sm btn-outline-danger py-0">Delete</button> -->
+                         <button type="button" class="float-right bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" wire:click="destroy({{$task->id}})" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
+                         <button type="button" class="float-right bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-5" wire:click="edit({{$task->id}})" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Edit</button>
                         </td>
                     </tr>
                     @endforeach
