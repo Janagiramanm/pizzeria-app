@@ -35,6 +35,7 @@ class AuthController extends Controller
                  ->where('otp', $request['otp'])->first();
         if(!$user){
             return response()->json([
+                'status' => 0,
                 'message' => 'Invalid OTP'
                 ], 401);
         }
@@ -58,12 +59,13 @@ class AuthController extends Controller
             ]);
         }
 
-        $randomOtp = rand(100000, 999999); 
+        $randomOtp = rand(10000, 99999); 
         User::where('mobile',  $request['mobile'])
                     ->update(['otp' => $randomOtp]);
         
         AppHelper::sendLoginOtp($request['mobile'], $randomOtp);
         return response()->json([
+            'status' => 1,
             'otp' => $randomOtp,
         ]);
     }
