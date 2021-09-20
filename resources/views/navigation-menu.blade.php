@@ -1,6 +1,6 @@
     <!-- Primary Navigation Menu -->
-    <nav x-data="{ open: false }" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav x-data="{ open: false }" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-50 top-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-50">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -35,7 +35,7 @@
                                 </span>
                             </x-slot>
 
-                            <x-slot name="content">
+                            <x-slot name="content z-40">
                                 <div class="w-60">
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
@@ -92,7 +92,7 @@
 
                         <x-slot name="content">
                             <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
+                            <div class="block px-4 py-2 text-xs text-gray-400 z-40 ">
                                 {{ __('Manage Account') }}
                             </div>
 

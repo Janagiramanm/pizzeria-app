@@ -54,13 +54,13 @@
             </div>
             <div class="col-span-10 ">  
                 @if (isset($header))
-                    <header class="bg-white shadow mt-20 w-full fixed">
+                    <header class="bg-white shadow mt-16 w-full">
                         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                             {{ $header }}
                         </div>
                     </header>
                 @endif
-                <main class="mt-28">
+                <main class="mt-10">
                     {{ $slot }}
                 </main>
         </div>

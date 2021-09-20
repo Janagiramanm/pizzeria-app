@@ -21,7 +21,7 @@
 
            
             <table class="table-fixed w-full">
-                 <x-jet-nav-link class="my-4 inline-flex justify-center float-right rounded-md border border-transparent px-4 py-2 bg-red-600 text-base font-bold text-white shadow-sm hover:bg-red-100" href="{{ route('tasks.create') }}" :active="request()->routeIs('tasks.create')">
+                 <x-jet-nav-link class="my-4 justify-center float-right rounded-md  px-4 py-2 bg-blue-800 text-white  hover:bg-blue-600" href="{{ route('tasks.create') }}" :active="request()->routeIs('tasks.create')">
                                                     {{ __('Add New Task') }}
                 </x-jet-nav-link>
            
@@ -50,7 +50,7 @@
         </div>
 
 
-        <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
     </div>
