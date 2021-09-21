@@ -37,7 +37,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 0,
                 'message' => 'Invalid OTP'
-                ], 401);
+                ]);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
