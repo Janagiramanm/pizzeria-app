@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 
 
-use App\Http\Livewire\Roles;
+use App\Http\Livewire\Customers;
+use App\Http\Livewire\Tasks;
+// use App\Http\Livewire\Roles;
+// use App\Http\Livewire\Users;
 
 
 /*
@@ -26,9 +29,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('tasks', TaskController::class);
 
-Route::get('roles', Roles::class);
+Route::get('customers', Customers::class);
+
+Route::get('tasks', Tasks::class);
+
+// Route::get('users', Users::class);
+
+// Route::get('roles', Roles::class);
 
 
 // Route::get('/tasks', [TaskController::class, 'index'])->middleware(['auth'])->name('tasks');

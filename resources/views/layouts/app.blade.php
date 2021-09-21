@@ -14,10 +14,12 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
         <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> 
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet' />
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -37,14 +39,22 @@
                                           
                                         </li>
                                         <li class="mr-3 flex-1">
-                                            <x-jet-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
+                                            {{-- <x-jet-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
+                                                 <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Tasks</span>
+                                            </x-jet-nav-link> --}}
+                                            <x-jet-nav-link href="/tasks" :active="request()->routeIs('tasks.index')">
                                                  <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Tasks</span>
                                             </x-jet-nav-link>
                                            
                                         </li>
                                         <li class="mr-3 flex-1">
-                                            <a href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
-                                            <i class="fas fa-user-astronaut pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Roles</span>
+                                            <a href="/customers" :active="request()->routeIs('users')" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+                                            <i class="fas fa-user-astronaut pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Customers</span>
+                                            </a>
+                                        </li>
+                                        <li class="mr-3 flex-1">
+                                            <a href="/users" :active="request()->routeIs('users')" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+                                            <i class="fas fa-user-astronaut pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Users</span>
                                             </a>
                                         </li>
                                        
@@ -60,7 +70,7 @@
                         </div>
                     </header>
                 @endif
-                <main class="mt-10">
+                <main class="">
                     {{ $slot }}
                 </main>
         </div>
