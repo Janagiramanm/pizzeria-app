@@ -16,11 +16,11 @@
                                     Customer Type
                               </label>
                               <label class="inline-flex items-center">
-                                <input type="radio" class="form-radio" name="customer_type" value="BS" checked wire:model="customer_type" wire:click="$set('show', true)">
+                                <input type="radio" class="form-radio" name="customer_type" value="BUSINESS" checked wire:model="customer_type" wire:click="$set('show', true)">
                                 <span class="ml-2">Business</span>
                               </label>
                               <label class="inline-flex items-center">
-                                <input type="radio" class="form-radio" name="customer_type" value="IND" checked wire:model="customer_type" wire:click="$set('show', false)">
+                                <input type="radio" class="form-radio" name="customer_type" value="INDIVIDUAL" checked wire:model="customer_type" wire:click="$set('show', false)">
                                 <span class="ml-2">Individual</span>
                               </label>
                               @error('customer_type') <span class="text-danger">{{ $message }}</span> @enderror

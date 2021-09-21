@@ -47,8 +47,11 @@ class Customers extends Component
         Customer::create([
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
+            'company_name' => $this->company_name,
             'customer_type' => $this->customer_type,
             'customer_email' => $this->customer_email,
+            'phone' => $this->phone,
+            'website' => $this->website,
         ]);
         $this->createMode = false;
         $this->resetInput();

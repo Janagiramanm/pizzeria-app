@@ -24,6 +24,9 @@
                                     <th class="px-4 py-2 w-20">No.</th>
                                     <th class="px-4 py-2">Customer Type</th>
                                     <th class="px-4 py-2">Customer Name</th>
+                                    <th class="px-4 py-2">Company Name</th>
+                                    <th class="px-4 py-2">Phone</th>
+                                    <th class="px-4 py-2">Email</th>
                                     <th class="px-4 py-2">Action</th>
                                 </tr>   
                             </thead>
@@ -34,11 +37,14 @@
                                     <td class="border px-4 py-2">{{ $no++ }}</td>
                                     <td class="border px-4 py-2">{{ $customer->customer_type }}</td>
                                     <td class="border px-4 py-2">{{ $customer->first_name }} {{ $customer->last_name }}</td>
+                                    <td class="border px-4 py-2">{{ $customer->company_name }}</td>
+                                    <td class="border px-4 py-2">{{ $customer->customer_email }}</td>
+                                    <td class="border px-4 py-2">{{ $customer->phone }}</td>
                                     <td class="border px-4 py-2">
-                                    <x-jet-button wire:click="edit( {{ $customer->id}})" class="bg-orange-500 hover:bg-orange-700">
+                                    <x-jet-button wire:click="edit( {{ $customer->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-20">
                                         Edit
                                     </x-jet-button>
-                                    <x-jet-danger-button wire:click="confirmItemDeletion( {{ $customer->id}})" wire:loading.attr="disabled">
+                                    <x-jet-danger-button wire:click="confirmItemDeletion( {{ $customer->id}})" wire:loading.attr="disabled" class="m-1 w-20">
                                         Delete
                                     </x-jet-danger-button>
                                    
