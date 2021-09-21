@@ -52,7 +52,8 @@ class AuthController extends Controller
     public function getOtp(Request $request){
         
         $user = User::where('mobile', $request['mobile'])
-            ->where('imei', $request['imei'])->first();
+           // ->where('imei', $request['imei'])
+            ->first();
         if(!$user){
             return response()->json([
                 'status' => 0,
