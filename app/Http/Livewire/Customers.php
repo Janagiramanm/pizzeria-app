@@ -7,11 +7,14 @@ use Livewire\Component;
 
 class Customers extends Component
 {
-    public $customer, $confirmingItemDeletion;
+    public $customer, $confirmingItemDeletion, $customer_id, $error;
     public $updateMode,$createMode = false;
     public $show = true;
     public $first_name,$last_name, $customer_type,
      $customer_email, $company_name, $phone, $website , $branch;
+    
+    public $inputs = [];
+    public $i=1;
 
     public function render()
     {
@@ -26,7 +29,7 @@ class Customers extends Component
         $this->company_name = null;
         $this->customer_email = null;
         $this->branch = null;
-
+        $this->error = null;
         $this->render();
     }
 
@@ -42,6 +45,8 @@ class Customers extends Component
             'first_name' => 'required',
             'last_name' => 'required',
             'customer_email' => 'required',
+            'customer_type' => 'required',
+            'company_name' => 'required_if:customer_type,==,BUSINESS'
 
         ]);
         Customer::create([
@@ -61,10 +66,15 @@ class Customers extends Component
     public function edit($id)
     {
         $this->updateMode = true;
-        $user = Customer::where('id',$id)->first();
+        $this->customer_id = $id;
+        $user = Customer::where('id',$this->customer_id)->first();
+        $this->customer_type = $user->customer_type;
         $this->first_name = $user->first_name;
         $this->last_name = $user->last_name;
         $this->customer_email = $user->customer_email;
+        $this->company_name = $user->company_name;
+        $this->phone = $user->phone;
+        $this->website = $user->website;
         
     }
 
@@ -88,17 +98,22 @@ class Customers extends Component
         $this->validate([
             'first_name' => 'required',
             'last_name' => 'required',
+            'customer_type' => 'required',
             'customer_email' => 'required|email',
+            'company_name' => 'required_if:customer_type,==,BUSINESS'
         ]);
 
-        if ($this->id) {
-            $customer = Customer::find($this->id);
+        if ($this->customer_id) {
+            $customer = Customer::find($this->customer_id);
            
             $customer->update([
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
+                'company_name' => $this->company_name,
                 'customer_type' => $this->customer_type,
                 'customer_email' => $this->customer_email,
+                'phone' => $this->phone,
+                'website' => $this->website,
             ]);
             $this->updateMode = false;
             //session()->flash('message', 'Users Updated Successfully.');
@@ -125,5 +140,19 @@ class Customers extends Component
         $customer->delete();
         $this->confirmingItemDeletion = false;
         session()->flash('message', 'Item Deleted Successfully');
+    }
+
+
+
+    public function add($i)
+    {
+        $i = $i + 1;
+        $this->i = $i;
+        array_push($this->inputs ,$i);
+    }
+
+    public function remove($i)
+    {
+        unset($this->inputs[$i]);
     }
 }

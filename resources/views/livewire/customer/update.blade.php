@@ -7,7 +7,7 @@
            Customers
         </x-jet-button>
         <div>
-        <form wire:click.prevent="update()" class="w-full max-w-6xl">
+        <form  class="w-full max-w-6xl">
                <div class="flex flex-wrap -mx-3 mb-6">
                       <div class="w-full px-3">
                           <div class="block">
@@ -15,11 +15,11 @@
                                     Customer Type
                               </label>
                               <label class="inline-flex items-center">
-                                <input type="radio" class="form-radio" name="customer_type" value="BS" checked wire:model="customer_type" wire:click="$set('show', true)">
+                                <input type="radio" name="customer_type" value="BUSINESS" checked wire:model="customer_type" wire:click="$set('show', true)">
                                 <span class="ml-2">Business</span>
                               </label>
                               <label class="inline-flex items-center">
-                                <input type="radio" class="form-radio" name="customer_type" value="IND" checked wire:model="customer_type" wire:click="$set('show', false)">
+                                <input type="radio" name="customer_type" value="INDIVIDUAL" checked  wire:model="customer_type" wire:click="$set('show', false)">
                                 <span class="ml-2">Individual</span>
                               </label>
                               @error('customer_type') <span class="text-danger">{{ $message }}</span> @enderror
@@ -31,14 +31,14 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                               Primary Contact
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gay-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                             name="first_name" type="text" placeholder="FIRST NAME" wire:model="first_name">
                             @error('first_name') <span class="text-red-700">{{ $message }}</span> @enderror
                           </div>
                           <div class="w-full md:w-1/2 my-6">
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                                 id="grid-last-name" name="last_name" type="text" placeholder="LAST NAME" wire:model="last_name">
-                                @error('first_name') <span class="text-red-700">{{ $message }}</span> @enderror
+                                @error('last_name') <span class="text-red-700">{{ $message }}</span> @enderror
                           </div>
 
                          
@@ -49,7 +49,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                               Company Name
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="company_name" type="text" placeholder="" wire:model="company_name">
                              @error('company_name') <span class="text-danger">{{ $message }}</span> @enderror
                           </div>
@@ -61,7 +61,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                               Email
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="customer_email" type="text" placeholder="" wire:model="customer_email">
                              @error('customer_email') <span class="text-danger">{{ $message }}</span> @enderror
                           </div>
@@ -71,7 +71,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                               Phone
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="phone" type="text" placeholder="" wire:model="phone">
                              @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
                           </div>
@@ -81,7 +81,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                               Website
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="website" type="text" placeholder="" wire:model="website">
                              @error('website') <span class="text-danger">{{ $message }}</span> @enderror
                           </div>
@@ -92,7 +92,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                               Branch
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="website" type="text" placeholder="" wire:model="website">
                              @error('website') <span class="text-danger">{{ $message }}</span> @enderror
                           </div>
