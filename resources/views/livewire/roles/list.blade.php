@@ -32,7 +32,7 @@
                                 @foreach($roles as $role)
                                 <tr>
                                     <td class="border px-4 py-2">{{ $no++ }}</td>
-                                    <td class="border px-4 py-2">{{ $role->name }}</td>
+                                    <td class="border px-4 py-2">{{ ucfirst($role->name) }}</td>
                                     <td class="border px-4 py-2">{{ $role->description }}</td>
                                     <td class="border px-4 py-2">
                                     @if($role->name != 'administrator')
