@@ -8,6 +8,7 @@ use App\Http\Livewire\Customers;
 use App\Http\Livewire\Tasks;
 use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
+use App\Http\Livewire\Cities;
 // use App\Http\Livewire\Roles;
 // use App\Http\Livewire\Users;
 
@@ -39,6 +40,8 @@ Route::get('roles', Roles::class);
 Route::get('tasks', Tasks::class);
 
 Route::get('users', Users::class);
+
+Route::get('cities', Cities::class);
 
 // Route::get('users', Users::class);
 

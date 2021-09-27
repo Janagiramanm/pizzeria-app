@@ -66,8 +66,8 @@
                                                 </x-jet-nav-link>
                                             </li>
 											<li class="mr-3 flex-1">
-                                                <x-jet-nav-link href="/tasks" :active="request()->routeIs('tasks.index')">
-                                                        <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">City</span>
+                                                <x-jet-nav-link href="/cities" :active="request()->routeIs('tasks.index')">
+                                                        <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Cities</span>
                                                 </x-jet-nav-link>
                                             </li>
 											<li class="mr-3 flex-1">

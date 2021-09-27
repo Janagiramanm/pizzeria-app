@@ -10,8 +10,8 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
         @if($updateMode)
             @include('livewire.roles.create')
-        @elseif($createMode)
-            @include('livewire.roles.create')
+            @elseif($createMode)
+                @include('livewire.roles.create')
         @else
             <table class="table-fixed w-full">
                           
@@ -35,9 +35,11 @@
                                     <td class="border px-4 py-2">{{ $role->name }}</td>
                                     <td class="border px-4 py-2">{{ $role->description }}</td>
                                     <td class="border px-4 py-2">
+                                    @if($role->name != 'administrator')
                                     <x-jet-button wire:click="edit( {{ $role->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-20">
                                         Edit
                                     </x-jet-button>
+                                    @endif
                                     
                                     </td>
                                 </tr>
