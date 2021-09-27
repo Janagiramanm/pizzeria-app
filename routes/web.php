@@ -6,6 +6,8 @@ use App\Http\Controllers\TaskController;
 
 use App\Http\Livewire\Customers;
 use App\Http\Livewire\Tasks;
+use App\Http\Livewire\Roles;
+use App\Http\Livewire\Users;
 // use App\Http\Livewire\Roles;
 // use App\Http\Livewire\Users;
 
@@ -32,7 +34,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('customers', Customers::class);
 
+Route::get('roles', Roles::class);
+
 Route::get('tasks', Tasks::class);
+
+Route::get('users', Users::class);
 
 // Route::get('users', Users::class);
 

@@ -67,14 +67,14 @@ class Customers extends Component
     {
         $this->updateMode = true;
         $this->customer_id = $id;
-        $user = Customer::where('id',$this->customer_id)->first();
-        $this->customer_type = $user->customer_type;
-        $this->first_name = $user->first_name;
-        $this->last_name = $user->last_name;
-        $this->customer_email = $user->customer_email;
-        $this->company_name = $user->company_name;
-        $this->phone = $user->phone;
-        $this->website = $user->website;
+        $customer = Customer::where('id',$this->customer_id)->first();
+        $this->customer_type = $customer->customer_type;
+        $this->first_name = $customer->first_name;
+        $this->last_name = $customer->last_name;
+        $this->customer_email = $customer->customer_email;
+        $this->company_name = $customer->company_name;
+        $this->phone = $customer->phone;
+        $this->website = $customer->website;
         
     }
 

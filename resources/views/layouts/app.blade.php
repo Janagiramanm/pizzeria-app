@@ -14,12 +14,12 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
         <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> 
-        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet' />
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
+         <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -27,8 +27,9 @@
         <div class=" grid grid-cols-12 min-h-screen bg-gray-100">
             <div class="col-span-12 row-span-1 bg-gray-100 fixed">  @livewire('navigation-menu') </div>
             <div class="col-span-2 h-screen sticky top-0">
+         
                 
-                        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-14 md:relative md:h-screen z-10 w-full">
+                       <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-14 md:relative md:h-screen z-10 w-full">
 
                                 <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
                                     <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
@@ -38,15 +39,7 @@
                                             </x-jet-nav-link>
                                           
                                         </li>
-                                        <li class="mr-3 flex-1">
-                                            {{-- <x-jet-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
-                                                 <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Tasks</span>
-                                            </x-jet-nav-link> --}}
-                                            <x-jet-nav-link href="/tasks" :active="request()->routeIs('tasks.index')">
-                                                 <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Tasks</span>
-                                            </x-jet-nav-link>
-                                           
-                                        </li>
+                                       
                                         <li class="mr-3 flex-1">
                                             <a href="/customers" :active="request()->routeIs('users')" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
                                             <i class="fas fa-user-astronaut pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Customers</span>
@@ -54,14 +47,40 @@
                                         </li>
                                         <li class="mr-3 flex-1">
                                             <a href="/users" :active="request()->routeIs('users')" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+                                            <i class="fas fa-user-astronaut pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Jobs</span>
+                                            </a>
+                                        </li>
+                                        <li class="mr-3 flex-1">
+                                            <a href="/users" :active="request()->routeIs('users')" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
                                             <i class="fas fa-user-astronaut pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Users</span>
                                             </a>
                                         </li>
+									
+										<li class="my-px">
+											<span class="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">Masters</span>
+										</li>
+                                        <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                                           <li class="mr-3 flex-1">
+                                                <x-jet-nav-link href="/roles" :active="request()->routeIs('tasks.index')">
+                                                        <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Roles</span>
+                                                </x-jet-nav-link>
+                                            </li>
+											<li class="mr-3 flex-1">
+                                                <x-jet-nav-link href="/tasks" :active="request()->routeIs('tasks.index')">
+                                                        <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">City</span>
+                                                </x-jet-nav-link>
+                                            </li>
+											<li class="mr-3 flex-1">
+                                                <x-jet-nav-link href="/tasks" :active="request()->routeIs('tasks.index')">
+                                                        <i class="fas fa-tachometer-alt pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Tasks</span>
+                                                </x-jet-nav-link>
+                                            </li>
+                                        </ul>
                                        
                                     </ul>
                                 </div>
                         </div>
-            </div>
+            </div> 
             <div class="col-span-10 ">  
                 @if (isset($header))
                     <header class="bg-white shadow mt-16 w-full">

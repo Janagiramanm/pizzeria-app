@@ -29,13 +29,25 @@ class AdminSeeder extends Seeder
             ],
         );
 
-        $role = Role::updateOrCreate(
-            ['name' => 'administrator'],
-            [
-                'name' => 'administrator',
-                'description' => 'Super User, having access to all sites.'
-            ]
-        );
+        $roles = [
+                    [
+                        'name' => 'administrator',
+                        'description' => 'Super User, having access to all sites.'
+                    ],
+                    [
+                        'name' => 'manager',
+                        'description' => 'Manager, having limited access.'
+                    ],
+                    [
+                        'name' => 'employee',
+                        'description' => 'Employee has access of web app.'
+                    ]
+                ];
+
+        foreach($roles as $key => $value){
+            Role::create($value);
+        }
+        $role = Role::where('name', '=', 'administrator')->first();
 
         foreach ($adminDetails as $adminDetail) {
             $admin = User::where('mobile', '=', $adminDetail['mobile'])->first();
