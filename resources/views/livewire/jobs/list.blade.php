@@ -1,3 +1,5 @@
+
+
 <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Jobs') }}
@@ -34,7 +36,7 @@
                             @php $no = 1; @endphp
                                 @foreach($jobs as $job)
                                 <tr>
-                                    <td class="border px-4 py-2">{{ $no++ }}</td>
+                                <td class="border px-4 py-2">{{ $no++ }}</td>
                                     <td class="border px-4 py-2">{{ $job->customer->customer_type }}</td>
                                     <td class="border px-4 py-2">{{ $job->customer->company_name }}</td>
                                     <td class="border px-4 py-2">{{ $job->task->name }}</td>
@@ -58,6 +60,31 @@
             </table>
             @endif
 
+
+            <x-jet-confirmation-modal wire:model="confirmingItemDeletion">
+                    <x-slot name="title">
+                        {{ __('Delete Item') }}
+                    </x-slot>
+            
+                    <x-slot name="content">
+                        {{ __('Are you sure you want to delete Item? ') }}
+                    </x-slot>
+            
+                    <x-slot name="footer">
+                        <x-jet-secondary-button wire:click="$set('confirmingItemDeletion', false)" wire:loading.attr="disabled">
+                            {{ __('Cancel') }}
+                        </x-jet-secondary-button>
+            
+                        <x-jet-danger-button class="ml-2" wire:click="deleteItem({{ $confirmingItemDeletion }})" wire:loading.attr="disabled">
+                            {{ __('Delete') }}
+                        </x-jet-danger-button>
+                    </x-slot>
+            </x-jet-confirmation-modal>
+
 </div>
 </div>
 </div>
+
+
+
+
