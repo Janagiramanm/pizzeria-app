@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Customer;
 use App\Models\User;
+use App\Models\Task;
 
 class Job extends Model
 {
@@ -23,5 +24,8 @@ class Job extends Model
     public function employees()
     {
         return $this->hasMany(AssignJobEmployee::class);
+    }
+    public function task(){
+        return $this->belongsTo(Task::class);
     }
 }

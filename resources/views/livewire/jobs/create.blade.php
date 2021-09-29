@@ -72,8 +72,8 @@
                                     <x-jet-label for="address" value="{{ __('Select Location') }}" />
                                     @foreach($locations as $key => $location)
                                       
-                                        <div class="border-2  md:w-4/5  m-1 border-gray-600 p-4"> 
-                                           <input type="radio" class="float-right mt-8" wire:model="address" value="{{$location->id}}" name="address" ></input>
+                                        <div class="border-2  md:w-4/5  m-1 border-gray-600 p-4" for="address"> 
+                                           <input type="radio" class="float-right mt-4 h-8 w-8" wire:model="address" value="{{$location->id}}" name="address" ></input>
                                             <div>
                                                Branch - {{ $location->branch }}
                                                 </div>

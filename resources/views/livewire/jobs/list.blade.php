@@ -24,6 +24,7 @@
                                     <th class="px-4 py-2 w-20">No.</th>
                                     <th class="px-4 py-2">Customer Type</th>
                                     <th class="px-4 py-2">Customer Name</th>
+                                    <th class="px-4 py-2">Task</th>
                                     <th class="px-4 py-2">Employees</th>
                                     <th class="px-4 py-2">Date</th>                                   
                                     <th class="px-4 py-2">Action</th>
@@ -36,6 +37,7 @@
                                     <td class="border px-4 py-2">{{ $no++ }}</td>
                                     <td class="border px-4 py-2">{{ $job->customer->customer_type }}</td>
                                     <td class="border px-4 py-2">{{ $job->customer->company_name }}</td>
+                                    <td class="border px-4 py-2">{{ $job->task->name }}</td>
                                     <td class="border px-4 py-2">
                                            @foreach ($job->employees as $employee) 
                                                 {{ $employee->user->name }} 
