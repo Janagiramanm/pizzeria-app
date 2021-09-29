@@ -15,7 +15,7 @@
             <div class="flex">
                   <div class="md:w-1/2 m-2"> 
                            <x-jet-label for="role" value="{{ __('Role') }}" />
-                            <select id="role" wire:model="role"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="role">
+                            <select id="role" wire:model="role"  class="block mt-1 w-4/5 p-2  bg-gray-200" name="role">
                               <option value="">Select Role</option>
                               @foreach ($roles as $role)
                                           <option value="{{ $role->id }}">

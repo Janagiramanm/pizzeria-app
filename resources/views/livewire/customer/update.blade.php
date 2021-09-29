@@ -128,7 +128,7 @@
                 </div>
                 
                 
-                @foreach($inputs as $key => $value)
+                @foreach($locations as $key => $value)
 
                 <div class=" add-input">
                     <hr class="mt-10 mb-5 ">

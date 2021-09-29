@@ -9,8 +9,7 @@ use App\Http\Livewire\Tasks;
 use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Cities;
-// use App\Http\Livewire\Roles;
-// use App\Http\Livewire\Users;
+use App\Http\Livewire\Jobs;
 
 
 /*
@@ -33,22 +32,18 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 
-Route::get('customers', Customers::class);
+Route::get('customers', Customers::class)->name('customers');
 
-Route::get('roles', Roles::class);
+Route::get('roles', Roles::class)->name('roles');
 
-Route::get('tasks', Tasks::class);
+Route::get('tasks', Tasks::class)->name('tasks');
 
-Route::get('users', Users::class);
+Route::get('users', Users::class)->name('users');
 
-Route::get('cities', Cities::class);
+Route::get('cities', Cities::class)->name('cities');
 
-// Route::get('users', Users::class);
+Route::get('jobs', Jobs::class)->name('jobs');
 
-// Route::get('roles', Roles::class);
-
-
-// Route::get('/tasks', [TaskController::class, 'index'])->middleware(['auth'])->name('tasks');
 
 
 

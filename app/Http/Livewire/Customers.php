@@ -3,22 +3,26 @@
 namespace App\Http\Livewire;
 
 use App\Models\Customer;
+use App\Models\City;
+use App\Models\CustomerLocation;
 use Livewire\Component;
+
 
 class Customers extends Component
 {
     public $customer, $confirmingItemDeletion, $customer_id, $error;
-    public $updateMode,$createMode = false;
+    public $updateMode,$createMode, $addMore = false;
     public $show = true;
     public $first_name,$last_name, $customer_type,
-     $customer_email, $company_name, $phone, $website , $branch;
+     $customer_email, $company_name, $phone, $website , $branch, $city, $address;
     
-    public $inputs = [];
+    public $locations = [];
     public $i=1;
 
     public function render()
     {
         $this->customers = Customer::all();
+        $this->cities = City::all();
         return view('livewire.customer.list');
     }
 
@@ -35,6 +39,7 @@ class Customers extends Component
 
     public function create(){
         $this->createMode = true;
+        $this->addMore = true;
         $this->show = true;
         return view('livewire.customer.create');
     }
@@ -46,10 +51,23 @@ class Customers extends Component
             'last_name' => 'required',
             'customer_email' => 'required',
             'customer_type' => 'required',
-            'company_name' => 'required_if:customer_type,==,BUSINESS'
+            'company_name' => 'required_if:customer_type,==,BUSINESS',
+            'branch.0' => 'required',
+            'city.0' => 'required',
+            'address.0' => 'required'
 
-        ]);
-        Customer::create([
+        ],
+        [
+            'branch.0.required' => 'branch field is required',
+            'city.0.required' => 'city field is required',
+            'address.0.email' => 'address field is required.',
+            'branch.*.required' => 'branch field is required',
+            'city.*.required' => 'city field is required',
+            'address.*.email' => 'address field is required.',
+        ]
+    );
+
+       $customer_id = Customer::create([
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'company_name' => $this->company_name,
@@ -57,7 +75,17 @@ class Customers extends Component
             'customer_email' => $this->customer_email,
             'phone' => $this->phone,
             'website' => $this->website,
-        ]);
+        ])->id;
+
+        foreach ($this->branch as $key => $value) {
+            CustomerLocation::create([
+                   'customer_id' => $customer_id,
+                   'branch' => $this->branch[$key], 
+                   'city_id' => $this->city[$key],
+                   'address' => $this->address[$key]
+                ]);
+        }
+
         $this->createMode = false;
         $this->resetInput();
         
@@ -66,6 +94,7 @@ class Customers extends Component
     public function edit($id)
     {
         $this->updateMode = true;
+        // $this->addMore =false;
         $this->customer_id = $id;
         $customer = Customer::where('id',$this->customer_id)->first();
         $this->customer_type = $customer->customer_type;
@@ -75,6 +104,17 @@ class Customers extends Component
         $this->company_name = $customer->company_name;
         $this->phone = $customer->phone;
         $this->website = $customer->website;
+
+        $locations = CustomerLocation::where('customer_id','=', $this->customer_id)->get();
+        
+        if($locations){
+            foreach($locations as $key =>$value){
+                $this->branch[$key] = $value->branch;
+                $this->city[$key] = $value->city_id;
+                $this->address[$key] = $value->address;
+            }
+        }
+
         
     }
 
@@ -146,13 +186,15 @@ class Customers extends Component
 
     public function add($i)
     {
+        // $this->addMore = true;
         $i = $i + 1;
         $this->i = $i;
-        array_push($this->inputs ,$i);
+        
+        array_push($this->locations ,$i);
     }
 
     public function remove($i)
     {
-        unset($this->inputs[$i]);
+        unset($this->locations[$i]);
     }
 }

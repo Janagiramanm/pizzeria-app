@@ -1,6 +1,8 @@
 
         <h2 class="font-semibold text-xl text-gray-800 leading-tight my-6 ml-10">
-            {{ __('Add New Customer') }}
+            @if($createMode)  {{ __('Add New Customer') }}
+            @elseif($updateMode) {{ __('Edit Customer') }}
+            @endif
         </h2>
         <br>
         <x-jet-secondary-button wire:click="view()" class=" float-right bg-orange-500 hover:bg-gray-300 hover:text-white-100 px-4 py-2 -my-20">
@@ -87,30 +89,33 @@
                           </div>
                 </div>
 
-                <div class="flex flex-wrap -mx-3 mb-6">
-                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                              Branch
-                            </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                              name="branch" type="text" placeholder="" wire:model="branch">
-                             @error('branch') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-                          </div>
-                          <div id='map'></div>
-                </div>
 
                 <div class="flex flex-wrap w-full md:w-1/2 -mx-3 mb-6  add-input">
 
                 </div>
                 <div class=" add-input">
                     <div class="flex mr-12">
-                      <div class="w-1/3  ">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                                  City
-                                </label>
-                                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                                  name="city.0" type="text" placeholder="" wire:model="city.0">
-                                @error('branch') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                      <div class="w-1/2  ">
+                      
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                              Branch
+                            </label>
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                              name="branch.0" type="text" placeholder="" wire:model="branch.0">
+                             @error('branch.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                          
+
+                            <x-jet-label for="role" value="{{ __('City') }}" />
+                            <select id="city.0" wire:model="city.0"  class="block mt-1 w-full p-2 bg-gray-200" name="city">
+                              <option value="">Select Role</option>
+                              @foreach ($cities as $city)
+                                          <option value="{{ $city->id }}">
+                                                {{ ucfirst($city->name) }}
+                                          </option>
+                              @endforeach
+
+                           </select>
+                             @error('role') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
 
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-5" for="grid-first-name">
                                   Address
@@ -132,18 +137,30 @@
                 </div>
                 
                 
-                @foreach($inputs as $key => $value)
+                @foreach($locations as $key => $value)
 
                 <div class=" add-input">
                     <hr class="mt-10 mb-5 ">
                     <div class="flex mr-12">
-                       <div class="w-1/3  ">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                                  City
-                                </label>
-                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                                  name="city.{{ $value }}" type="text" placeholder="" wire:model="city.{{ $value }}">
-                                @error('branch') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                       <div class="w-1/2  ">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                              Branch
+                            </label>
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                              name="branch.{{ $value }}" type="text" placeholder="" wire:model="branch.{{ $value }}">
+                             @error('branch.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+
+                              <x-jet-label for="role" value="{{ __('City') }}" />
+                                <select id="city" wire:model="city.{{ $value }}"  class="block mt-1 w-full p-2 bg-gray-200" name="city.{{ $value }}">
+                                    <option value="">Select Role</option>
+                                    @foreach ($cities as $city)
+                                          <option value="{{ $city->id }}">
+                                                {{ ucfirst($city->name) }}
+                                          </option>
+                                    @endforeach
+                                </select>
+                               
+                                @error('city.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
 
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-5" for="grid-first-name">
                                   Address
@@ -163,14 +180,18 @@
                     </div>
                   
                 </div>
-
-
-                     
                 @endforeach
                
-                <x-jet-button wire:click.prevent="store()" class="bg-orange-500 hover:bg-orange-700">
-                     Save
-                </x-jet-button>
+               
+                @if($createMode)
+                  <x-jet-button wire:click.prevent="store()" class="bg-orange-500 hover:bg-orange-700  mt-4">
+                        Save
+                  </x-jet-button>
+                @elseif($updateMode)
+                      <x-jet-button wire:click.prevent="update()" class="bg-orange-500 hover:bg-orange-700  mt-4">
+                            Update
+                      </x-jet-button>
+                @endif
 
                  
 

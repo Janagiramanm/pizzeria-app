@@ -16,6 +16,8 @@ class CreateCustomerLocationsTable extends Migration
         Schema::create('customer_locations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('customer_id');
+            $table->string('branch')->nullable();
+            $table->string('city_id')->nullable();
             $table->string('address')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
