@@ -102,6 +102,14 @@ class LeaveController extends Controller
         
         $user_id = $request->user_id;
         $leaves = Leave::where('user_id','=',$user_id)->first();
+        if(!$leaves){
+            return response()->json( [
+                'status' => 0,
+                'message' => 'Data not found',
+               
+            ],200);
+        }
+        
         return response()->json( [
             'status' => 1,
             'leaves' => $leaves,
@@ -112,12 +120,17 @@ class LeaveController extends Controller
     public function leaveHistory(Request $request){
         $user_id = $request->user_id;
         $result = [];
-        $leavesList = LeaveDetail::where('user_id','=',$user_id)->orderBy('id', 'DESC')->get();
-        if($leavesList){
-            foreach($leavesList as $key => $value){
-                // $date1 = new DateTime($value->from_date);
-                // $date2 = new DateTime($value->to_date);
-                // $interval = $date1->diff($date2);
+        $leavesList = LeaveDetail::where('user_id','=',$user_id)->get();
+        if($leavesList->isEmpty()){
+            return response()->json( [
+                'status' => 0,
+                'message' => 'Data not found',
+               
+            ],200);
+        }
+
+        foreach($leavesList as $key => $value){
+             
                 $start = Carbon::parse($value->from_date);
                 $end =  Carbon::parse($value->to_date);
                 $days = $end->diffInDays($start);
@@ -130,20 +143,15 @@ class LeaveController extends Controller
                         'status' => $value->status,
                         'no_of_days' => $days + 1
                 ];
-              
                
-            }
-            return response()->json( [
-                'status' => 1,
-                'history' => $result,
-               
-            ],200);
         }
         return response()->json( [
-            'status' => 0,
-            'message' => 'Data not found',
-           
+            'status' => 1,
+            'history' => $result,
+            
         ],200);
+        
+       
        
     }
 }
