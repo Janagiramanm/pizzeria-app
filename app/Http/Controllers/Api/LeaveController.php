@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Api\Leave;
 use App\Models\Api\LeaveDetail;
+use Carbon\Carbon;
 
 class LeaveController extends Controller
 {
@@ -110,10 +111,32 @@ class LeaveController extends Controller
 
     public function leaveHistory(Request $request){
         $user_id = $request->user_id;
-        $leavesList = LeaveDetail::where('user_id','=',$user_id)->get();
+        $result = [];
+        $leavesList = LeaveDetail::where('user_id','=',$user_id)->orderBy('id', 'DESC')->get();
+        if($leavesList){
+            foreach($leavesList as $key => $value){
+                // $date1 = new DateTime($value->from_date);
+                // $date2 = new DateTime($value->to_date);
+                // $interval = $date1->diff($date2);
+                $start = Carbon::parse($value->from_date);
+                $end =  Carbon::parse($value->to_date);
+                $days = $end->diffInDays($start);
+
+                $result[] = [
+                        'from_date' => $value->from_date,
+                        'to_date' => $value->to_date,
+                        'leave_type' => $value->leave_type,
+                        'reason' => $value->reason,
+                        'status' => $value->status,
+                        'no_of_days' => $days + 1
+                ];
+              
+               
+            }
+        }
         return response()->json( [
             'status' => 1,
-            'history' => $leavesList,
+            'history' => $result,
            
         ],200);
     }
