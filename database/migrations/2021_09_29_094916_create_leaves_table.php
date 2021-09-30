@@ -18,10 +18,8 @@ class CreateLeavesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('total_ml')->default(12);
             $table->integer('total_cl')->default(12);
-            $table->integer('available_ml')->default(12);
-            $table->integer('available_cl')->default(12);
-            $table->string('leave_type');
-            $table->string('status')->default('pending');
+            $table->integer('available_ml')->nullable();
+            $table->integer('available_cl')->nullable();
             $table->timestamps();
         });
     }

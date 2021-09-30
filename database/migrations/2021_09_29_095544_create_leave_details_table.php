@@ -15,10 +15,11 @@ class CreateLeaveDetailsTable extends Migration
     {
         Schema::create('leave_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('leave_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('from_date');
             $table->date('to_date');
             $table->string('reason');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

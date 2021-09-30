@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\LeaveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,13 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('auth:sanctum')->group( function () {
+    //Route::post('blogs', '[BlogController::class, 'store']');
+
+    // Route::post('apply', 'App\Http\Controllers\Api\LeaveController@apply')->name('apply');
+    Route::post('leaves', 'App\Http\Controllers\Api\LeaveController@leaves')->name('leaves');
+    //Route::post('/leaves',LeaveController::class, 'leaves')->name('leaves');
+    Route::resource('leave', LeaveController::class);
 });

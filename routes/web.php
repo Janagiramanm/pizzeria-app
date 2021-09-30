@@ -10,6 +10,7 @@ use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Cities;
 use App\Http\Livewire\Jobs;
+use App\Http\Livewire\Leaves;
 
 
 /*
@@ -43,6 +44,8 @@ Route::get('users', Users::class)->name('users');
 Route::get('cities', Cities::class)->name('cities');
 
 Route::get('jobs', Jobs::class)->name('jobs');
+
+Route::get('leaves', Leaves::class)->name('leaves');
 
 
 
