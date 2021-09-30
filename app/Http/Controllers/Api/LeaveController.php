@@ -35,27 +35,7 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = $request->user_id;
-        $user = Leave::where('user_id','=', $user_id)->first();
-        if(!$user){ 
-                $leave = new Leave();
-                $leave->user_id = $request->user_id;
-                $leave->save();
-        }
-         
-         $leave_detail = new LeaveDetail();
-         $leave_detail->from_date = $request->from_date;
-         $leave_detail->to_date = $request->to_date;
-         $leave_detail->user_id = $user_id;
-         $leave_detail->reason = $request->reason;
-         $leave_detail->leave_type = $request->leave_type;
-         $leave_detail->save();
-
-         return response()->json( [
-            'status' => 1,
-            'message' => 'successfully applied',
-           
-        ],200);
+       //
     }
 
     /**
@@ -93,7 +73,28 @@ class LeaveController extends Controller
     }
 
     public function apply(Request $request){
-        echo "appply";exit;
+
+        $user_id = $request->user_id;
+        $user = Leave::where('user_id','=', $user_id)->first();
+        if(!$user){ 
+                $leave = new Leave();
+                $leave->user_id = $request->user_id;
+                $leave->save();
+        }
+         
+         $leave_detail = new LeaveDetail();
+         $leave_detail->from_date = $request->from_date;
+         $leave_detail->to_date = $request->to_date;
+         $leave_detail->user_id = $user_id;
+         $leave_detail->reason = $request->reason;
+         $leave_detail->leave_type = $request->leave_type;
+         $leave_detail->save();
+
+         return response()->json( [
+            'status' => 1,
+            'message' => 'successfully applied',
+           
+        ],200);
     }
 
     public function leaves(Request $request){
