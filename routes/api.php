@@ -31,5 +31,5 @@ Route::middleware('auth:sanctum')->group( function () {
     // Route::post('apply', 'App\Http\Controllers\Api\LeaveController@apply')->name('apply');
     Route::post('leaves', 'App\Http\Controllers\Api\LeaveController@leaves')->name('leaves');
     //Route::post('/leaves',LeaveController::class, 'leaves')->name('leaves');
-    Route::resource('leave', LeaveController::class);
+    Route::resource('', LeaveController::class);
 });
