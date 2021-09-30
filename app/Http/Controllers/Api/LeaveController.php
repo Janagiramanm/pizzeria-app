@@ -40,7 +40,6 @@ class LeaveController extends Controller
         if(!$user){ 
                 $leave = new Leave();
                 $leave->user_id = $request->user_id;
-                $leave->leave_type = $request->leave_type;
                 $leave->save();
         }
          
@@ -49,6 +48,7 @@ class LeaveController extends Controller
          $leave_detail->to_date = $request->to_date;
          $leave_detail->user_id = $user_id;
          $leave_detail->reason = $request->reason;
+         $leave_detail->leave_type = $request->leave_type;
          $leave_detail->save();
 
          return response()->json( [
