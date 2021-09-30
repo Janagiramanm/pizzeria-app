@@ -107,4 +107,14 @@ class LeaveController extends Controller
            
         ],200);
     }
+
+    public function leaveHistory(Request $request){
+        $user_id = $request->user_id;
+        $leavesList = LeaveDetail::where('user_id','=',$user_id)->get();
+        return response()->json( [
+            'status' => 1,
+            'history' => $leavesList,
+           
+        ],200);
+    }
 }

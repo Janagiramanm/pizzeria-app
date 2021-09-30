@@ -69,8 +69,8 @@
                                             </x-jet-nav-link>
                                         </li>
                                         <li class="mr-3 mt-2 flex-1">
-                                            <x-jet-nav-link href="{{ route('leaves') }}" :active="request()->routeIs('users')">
-                                                 <i class="fas fa-house-leave pr-0 md:pr-3"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Leaves</span>
+                                            <x-jet-nav-link href="{{ route('leaves') }}" :active="request()->routeIs('leaves')">
+                                            <i class="fas fa-envelope-open-text pr-0 md:pr-3"></i></i></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Leaves</span>
                                             </x-jet-nav-link>
                                         </li>
 									

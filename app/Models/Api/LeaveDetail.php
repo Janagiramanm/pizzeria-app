@@ -11,6 +11,10 @@ class LeaveDetail extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'status','reject_reason'               
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

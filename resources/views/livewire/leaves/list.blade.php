@@ -8,7 +8,20 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
-       
+        @if($updateMode)
+            @include('livewire.leaves.view')
+        @else
+
+           
+                
+            <select id="status" wire:model="searchTerm"  class="block mt-1 w-1/5 p-2 float-right mb-3 bg-gray-200" name="status">
+                    <option value="">Filter Status</option>
+                    <option value="pending"> Pending </option>
+                    <option value="approved"> Approved </option>
+                    <option value="rejected"> Rejected </option>
+            </select>                
+           
+
             <table class="table-fixed w-full">
                           
                             <thead>
@@ -39,17 +52,14 @@
                                     <td class="border px-4 py-2">{{ $leave->status }}</td>
                                     <td class="border px-4 py-2">
                                         <x-jet-button wire:click="edit( {{ $leave->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-25">
-                                            Approve
-                                        </x-jet-button>
-                                        <x-jet-button wire:click="edit( {{ $leave->id}})" class="bg-red-500 hover:bg-red-700 m-1 w-25">
-                                            Cancel
+                                            View
                                         </x-jet-button>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
             </table>
-        
+            @endif
 
 </div>
 </div>
