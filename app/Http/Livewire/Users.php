@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\UserRole;
+use App\Models\Api\Leave;
 use Illuminate\Support\Facades\Hash;
 
 class Users extends Component
@@ -59,6 +60,10 @@ class Users extends Component
         UserRole::create([
             'user_id' => $userId,
             'role_id' => $this->role
+        ]);
+
+        Leave::create([
+            'user_id' => $userId
         ]);
 
         $this->createMode = false;
