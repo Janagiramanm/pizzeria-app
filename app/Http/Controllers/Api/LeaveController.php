@@ -133,11 +133,17 @@ class LeaveController extends Controller
               
                
             }
+            return response()->json( [
+                'status' => 1,
+                'history' => $result,
+               
+            ],200);
         }
         return response()->json( [
-            'status' => 1,
-            'history' => $result,
+            'status' => 0,
+            'message' => 'Data not found',
            
         ],200);
+       
     }
 }
