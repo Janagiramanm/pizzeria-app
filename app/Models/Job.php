@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Task;
+use App\Models\CustomerLocation;
 
 class Job extends Model
 {
@@ -27,5 +28,9 @@ class Job extends Model
     }
     public function task(){
         return $this->belongsTo(Task::class);
+    }
+
+    public function customerLocation(){
+        return $this->belongsTo(CustomerLocation::class,'address','id');
     }
 }

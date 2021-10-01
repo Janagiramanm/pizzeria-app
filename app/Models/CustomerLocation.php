@@ -16,10 +16,11 @@ class CustomerLocation extends Model
     ];
 
     public function customer(){
+        //return $this->belongsTo(Customer::class);
         return $this->belongsTo(Customer::class);
     }
 
     public function city(){
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class,'city_id','id');
     }
 }

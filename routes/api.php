@@ -32,6 +32,9 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('leaves', 'App\Http\Controllers\Api\LeaveController@leaves')->name('leaves');
     Route::post('apply-leave', 'App\Http\Controllers\Api\LeaveController@apply')->name('apply-leave');
     Route::post('leave-history', 'App\Http\Controllers\Api\LeaveController@leaveHistory')->name('leave-history');
+    
+    Route::post('jobs', 'App\Http\Controllers\Api\JobController@getJobs')->name('jobs');
+
     //Route::post('/leaves',LeaveController::class, 'leaves')->name('leaves');
     //Route::resource('', LeaveController::class);
 });

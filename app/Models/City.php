@@ -15,6 +15,8 @@ class City extends Model
     ];
 
     public function customerLocation(){
-        return $this->hasOne(CustomerLocation::class);
+        return $this->hasMany(CustomerLocation::class,'id','city_id');
     }
+
+    
 }

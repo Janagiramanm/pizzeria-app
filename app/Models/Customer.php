@@ -20,6 +20,6 @@ class Customer extends Model
     }
 
     public function customerLocation(){
-        return $this->belongsTo(CustomerLocation::class);
+        return $this->hasMany(CustomerLocation::class);
     }
 }
