@@ -120,8 +120,9 @@ class LeaveController extends Controller
     public function leaveHistory(Request $request){
         $user_id = $request->user_id;
         $result = [];
-        $leavesList = LeaveDetail::where('user_id','=',$user_id)->get();
-        if($leavesList->isEmpty()){
+        $leave = Leave::where('user_id','=', $user_id)->get();
+        $leaveHistory = LeaveDetail::where('user_id','=',$user_id)->get();
+        if($leave->isEmpty()){
             return response()->json( [
                 'status' => 0,
                 'message' => 'Data not found',
@@ -129,24 +130,34 @@ class LeaveController extends Controller
             ],200);
         }
 
-        foreach($leavesList as $key => $value){
-             
-                $start = Carbon::parse($value->from_date);
-                $end =  Carbon::parse($value->to_date);
-                $days = $end->diffInDays($start);
+        foreach($leave as $key => $val){
+            $leaves['available_cl'] = $val->available_cl;
+            $leaves['available_ml'] = $val->available_ml;
+        }
 
-                $result[] = [
-                        'from_date' => $value->from_date,
-                        'to_date' => $value->to_date,
-                        'leave_type' => $value->leave_type,
-                        'reason' => $value->reason,
-                        'status' => $value->status,
-                        'no_of_days' => $days + 1
-                ];
-               
+        
+ 
+         if($leaveHistory){
+            foreach($leaveHistory as $key => $value){
+                
+                    $start = Carbon::parse($value->from_date);
+                    $end =  Carbon::parse($value->to_date);
+                    $days = $end->diffInDays($start);
+
+                    $result[] = [
+                            'from_date' => $value->from_date,
+                            'to_date' => $value->to_date,
+                            'leave_type' => $value->leave_type,
+                            'reason' => $value->reason,
+                            'status' => $value->status,
+                            'no_of_days' => $days + 1
+                    ];
+                
+            }
         }
         return response()->json( [
             'status' => 1,
+            'leaves' => $leaves,
             'history' => $result,
             
         ],200);
