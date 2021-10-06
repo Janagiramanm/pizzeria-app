@@ -87,13 +87,16 @@ class JobController extends Controller
                }
         
                 $result[] = [
+                    'job_assign_id' => $value->id,
                     'job_date' => $value->job->date,
                     'customer_name' => $customer_name,
                     'branch' => $value->job->customerLocation->branch,
                     'address' => $value->job->customerLocation->address,
                     'latitude' => $value->job->customerLocation->latitude,
                     'longitude' => $value->job->customerLocation->longitude,
-                    'city' => $value->job->customerLocation->city->name
+                    'city' => $value->job->customerLocation->city->name,
+                    'status' => $value->status,
+                    'no_of_visit' =>  $value->no_of_visit
                 ];
         }
         
@@ -104,4 +107,31 @@ class JobController extends Controller
         ]);
 
     }
+
+    public function jobUpdate(Request $request){
+
+        $job_id = $request->job_id;
+        $user_id = $request->user_id;
+        $job_status = $request->job_status;
+        $assign_id = $request->job_assign_id;
+
+        $jobUpdate = AssignJobEmployee::find($assign_id);
+        if(!$jobUpdate){
+            return response()->json([
+                'status' => 0,
+                'message' => 'No data found'
+    
+            ]);
+        }
+
+        $jobUpdate->job_status = $job_status;
+        $jobUpdate->save();
+        return response()->json([
+            'status' => 1,
+            'message' => 'Successfully Updated'
+
+        ]);
+
+    }
+
 }
