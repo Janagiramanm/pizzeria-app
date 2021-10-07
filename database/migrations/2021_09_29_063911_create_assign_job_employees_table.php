@@ -17,8 +17,8 @@ class CreateAssignJobEmployeesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('job_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('job_status')->nullable();
-            $table->string('no_of_status')->nullable();
+            $table->string('job_status')->default('pending');
+            $table->string('no_of_visit')->default(0);
             $table->timestamps();
         });
     }

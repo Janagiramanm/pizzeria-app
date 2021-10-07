@@ -21,6 +21,7 @@ class CreateJobsTable extends Migration
             $table->unsignedBigInteger('address');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

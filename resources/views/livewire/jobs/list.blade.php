@@ -29,6 +29,7 @@
                                     <th class="px-4 py-2">Task</th>
                                     <th class="px-4 py-2">Employees</th>
                                     <th class="px-4 py-2">Date</th>                                   
+                                    <th class="px-4 py-2">Status</th>                                   
                                     <th class="px-4 py-2">Action</th>
                                 </tr>   
                             </thead>
@@ -48,10 +49,20 @@
 
                                     </td>
                                     <td class="border px-4 py-2">{{ $job->date }}</td>
+                                    <!-- <td class="border px-4 py-2">{{ ucfirst($job->status) }}</td> -->
+                                    <td>
+                                            @foreach ($job->employees as $employee) 
+                                                {{ $employee->user->name }}  - {{ $employee->job_status }}
+                                                <br>
+                                            @endforeach
+                                    </td>
+                                    
                                     <td class="border px-4 py-2">
+                                    @if($this->current_date < $job->date )
                                     <x-jet-button wire:click="edit( {{ $job->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-20">
                                         Edit
                                     </x-jet-button>
+                                    @endif
                                     
                                     </td>
                                 </tr>

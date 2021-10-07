@@ -95,7 +95,7 @@ class JobController extends Controller
                     'latitude' => $value->job->customerLocation->latitude,
                     'longitude' => $value->job->customerLocation->longitude,
                     'city' => $value->job->customerLocation->city->name,
-                    'status' => $value->status,
+                    'status' => $value->job_status,
                     'no_of_visit' =>  $value->no_of_visit
                 ];
         }
@@ -115,6 +115,11 @@ class JobController extends Controller
         $job_status = $request->job_status;
         $assign_id = $request->job_assign_id;
 
+        // $job = Job::find($request->job_id);
+        // $current_date = date('Y-m-d');
+        // $job->status = $job_status;
+        // $job->save();
+
         $jobUpdate = AssignJobEmployee::find($assign_id);
         if(!$jobUpdate){
             return response()->json([
@@ -126,6 +131,9 @@ class JobController extends Controller
 
         $jobUpdate->job_status = $job_status;
         $jobUpdate->save();
+
+       
+
         return response()->json([
             'status' => 1,
             'message' => 'Successfully Updated'

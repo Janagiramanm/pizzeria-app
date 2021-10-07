@@ -27,6 +27,8 @@ class Jobs extends Component
     public function render()
     {
         $this->jobs = Job::all();
+        $this->current_date = date('Y-m-d');
+
         return view('livewire.jobs.list');
     }
 
@@ -80,7 +82,8 @@ class Jobs extends Component
         foreach($this->user_id as $key => $user_id)
         AssignJobEmployee::create([
                  'job_id' => $job_id,
-                 'user_id' => $user_id
+                 'user_id' => $user_id,
+                 
         ]);
 
         $this->createMode = false;
@@ -109,6 +112,48 @@ class Jobs extends Component
         $this->date = $job->date;
         $this->address = $job->address;
     }
+
+
+    public function update(){
+
+        $this->error = true;
+
+        $this->validate([
+            'customer_type' => 'required',
+            'customer_id' => 'required',
+            'address' => 'required',
+            'task_id' => 'required',
+            'user_id' => 'required',
+            'date' => 'required'
+        ]);
+
+
+        if ($this->job_id) {
+            $job = Job::find($this->job_id);
+           
+            $job->update([
+                'customer_id' => $this->customer_id,
+                'address' => $this->address,
+                'task_id' => $this->task_id,
+                'date' => $this->date    
+            ]);
+
+            AssignJobEmployee::where('job_id','=',$this->job_id)->delete();
+            foreach($this->user_id as $key => $user_id)
+            AssignJobEmployee::create([
+                     'job_id' => $this->job_id,
+                     'user_id' => $user_id,
+            ]);
+
+            $this->updateMode = false;
+            //session()->flash('message', 'Users Updated Successfully.');
+            $this->resetInput();
+
+        }
+        $this->createMode = false;
+        $this->resetInput();
+    }
+
 
     public function view(){
         $this->createMode = false;

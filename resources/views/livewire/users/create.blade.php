@@ -100,7 +100,8 @@
             }
       </style>
  <script>
-                                          mapboxgl.accessToken = 'pk.eyJ1IjoiamFuYWdpcmFtYW4yMSIsImEiOiJja3R6a2xnc24xeTMzMnNxbnIza3RmbnZqIn0.VUWwcy5DHVNeXq3CwAPnfg';
+                                          mapboxgl.accessToken = 'AIzaSyB9G5CsqGsNlwFR7rIG9qyEJYDTi3yckjI';
+                                          // mapboxgl.accessToken = 'pk.eyJ1IjoiamFuYWdpcmFtYW4yMSIsImEiOiJja3R6a2xnc24xeTMzMnNxbnIza3RmbnZqIn0.VUWwcy5DHVNeXq3CwAPnfg';
                                     const coordinates = document.getElementById('coordinates');
                                     const map = new mapboxgl.Map({
                                           container: 'map',
