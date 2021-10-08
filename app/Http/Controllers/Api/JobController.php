@@ -87,6 +87,7 @@ class JobController extends Controller
                }
         
                 $result[] = [
+                    'job_id' => $value->job->id,
                     'job_assign_id' => $value->id,
                     'job_date' => $value->job->date,
                     'customer_name' => $customer_name,
