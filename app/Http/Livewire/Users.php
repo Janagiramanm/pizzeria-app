@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\UserRole;
+use App\Models\City;
+use App\Models\EmployeeDetail;
 use App\Models\Api\Leave;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,6 +17,8 @@ class Users extends Component
     public $show = true;
     public $users, $role, $roles, $name, $email, $mobile, $imei, $city, $address,
            $confirmingItemDeletion, $user_id, $role_id;
+    public $emp_code, $designation, $date_of_join, $basic_pay,
+           $hra,$conveyance,$gratuity_pay,$special_allowance,$variable_incentive, $city_id, $emp_detail_id;
 
     public function render()
     {
@@ -27,6 +31,7 @@ class Users extends Component
         $this->createMode = true;
         $this->error = false;
         $this->resetValidation();
+        $this->cities = City::all();
         $this->roles = Role::where('name', '!=', 'administrator')->get();
         return view('livewire.users.create');
     }
@@ -45,7 +50,10 @@ class Users extends Component
             'name' => 'required',
             'mobile' => 'required|unique:users',
             'email' => 'required|unique:users',
-            'imei' => 'required'
+            'imei' => 'required',
+            'designation' => 'required',
+            'emp_code' => 'required',
+            'city_id' => 'required'
             
         ]);
         $userId =  User::create([
@@ -66,6 +74,22 @@ class Users extends Component
             'user_id' => $userId
         ]);
 
+        EmployeeDetail::create([
+            'user_id' => $userId,
+            'emp_code' => $this->emp_code,
+            'designation' => $this->designation,
+            'date_of_join' => $this->date_of_join,
+            'basic_pay' => $this->basic_pay,
+            'hra' => $this->hra,
+            'conveyance' => $this->conveyance,
+            'gratuity_pay' => $this->gratuity_pay,
+            'special_allowance' => $this->special_allowance,
+            'variable_incentive' => $this->variable_incentive,
+            'city_id' => $this->city_id
+        ]);
+
+
+
         $this->createMode = false;
         $this->resetInput();
     }
@@ -73,6 +97,7 @@ class Users extends Component
     public function edit($id)
     {
         $this->updateMode = true;
+        $this->cities = City::all();
         $this->roles = Role::where('name', '!=', 'administrator')->get();
         $this->user_id = $id;
         $user = User::where('id',$this->user_id)->first();
@@ -81,6 +106,20 @@ class Users extends Component
         $this->email = $user->email;
         $this->imei = $user->imei;
         $this->role = $user->role->role->id;
+
+        $emp_details = EmployeeDetail::where('user_id','=',$this->user_id)->first();
+        $this->emp_detail_id = $emp_details->id; 
+        $this->emp_code = $emp_details->emp_code;
+        $this->designation = $emp_details->designation;
+        $this->date_of_join = $emp_details->date_of_join;
+        $this->basic_pay = $emp_details->basic_pay;
+        $this->hra = $emp_details->hra;
+        $this->conveyance = $emp_details->conveyance;
+        $this->gratuity_pay = $emp_details->gratuity_pay;
+        $this->special_allowance = $emp_details->special_allowance;
+        $this->variable_incentive = $emp_details->variable_incentive;
+        $this->city_id = $emp_details->city_id;
+
         
     }
 
@@ -111,6 +150,21 @@ class Users extends Component
             UserRole::where('user_id',$this->user_id)->update([            
                 'role_id' => $this->role
             ]);
+
+            $emp_detail = EmployeeDetail::find($this->emp_detail_id);
+
+            $emp_detail->emp_code = $this->emp_code ;
+            $emp_detail->designation = $this->designation ;
+            $emp_detail->date_of_join = $this->date_of_join ;
+            $emp_detail->basic_pay = $this->basic_pay ;
+            $emp_detail->hra = $this->hra ;
+            $emp_detail->conveyance = $this->conveyance ;
+            $emp_detail->gratuity_pay = $this->gratuity_pay ;
+            $emp_detail->special_allowance = $this->special_allowance ;
+            $emp_detail->variable_incentive = $this->variable_incentive ;
+            $emp_detail->city_id = $this->city_id ;
+            $emp_detail->save();
+        
             $this->updateMode = false;
             //session()->flash('message', 'Users Updated Successfully.');
             $this->resetInput();
@@ -129,6 +183,15 @@ class Users extends Component
         $this->mobile = null;
         $this->imei = null;
         $this->role = null;
+        $this->emp_code = null;
+        $this->designation = null;
+        $this->date_of_join = null;
+        $this->basic_pay = null;
+        $this->hra = null;
+        $this->conveyance = null;
+        $this->gratuity_pay = null;
+        $this->special_allowance = null;
+        $this->variable_incentive = null;
         $this->error = false;
         $this->render();
     }
