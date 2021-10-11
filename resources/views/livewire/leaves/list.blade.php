@@ -31,8 +31,7 @@
                                     <th class="px-4 py-2">From Date</th>
                                     <th class="px-4 py-2">To Date</th>
                                     <th class="px-4 py-2">Reason</th>
-                                    <th class="px-4 py-2">Available CL</th>
-                                    <th class="px-4 py-2">Available ML</th>
+                                    <th class="px-4 py-2">Earned Leave</th>
                                     <th class="px-4 py-2">Status</th>
                                     <th class="px-4 py-2">Action</th>
                                 </tr>   
@@ -47,8 +46,7 @@
                                     <td class="border px-4 py-2">{{ $leave->from_date }}</td>
                                     <td class="border px-4 py-2">{{ $leave->to_date }}</td>
                                     <td class="border px-4 py-2">{{ $leave->reason }}</td>
-                                    <td class="border px-4 py-2"> @if(isset($leave->leave)){{ $leave->leave->available_cl }} @endif</td>
-                                    <td class="border px-4 py-2"> @if(isset($leave->leave)){{ $leave->leave->available_ml }} @endif</td>
+                                    <td class="border px-4 py-2"> 3 </td>
                                     <td class="border px-4 py-2">{{ $leave->status }}</td>
                                     <td class="border px-4 py-2">
                                         <x-jet-button wire:click="edit( {{ $leave->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-25">
