@@ -39,7 +39,7 @@
                             <x-jet-label for="emp_code" value="{{ __('Emp Code') }}" />
                             <input class="appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="emp_code" type="text" placeholder="" wire:model="emp_code">
-                             @error('designation') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                             @error('emp_code') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                   </div>              
                   <div class="md:w-1/2 m-2"> 
                             <x-jet-label for="name" value="{{ __('Full Name') }}" />
@@ -100,7 +100,29 @@
                   </div>
             </div>
             <div class="flex">
-                  <div class="w-full bg-red-200 m-2 mr-28 h-100"> 
+                  <div class="w-full bg-red-200 m-2 mr-28 ">
+                        <div style="display: none">
+                              <input
+                              id="pac-input"
+                              class="controls"
+                              type="text"
+                              placeholder="Enter a location"
+                              />
+                        </div>
+                        <div id="map"></div>
+                        <div id="infowindow-content">
+                              <span id="place-name" class="title"></span><br />
+                              <!-- <strong>Place ID</strong>: <span id="place-id"></span><br /> -->
+                              <span id="place-address"></span>
+                        </div>      
+                  
+
+                  <!-- <input
+                        id="pac-input"
+                        class="controls"
+                        type="text"
+                        placeholder="Enter a location"
+                        /> -->
                         <div id="map">
                                    
                         </div>
@@ -176,6 +198,8 @@
             
             }
       </style>
+   
+     
       
 
 

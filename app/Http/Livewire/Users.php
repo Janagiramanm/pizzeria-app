@@ -23,6 +23,9 @@ class Users extends Component
     public function render()
     {
         $this->users = User::get();
+        $this->cities = City::all();
+        $this->roles = Role::where('name', '!=', 'administrator')->get();
+     
         return view('livewire.users.list');
     }
 

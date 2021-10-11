@@ -8,6 +8,7 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+        @include('livewire.users.create')
         @if($updateMode)
             @include('livewire.users.create')
         @elseif($createMode)
@@ -78,3 +79,11 @@
 </div>
 </div>
 </div>
+@push('scripts')
+       <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9G5CsqGsNlwFR7rIG9qyEJYDTi3yckjI&callback=initMap&libraries=places&v=weekly"
+      async
+    ></script>
+    <script src="{{ URL::asset('/js/googlemap.js') }}" defer></script>
+    @endpush
+
