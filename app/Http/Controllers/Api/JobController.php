@@ -131,6 +131,7 @@ class JobController extends Controller
         }
 
         $jobUpdate->job_status = $job_status;
+        $jobUpdate->no_of_visit = $request->work_visit;
         $jobUpdate->save();
 
        
