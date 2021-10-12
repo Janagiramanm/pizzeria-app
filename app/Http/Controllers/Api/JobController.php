@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
+use App\Models\Task;
 use App\Models\AssignJobEmployee;
 
 class JobController extends Controller
@@ -143,5 +144,24 @@ class JobController extends Controller
         ]);
 
     }
+
+    public function tasks(Request $request){
+
+          $tasks = Task::all();
+          if(!$tasks){
+              return[
+                  'status' => 0,
+                  'message' => 'Not data found'
+              ];
+          }
+
+          return[
+                 'status' => 1,
+                 'data' => $tasks
+          ];
+
+    }
+
+
 
 }

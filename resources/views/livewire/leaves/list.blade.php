@@ -10,6 +10,8 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
         @if($updateMode)
             @include('livewire.leaves.view')
+        @elseif($modifyMode)
+            @include('livewire.leaves.modify')
         @else
 
            
@@ -45,7 +47,7 @@
                                     <td class="border px-4 py-2">{{ $leave->from_date }}</td>
                                     <td class="border px-4 py-2">{{ $leave->to_date }}</td>
                                     <td class="border px-4 py-2">{{ $leave->reason }}</td>
-                                    <td class="border px-4 py-2"> 3 </td>
+                                    <td class="border px-4 py-2"> 1.5 </td>
                                     <td class="border px-4 py-2">{{ $leave->status }}</td>
                                     <td class="border px-4 py-2">
                                         <x-jet-button wire:click="edit( {{ $leave->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-25">

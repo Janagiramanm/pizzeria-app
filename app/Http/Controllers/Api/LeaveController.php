@@ -88,7 +88,7 @@ class LeaveController extends Controller
          $leave_detail->to_date = $request->to_date;
          $leave_detail->user_id = $user_id;
          $leave_detail->reason = $request->reason;
-         //$leave_detail->leave_type = $request->leave_type;
+         $leave_detail->leave_type = $request->leave_type;
          $leave_detail->save();
 
          return response()->json( [
@@ -131,8 +131,7 @@ class LeaveController extends Controller
         }
 
         foreach($leave as $key => $val){
-            $leaves['available_cl'] = $val->available_cl;
-            $leaves['available_ml'] = $val->available_ml;
+            $leaves['earned_leave'] = $val->earned_leave;          
         }
 
         

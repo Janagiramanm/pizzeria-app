@@ -16,10 +16,7 @@ class CreateLeavesTable extends Migration
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('total_ml')->default(12);
-            $table->integer('total_cl')->default(12);
-            $table->integer('available_ml')->default(12); 
-            $table->integer('available_cl')->default(12);
+            $table->integer('earned_leave')->default(0);
             $table->timestamps();
         });
     }

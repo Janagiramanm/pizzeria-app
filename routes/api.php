@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('apply-leave', 'App\Http\Controllers\Api\LeaveController@apply')->name('apply-leave');
     Route::post('leave-history', 'App\Http\Controllers\Api\LeaveController@leaveHistory')->name('leave-history');
     
+    Route::get('tasks', 'App\Http\Controllers\Api\JobController@tasks')->name('tasks');
     Route::post('jobs', 'App\Http\Controllers\Api\JobController@getJobs')->name('jobs');
     Route::post('job-update', 'App\Http\Controllers\Api\JobController@jobUpdate')->name('job-update');
 
