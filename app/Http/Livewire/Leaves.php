@@ -12,7 +12,7 @@ class Leaves extends Component
 {
     use WithPagination;
 
-    public $leaves, $user_name, $reject_reason, $no_of_days, $status;
+    public $leaves, $user_name, $reject_reason, $no_of_days, $status, $user_id;
     public $updateMode = false;
     public $cancelMode = false;
     public $modifyMode = false;
@@ -38,6 +38,7 @@ class Leaves extends Component
         $this->leave_id = $id;
         $this->status = 'approved';
         $leave = LeaveDetail::where('id', $id)->first();
+        $this->user_id = $leave->user_id;
         $this->user_name = $leave->user->name;
         $this->from_date = $leave->from_date;
         $this->to_date = $leave->to_date;
@@ -109,6 +110,19 @@ class Leaves extends Component
         $leave->from_date = $this->from_date;
         $leave->to_date = $this->to_date;
         $leave->save();
+
+        $leaveUser = Leave::where('user_id','=', $this->user_id)->first();
+        $leaveUserId = $leaveUser->id;
+        $earned_leave = $leaveUser->earned_leave;
+
+        $available_leave = $earned_leave - $this->no_of_days;
+
+        $leave_user = Leave::find($leaveUserId);
+        $leave_user->earned_leave = $available_leave;
+        $leave_user->save();
+
+
+
         $this->updateMode = false;
         $this->resetInput();
     }
@@ -121,6 +135,7 @@ class Leaves extends Component
         $this->to_date = null;      
         $this->reason = null;      
         $this->leave_type = null; 
+        $this->user_id = null;
         if(!$this->cancelMode) {
             $this->reject_reason = null;  
         }
