@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\City;
+use App\Models\Task;
 use App\Models\UserRole;
 use Illuminate\Support\Facades\Hash;
 
@@ -66,5 +68,23 @@ class AdminSeeder extends Seeder
                 ]);
             }
         }
+
+        $cities = [
+               ['name' => 'Bangalore'],
+               ['name' => 'Chennai']
+        ];
+        City::create($cities);
+
+        $tasks = [
+            [
+                 'name' => 'System Issues',
+                 'description' => "System Not working"
+            ],
+            [
+                'name' => 'Network Issues',
+                'description' => "Internet Not working"
+            ]
+        ];
+     Task::create($cities);
     }
 }
