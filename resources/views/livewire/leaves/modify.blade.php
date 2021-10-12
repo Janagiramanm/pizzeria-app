@@ -57,6 +57,7 @@
                   <div class="md:w-1/2 m-2"> 
                             - {{ $reason }}
                   </div>
+                  
             </div>
             @if($cancelMode)
             <div class="flex">

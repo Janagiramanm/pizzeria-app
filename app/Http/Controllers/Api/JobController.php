@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Task;
+use App\Models\Customer;
 use App\Models\AssignJobEmployee;
 
 class JobController extends Controller
@@ -160,6 +161,26 @@ class JobController extends Controller
                  'data' => $tasks
           ];
 
+    }
+
+    public function customers(Request $request){
+
+         $customer_type = $request->customer_type;
+         if($customer_type){
+              $customers = Customer::where('customer_type','=', $customer_type)->get();
+              if(!$customers){
+                  return [
+                      'status' => 0,
+                      'message' => 'Data not found'
+                  ];
+              }
+
+              return [
+                  'status' => 1,
+                  'data' => $customers
+              ];
+
+         }
     }
 
 

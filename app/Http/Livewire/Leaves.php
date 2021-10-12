@@ -12,11 +12,10 @@ class Leaves extends Component
 {
     use WithPagination;
 
-    public $leaves, $user_name, $reject_reason, $status, $no_of_days;
+    public $leaves, $user_name, $reject_reason, $no_of_days, $status;
     public $updateMode = false;
     public $cancelMode = false;
     public $modifyMode = false;
-
     public $searchTerm;
     
 
@@ -37,6 +36,7 @@ class Leaves extends Component
         $this->updateMode = true;
         $this->modifyMode = false;
         $this->leave_id = $id;
+        $this->status = 'approved';
         $leave = LeaveDetail::where('id', $id)->first();
         $this->user_name = $leave->user->name;
         $this->from_date = $leave->from_date;
@@ -56,6 +56,7 @@ class Leaves extends Component
         $this->cancelMode = false;
         
         $this->leave_id = $id;
+        $this->status = 'modify-approved';
         $leave = LeaveDetail::where('id', $id)->first();
         $this->user_name = $leave->user->name;
         $this->from_date = $leave->from_date;
@@ -93,6 +94,8 @@ class Leaves extends Component
     public function back(){
         $this->updateMode = true;
         $this->modifyMode = false;
+        $this->status = 'approved';
+      //  $this->status = 'pending';
        // $this->resetInput();
         // $this->edit($this->leave_id);
     }
@@ -102,17 +105,10 @@ class Leaves extends Component
         $this->modifyMode = false;
         $this->updateMode = true;
         $leave = LeaveDetail::find($this->leave_id);
-        $leave->status = 'approved';
+        $leave->status = $this->status;
         $leave->from_date = $this->from_date;
         $leave->to_date = $this->to_date;
         $leave->save();
-
-        // $leave->update([
-        //     'status' => 'approved',
-        //     'from_date' => $this->from_date,
-        //     'to_date' => $this->to_date,
-        //     'reject_reason' => '',
-        // ]);
         $this->updateMode = false;
         $this->resetInput();
     }

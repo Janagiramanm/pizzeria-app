@@ -20,6 +20,7 @@ Route::post('/get-otp', [AuthController::class, 'getOtp']);
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('update-earned-leave', 'App\Http\Controllers\Api\LeaveController@updateEarnedLeave')->name('update-earned-leave');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -32,7 +33,9 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('leaves', 'App\Http\Controllers\Api\LeaveController@leaves')->name('leaves');
     Route::post('apply-leave', 'App\Http\Controllers\Api\LeaveController@apply')->name('apply-leave');
     Route::post('leave-history', 'App\Http\Controllers\Api\LeaveController@leaveHistory')->name('leave-history');
+  
     
+    Route::post('customers', 'App\Http\Controllers\Api\JobController@customers')->name('customers');
     Route::get('tasks', 'App\Http\Controllers\Api\JobController@tasks')->name('tasks');
     Route::post('jobs', 'App\Http\Controllers\Api\JobController@getJobs')->name('jobs');
     Route::post('job-update', 'App\Http\Controllers\Api\JobController@jobUpdate')->name('job-update');

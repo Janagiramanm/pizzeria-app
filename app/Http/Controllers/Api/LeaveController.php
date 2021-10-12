@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Api\Leave;
 use App\Models\Api\LeaveDetail;
 use Carbon\Carbon;
+use App\Models\EmployeeDetail;
 
 class LeaveController extends Controller
 {
@@ -160,8 +161,39 @@ class LeaveController extends Controller
             'history' => $result,
             
         ],200);
+    }
+
+    public function updateEarnedLeave(){
+
+        $employees = EmployeeDetail::all();
+
+        $current_date = date('Y-m-d');
+     //   print_r($employees);
+        if(!$employees){
+            return [
+                'status'=> 0 ,
+                'message' => "No data found"
+            ];
+        }
+
+            foreach($employees as $employee){
+                $employee->date_of_join;
+                $join_date = Carbon::parse($employee->date_of_join);
+                $cur_date =  Carbon::parse($current_date);
+                $employee->date_of_join ."--".$current_date;
+                $months = $cur_date->diffInMonths($join_date);
+                $earnedLeave = $months * 1.5;
+                $leaves = Leave::where('user_id','=', $employee->user_id)->first();
+                $leave = Leave::find($leaves->id);
+                $leave->earned_leave = $earnedLeave;
+                $leave->save();
+                
+            }
+
+      
         
        
-       
+
     }
+
 }
