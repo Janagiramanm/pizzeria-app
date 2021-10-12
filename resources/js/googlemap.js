@@ -41,10 +41,13 @@ function initMap() {
             return;
         }
 
+        
+
         geocoder
             .geocode({ placeId: place.place_id })
             .then(({ results }) => {
                 map.setZoom(11);
+               /// console.log('JJJJ=='+results[0].geometry.location.lat())
                 map.setCenter(results[0].geometry.location);
                 // Set the position of the marker using the place ID and location.
                 marker.setPlace({
@@ -58,6 +61,8 @@ function initMap() {
                     place.place_id;
                 infowindowContent.children["place-address"].textContent =
                     results[0].formatted_address;
+                infowindowContent.children["place-lat"].textContent = results[0].geometry.location.lng();
+                    
                 infowindow.open(map, marker);
             })
             .catch((e) => window.alert("Geocoder failed due to: " + e));

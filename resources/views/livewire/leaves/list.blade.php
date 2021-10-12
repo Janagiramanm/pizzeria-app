@@ -41,7 +41,6 @@
                                 @foreach($leaves as $leave)
                                 <tr>
                                     <td class="border px-4 py-2">{{ $no++ }}</td>
-                                   
                                     <td class="border px-4 py-2">{{ $leave->user->name }}</td>
                                     <td class="border px-4 py-2">{{ $leave->from_date }}</td>
                                     <td class="border px-4 py-2">{{ $leave->to_date }}</td>

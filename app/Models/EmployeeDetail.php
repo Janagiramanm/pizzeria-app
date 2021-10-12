@@ -10,6 +10,6 @@ class EmployeeDetail extends Model
     use HasFactory;
     protected $fillable = [
         'user_id' , 'emp_code', 'designation', 'date_of_join', 'basic_pay',
-        'hra','conveyance','gratuity_pay','special_allowance','variable_incentive'
+        'hra','conveyance','gratuity_pay','special_allowance','variable_incentive','city_id','address','latitude','longitude'
     ];
 }

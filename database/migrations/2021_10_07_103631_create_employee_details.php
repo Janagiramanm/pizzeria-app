@@ -25,6 +25,9 @@ class CreateEmployeeDetails extends Migration
             $table->string('gratuity_pay')->nullable();
             $table->string('special_allowance')->nullable();
             $table->string('variable_incentive')->nullable();
+            $table->string('address')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->unsignedBigInteger('city_id');
             $table->timestamps();
         });

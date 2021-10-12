@@ -18,10 +18,12 @@ class Users extends Component
     public $users, $role, $roles, $name, $email, $mobile, $imei, $city, $address,
            $confirmingItemDeletion, $user_id, $role_id;
     public $emp_code, $designation, $date_of_join, $basic_pay,
-           $hra,$conveyance,$gratuity_pay,$special_allowance,$variable_incentive, $city_id, $emp_detail_id;
+           $hra,$conveyance,$gratuity_pay,$special_allowance,$variable_incentive, $city_id, 
+           $emp_detail_id, $latitude, $longitude;
 
     public function render()
     {
+        // $this->createMode = true;    
         $this->users = User::get();
         $this->cities = City::all();
         $this->roles = Role::where('name', '!=', 'administrator')->get();
@@ -88,7 +90,10 @@ class Users extends Component
             'gratuity_pay' => $this->gratuity_pay,
             'special_allowance' => $this->special_allowance,
             'variable_incentive' => $this->variable_incentive,
-            'city_id' => $this->city_id
+            'city_id' => $this->city_id,
+            'address' => $this->address,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude
         ]);
 
 
@@ -111,17 +116,22 @@ class Users extends Component
         $this->role = $user->role->role->id;
 
         $emp_details = EmployeeDetail::where('user_id','=',$this->user_id)->first();
-        $this->emp_detail_id = $emp_details->id; 
-        $this->emp_code = $emp_details->emp_code;
-        $this->designation = $emp_details->designation;
-        $this->date_of_join = $emp_details->date_of_join;
-        $this->basic_pay = $emp_details->basic_pay;
-        $this->hra = $emp_details->hra;
-        $this->conveyance = $emp_details->conveyance;
-        $this->gratuity_pay = $emp_details->gratuity_pay;
-        $this->special_allowance = $emp_details->special_allowance;
-        $this->variable_incentive = $emp_details->variable_incentive;
-        $this->city_id = $emp_details->city_id;
+        if($emp_details){
+            $this->emp_detail_id = $emp_details->id; 
+            $this->emp_code = $emp_details->emp_code;
+            $this->designation = $emp_details->designation;
+            $this->date_of_join = $emp_details->date_of_join;
+            $this->basic_pay = $emp_details->basic_pay;
+            $this->hra = $emp_details->hra;
+            $this->conveyance = $emp_details->conveyance;
+            $this->gratuity_pay = $emp_details->gratuity_pay;
+            $this->special_allowance = $emp_details->special_allowance;
+            $this->variable_incentive = $emp_details->variable_incentive;
+            $this->city_id = $emp_details->city_id;
+            $this->address = $emp_details->address;
+            $this->latitude = $emp_details->latitude;
+            $this->longitude = $emp_details->longitude;
+        }
 
         
     }
