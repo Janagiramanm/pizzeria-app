@@ -73,7 +73,9 @@ class AdminSeeder extends Seeder
                ['name' => 'Bangalore'],
                ['name' => 'Chennai']
         ];
-        City::create($cities);
+        foreach($cities as $key => $city){
+           City::create($city);
+        }
 
         $tasks = [
             [
@@ -85,6 +87,8 @@ class AdminSeeder extends Seeder
                 'description' => "Internet Not working"
             ]
         ];
-     Task::create($cities);
+        foreach($tasks as $key => $task){
+          Task::create($task);
+        }
     }
 }
