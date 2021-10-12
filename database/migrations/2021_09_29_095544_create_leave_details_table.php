@@ -19,6 +19,7 @@ class CreateLeaveDetailsTable extends Migration
             $table->date('from_date');
             $table->date('to_date');
             $table->string('reason');
+            $table->string('leave_type')->nullable();
             $table->string('status')->default('pending');
             $table->string('reject_reason')->nullable(); 
             $table->timestamps();
