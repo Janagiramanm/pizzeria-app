@@ -1,5 +1,5 @@
 <h2 class="font-semibold text-xl text-gray-800 leading-tight my-6 ml-10">
-            {{ __('Leave Request') }}
+            {{ __('Leave Request view') }}
 </h2>
 <x-jet-secondary-button wire:click="view()" class=" float-right bg-orange-500 hover:bg-gray-300 hover:text-white-100 px-4 py-2 -my-10 ">
            Leaves
@@ -18,11 +18,11 @@
             </div>
             <div class="flex">
                   <div class="md:w-1/6 m-2"> 
-                            <x-jet-label for="ame " value="{{ __('From Date') }}" />
+                            <x-jet-label for="name " value="{{ __('From Date as') }}" />
                             
                   </div> 
                   <div class="md:w-1/2 m-2"> 
-                            - {{ $from_date }}
+                            - {{ date('d/m/Y',strtotime($from_date)) }}
                   </div>
 
             </div>
@@ -31,7 +31,15 @@
                             <x-jet-label for="ame " value="{{ __('To Date') }}" />
                   </div> 
                   <div class="md:w-1/2 m-2"> 
-                            - {{ $to_date }}
+                            - {{ date('d/m/Y',strtotime($to_date))  }}
+                  </div>
+            </div>
+            <div class="flex">
+                  <div class="md:w-1/6 m-2"> 
+                            <x-jet-label for="ame " value="{{ __('No of days ') }}" />
+                  </div> 
+                  <div class="md:w-1/2 m-2"> 
+                            - {{ $this->no_of_days }}
                   </div>
             </div>
             <div class="flex">
@@ -67,6 +75,9 @@
                   </x-jet-button>
                   <x-jet-button wire:click.prevent="cancel()" class="bg-red-500 hover:bg-red-700 ml-2 mt-5">
                         Reject
+                  </x-jet-button>
+                  <x-jet-button wire:click.prevent="modify({{ $this->leave_id }})" class="bg-orange-500 hover:bg-orange-700 ml-2 mt-5">
+                      Modify & Approve
                   </x-jet-button>
             @endif
 
