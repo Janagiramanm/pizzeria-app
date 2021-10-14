@@ -188,6 +188,9 @@ class Users extends Component
             $emp_detail->special_allowance = $this->special_allowance ;
             $emp_detail->variable_incentive = $this->variable_incentive ;
             $emp_detail->city_id = $this->city_id ;
+            $emp_detail->address = $this->address;
+            $emp_detail->latitude = $this->latitude;
+            $emp_detail->longitude = $this->longitude;
             $emp_detail->save();
         
             $this->updateMode = false;
@@ -217,6 +220,9 @@ class Users extends Component
         $this->gratuity_pay = null;
         $this->special_allowance = null;
         $this->variable_incentive = null;
+        $this->address = null;
+        $this->latitude = null;
+        $this->longitude = null;
         $this->error = false;
         $this->render();
     }

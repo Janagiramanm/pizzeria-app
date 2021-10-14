@@ -94,11 +94,11 @@
                  
             </div>
             <div class="flex">
-                 <div wire:ignore class="md:w-1/2 m-2 mr-3 hidden" id="address-div"> 
+                 <div wire:ignore class="md:w-1/2 m-2 mr-3 @if($createMode) hidden @endif " id="address-div"> 
                             <span><b>Address</b></span><br>
-                            <span id="address-section"></span><br>
-                            <span><b>Latitude</b></span> :  <span id="lat-section"></span>
-                            <span><b>Longitude</b></span> : <span id="lng-section"></span>
+                            <span id="address-section">{{ $this->address }}</span><br>
+                            <span><b>Latitude</b></span> :  <span id="lat-section"> {{ $this->latitude }}</span>
+                            <span><b>Longitude</b></span> : <span id="lng-section"> {{ $this->longitude }} </span>
                           
                  </div>
                  <div class="md:w-1/2 m-2 mr-3 hidden" id="address-div1">  
@@ -107,6 +107,7 @@
                  </div>
                      
             </div>
+         
             <div class="flex">
             
                   <div wire:ignore  class="w-full m-2 mr-28 "> 
@@ -116,6 +117,7 @@
                               class="controls mt-5 w-1/2"
                               type="text"
                               placeholder="Enter Address"
+                              value="@if($updateMode) {{ $this->address }} @endif"
                               />
                         </div>
                        
@@ -195,98 +197,11 @@
             #map{
                   height: 400px; 
             }
-            /* #infowindow-content {
-                 display: none;
-            }
-            #map #infowindow-content {
-                 display: inline;
-            } */
-            /* #map{
-    margin: 0 auto;
-    width: 300px;
-    height: 300px;
-} */
-
       </style>
      
       <script>
             initMap();
-            //initialize();
-//             var geocoder;
-// var map;
-// var marker;
-// var infowindow = new google.maps.InfoWindow({
-//   size: new google.maps.Size(150, 50)
-// });
-
-// function initialize() {
-//   geocoder = new google.maps.Geocoder();
-//   var latlng = new google.maps.LatLng(-34.397, 150.644);
-//   var mapOptions = {
-//     zoom: 8,
-//     center: latlng,
-//     mapTypeId: google.maps.MapTypeId.ROADMAP
-//   }
-//   map = new google.maps.Map(document.getElementById('map'), mapOptions);
-//   google.maps.event.addListener(map, 'click', function() {
-//     infowindow.close();
-//   });
-// }
-
-// function geocodePosition(pos) {
-//   geocoder.geocode({
-//     latLng: pos
-//   }, function(responses) {
-//     if (responses && responses.length > 0) {
-//       marker.formatted_address = responses[0].formatted_address;
-//     } else {
-//       marker.formatted_address = 'Cannot determine address at this location.';
-//     }
-//     document.getElementById('address-section').innerHTML = marker.formatted_address;
-//     document.getElementById('lat-section').innerHTML = marker.getPosition().lat();
-//     infowindow.setContent(marker.formatted_address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
-//     infowindow.open(map, marker);
-//   });
-// }
-
-// function codeAddress() {
-//   var address = document.getElementById('address').value;
-//   geocoder.geocode({
-//     'address': address
-//   }, function(results, status) {
-//     if (status == google.maps.GeocoderStatus.OK) {
-//       map.setCenter(results[0].geometry.location);
-//       if (marker) {
-//         marker.setMap(null);
-//         if (infowindow) infowindow.close();
-//       }
-//       marker = new google.maps.Marker({
-//         map: map,
-//         draggable: true,
-//         position: results[0].geometry.location
-//       });
-//       google.maps.event.addListener(marker, 'dragend', function() {
-//         geocodePosition(marker.getPosition());
-//       });
-//       google.maps.event.addListener(marker, 'click', function() {
-//         if (marker.formatted_address) {
-//           infowindow.setContent(marker.formatted_address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
-//         } else {
-//           infowindow.setContent(address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
-//         }
-//         infowindow.open(map, marker);
-//       });
-//       google.maps.event.trigger(marker, 'click');
-//     } else {
-//       alert('Geocode was not successful for the following reason: ' + status);
-//     }
-//   });
-// }
-
-// initialize();
-//google.maps.event.addDomListener(window, "load", initialize);
-            
-</script>
+      </script>
      
    
      
