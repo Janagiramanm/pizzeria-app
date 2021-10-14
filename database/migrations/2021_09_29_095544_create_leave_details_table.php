@@ -19,6 +19,11 @@ class CreateLeaveDetailsTable extends Migration
             $table->date('from_date');
             $table->date('to_date');
             $table->string('reason');
+            $table->float('request_days');
+            $table->float('available_days');
+            $table->float('approved_days')->nullable();
+            $table->date('approved_from')->nullable();
+            $table->date('approved_to')->nullable();
             $table->string('leave_type')->nullable();
             $table->string('status')->default('pending');
             $table->string('reject_reason')->nullable(); 

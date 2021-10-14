@@ -79,10 +79,16 @@ class LeaveController extends Controller
         $user_id = $request->user_id;
         $user = Leave::where('user_id','=', $user_id)->first();
         if(!$user){ 
-                $leave = new Leave();
-                $leave->user_id = $request->user_id;
-                $leave->save();
+                $user = new Leave();
+                $user->user_id = $request->user_id;
+                $user->save();
         }
+
+        $start = Carbon::parse($request->from_date);
+        $end =  Carbon::parse($request->to_date);
+        $no_of_days = $end->diffInDays($start) + 1;
+
+        $available_leave = $user->earned_leave - $user->leave_taken;
          
          $leave_detail = new LeaveDetail();
          $leave_detail->from_date = $request->from_date;
@@ -90,6 +96,8 @@ class LeaveController extends Controller
          $leave_detail->user_id = $user_id;
          $leave_detail->reason = $request->reason;
          $leave_detail->leave_type = $request->leave_type;
+         $leave_detail->request_days = $no_of_days;
+         $leave_detail->available_days = $available_leave;
          $leave_detail->save();
 
          return response()->json( [
@@ -175,8 +183,8 @@ class LeaveController extends Controller
                 'message' => "No data found"
             ];
         }
-
-            foreach($employees as $employee){
+        
+        foreach($employees as $employee){
                 $employee->date_of_join;
                 $join_date = Carbon::parse($employee->date_of_join);
                 $cur_date =  Carbon::parse($current_date);
@@ -184,16 +192,17 @@ class LeaveController extends Controller
                 $months = $cur_date->diffInMonths($join_date);
                 $earnedLeave = $months * 1.5;
                 $leaves = Leave::where('user_id','=', $employee->user_id)->first();
-                $leave = Leave::find($leaves->id);
-                $leave->earned_leave = $earnedLeave;
-                $leave->save();
+                if($leaves){
+                    $leave = Leave::find($leaves->id);
+                    $leave->earned_leave = $earnedLeave;
+                    $leave->save();
+                }
                 
-            }
-
-      
-        
-       
-
+        }
+        return[
+            'status' => 1,
+            'message' => 'successfully updated'
+        ];
     }
 
 }

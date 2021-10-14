@@ -36,12 +36,13 @@
             </div>
             <div class="flex">
                   <div class="md:w-1/6 m-2"> 
-                            <x-jet-label for="ame " value="{{ __('No of days ') }}" />
+                            <x-jet-label for="ame " value="{{ __('Requested days ') }}" />
                   </div> 
                   <div class="md:w-1/2 m-2"> 
-                            - {{ $this->no_of_days }}
+                            - {{ $this->request_days }}
                   </div>
             </div>
+         
             <div class="flex">
                   <div class="md:w-1/6 m-2"> 
                             <x-jet-label for="ame " value="{{ __('Leave Type') }}" />
@@ -58,6 +59,55 @@
                             - {{ $reason }}
                   </div>
             </div>
+            @if($this->status =='approved')
+                  <div class="flex bg-green-500 mr-10">
+                        <h2 class="m-5 "> Approved </h2>
+                  </div>
+            @endif
+
+            @if($this->status =='modify-approved')
+            <div class="flex bg-gray-200 mr-10">
+                  <h2 class="m-5 ">Leave Status</h2>
+            </div>
+            
+            <div class="flex">
+                  <div class="md:w-1/6 m-2"> 
+                            <x-jet-label for="ame " value="{{ __('Approved days ') }}" />
+                  </div> 
+                  <div class="md:w-1/2 m-2"> 
+                            - {{ $this->approved_days }}
+                  </div>
+            </div>
+            
+            <div class="flex">
+                  <div class="md:w-1/6 m-2"> 
+                            <x-jet-label for="ame " value="{{ __('From Date ') }}" />
+                  </div> 
+                  <div class="md:w-1/2 m-2"> 
+                            - {{ date('d/m/Y',strtotime($this->approved_from))  }}
+                  </div>
+            </div>
+            <div class="flex">
+                  <div class="md:w-1/6 m-2"> 
+                            <x-jet-label for="ame " value="{{ __('To Date ') }}" />
+                  </div> 
+                  <div class="md:w-1/2 m-2"> 
+                            - {{ date('d/m/Y',strtotime($this->approved_to))  }}
+                  </div>
+            </div>
+            @endif
+            @if($this->status =='rejected')
+                  <div class="flex bg-red-500 mr-10">
+                        <h2 class="m-5 ">{{ ucfirst($this->status) }}</h2>
+                  </div>
+                  <div class="flex">
+               
+                              <div class="md:w-1/2 m-2"> 
+                                          <x-jet-label for="reject_reason" value="{{ __('Reason for Reject') }}" />
+                                          <div class="mt-3">{{ $this->reject_reason  }}</div>
+                              </div> 
+                  </div>
+            @endif
             @if($cancelMode)
             <div class="flex">
                
@@ -69,9 +119,10 @@
                  </div> 
             </div>
             @endif
-           @if($updateMode)
+            
+           @if($updateMode && $this->status=='pending')
                   <x-jet-button wire:click.prevent="approve()" class="bg-orange-500 hover:bg-orange-700 ml-2 mt-5">
-                        Approve
+                        Approve 
                   </x-jet-button>
                   <x-jet-button wire:click.prevent="cancel()" class="bg-red-500 hover:bg-red-700 ml-2 mt-5">
                         Reject

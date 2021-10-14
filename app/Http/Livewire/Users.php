@@ -21,6 +21,17 @@ class Users extends Component
            $hra,$conveyance,$gratuity_pay,$special_allowance,$variable_incentive, $city_id, 
            $emp_detail_id, $latitude, $longitude;
 
+    protected $listeners = [
+            'getLatLngForInput'
+       ];
+       //
+    public function getLatLngForInput($address, $lat, $lng)
+    {
+            $this->address = $address;
+            $this->latitude = $lat;
+            $this->longitude = $lng;
+    }
+
     public function render()
     {
         // $this->createMode = true;    
@@ -58,7 +69,8 @@ class Users extends Component
             'imei' => 'required',
             'designation' => 'required',
             'emp_code' => 'required',
-            'city_id' => 'required'
+            'city_id' => 'required',
+            'date_of_join' => 'required'
             
         ]);
         $userId =  User::create([

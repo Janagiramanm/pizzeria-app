@@ -20,6 +20,7 @@
                     <option value="">Filter Status</option>
                     <option value="pending"> Pending </option>
                     <option value="approved"> Approved </option>
+                    <option value="modify-approved"> Modify & Approved </option>
                     <option value="rejected"> Rejected </option>
             </select>                
            
@@ -33,7 +34,8 @@
                                     <th class="px-4 py-2">From Date</th>
                                     <th class="px-4 py-2">To Date</th>
                                     <th class="px-4 py-2">Reason</th>
-                                    <th class="px-4 py-2">Earned Leave</th>
+                                    <th class="px-4 py-2">Requested Days</th>
+                                    <th class="px-4 py-2">Available Days</th>
                                     <th class="px-4 py-2">Status</th>
                                     <th class="px-4 py-2">Action</th>
                                 </tr>   
@@ -47,7 +49,8 @@
                                     <td class="border px-4 py-2">{{ $leave->from_date }}</td>
                                     <td class="border px-4 py-2">{{ $leave->to_date }}</td>
                                     <td class="border px-4 py-2">{{ $leave->reason }}</td>
-                                    <td class="border px-4 py-2">{{ $leave->leave->earned_leave }} </td>
+                                    <td class="border px-4 py-2">{{ $leave->request_days }} </td>
+                                    <td class="border px-4 py-2">{{ $leave->available_days }} </td>
                                     <td class="border px-4 py-2">{{ $leave->status }}</td>
                                     <td class="border px-4 py-2">
                                         <x-jet-button wire:click="edit( {{ $leave->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-25">

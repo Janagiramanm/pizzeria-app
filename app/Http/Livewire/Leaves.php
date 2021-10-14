@@ -12,7 +12,7 @@ class Leaves extends Component
 {
     use WithPagination;
 
-    public $leaves, $user_name, $reject_reason, $no_of_days, $status, $user_id;
+    public $leaves, $user_name, $reject_reason, $no_of_days, $status, $user_id, $approved_days, $action;
     public $updateMode = false;
     public $cancelMode = false;
     public $modifyMode = false;
@@ -35,8 +35,9 @@ class Leaves extends Component
     public function edit($id){
         $this->updateMode = true;
         $this->modifyMode = false;
+        $this->cancelMode = false;
         $this->leave_id = $id;
-        $this->status = 'approved';
+        $this->action = 'approved';
         $leave = LeaveDetail::where('id', $id)->first();
         $this->user_id = $leave->user_id;
         $this->user_name = $leave->user->name;
@@ -44,6 +45,13 @@ class Leaves extends Component
         $this->to_date = $leave->to_date;
         $this->reason = $leave->reason;
         $this->leave_type = $leave->leave_type;
+        $this->status = $leave->status;
+        $this->request_days = $leave->request_days;
+        $this->available_days = $leave->available_days;
+        $this->approved_days = $leave->approved_days;
+        $this->approved_from = $leave->approved_from;
+        $this->approved_to = $leave->approved_to;
+        $this->reject_reason = $leave->reject_reason;
 
         $start = Carbon::parse($leave->from_date);
         $end =  Carbon::parse($leave->to_date);
@@ -57,7 +65,7 @@ class Leaves extends Component
         $this->cancelMode = false;
         
         $this->leave_id = $id;
-        $this->status = 'modify-approved';
+        $this->action = 'modify-approved';
         $leave = LeaveDetail::where('id', $id)->first();
         $this->user_name = $leave->user->name;
         $this->from_date = $leave->from_date;
@@ -96,32 +104,45 @@ class Leaves extends Component
         $this->updateMode = true;
         $this->modifyMode = false;
         $this->status = 'approved';
-      //  $this->status = 'pending';
-       // $this->resetInput();
-        // $this->edit($this->leave_id);
+     
     }
 
     public function approve(){
         $this->cancelMode = false;
         $this->modifyMode = false;
         $this->updateMode = true;
-        $leave = LeaveDetail::find($this->leave_id);
-        $leave->status = $this->status;
-        $leave->from_date = $this->from_date;
-        $leave->to_date = $this->to_date;
-        $leave->save();
+
+        $start = Carbon::parse($this->from_date);
+        $end =  Carbon::parse($this->to_date);
+        $approved_days = $end->diffInDays($start) + 1;
 
         $leaveUser = Leave::where('user_id','=', $this->user_id)->first();
         $leaveUserId = $leaveUser->id;
-        $earned_leave = $leaveUser->earned_leave;
-
-        $available_leave = $earned_leave - $this->no_of_days;
 
         $leave_user = Leave::find($leaveUserId);
-        $leave_user->earned_leave = $available_leave;
+
+        $leave_taken = $leave_user->leave_taken;
+        $earned_leaves = $leave_user->earned_leave;
+
+        $total_leave = $leave_taken + $this->no_of_days;
+       
+        $leave_user->leave_taken = $total_leave;
         $leave_user->save();
 
+       
 
+        $leave = LeaveDetail::find($this->leave_id);
+        if($this->action == 'modify-approved'){
+            $leave->approved_from = $this->from_date;
+            $leave->approved_to = $this->to_date;
+        }else{
+            $leave->from_date = $this->from_date;
+            $leave->to_date = $this->to_date;
+        }
+        $leave->approved_days = $approved_days;
+        $leave->available_days = $earned_leaves -  $leave_taken;
+        $leave->status = $this->action;
+        $leave->save();
 
         $this->updateMode = false;
         $this->resetInput();
