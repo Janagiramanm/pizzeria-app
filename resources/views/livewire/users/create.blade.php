@@ -126,9 +126,7 @@
                               <span id="place-name" class="title"></span><br />
                               <span id="place-address"></span>
                         </div>      
-                        
-                       
-                 </div>
+                  </div>
                  
             </div>
 
@@ -200,7 +198,7 @@
       </style>
      
       <script>
-            initMap();
+            userMap();
       </script>
      
    

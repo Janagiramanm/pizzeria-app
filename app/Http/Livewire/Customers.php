@@ -10,14 +10,20 @@ use Livewire\Component;
 
 class Customers extends Component
 {
-    public $customer, $confirmingItemDeletion, $customer_id, $error;
+    public $customer, $confirmingItemDeletion, $customer_id, $error, $address_edit;
     public $updateMode,$createMode, $addMore = false;
     public $show = true;
+   
     public $first_name,$last_name, $customer_type,
-     $customer_email, $company_name, $phone, $website , $branch, $city, $address;
+     $customer_email, $company_name, $phone, $website , $branch, $city, $address,  $latitude, $longitude ;
     
     public $locations = [];
-    public $i=1;
+    // public $address = [];
+    protected $listeners = [
+        'customerGetLatLngForInput'
+   ];
+  
+    public $i=0;
 
     public function render()
     {
@@ -34,6 +40,7 @@ class Customers extends Component
         $this->customer_email = null;
         $this->branch = null;
         $this->error = null;
+        $this->locations = [];
         $this->render();
     }
 
@@ -54,18 +61,17 @@ class Customers extends Component
             'company_name' => 'required_if:customer_type,==,BUSINESS',
             'branch.0' => 'required',
             'city.0' => 'required',
-            'address.0' => 'required'
+            // 'address.0' => 'required'
 
         ],
-        [
-            'branch.0.required' => 'branch field is required',
-            'city.0.required' => 'city field is required',
-            'address.0.email' => 'address field is required.',
-            'branch.*.required' => 'branch field is required',
-            'city.*.required' => 'city field is required',
-            'address.*.email' => 'address field is required.',
-        ]
+        // [
+        //     'branch.*.required' => 'branch field is required',
+        //     'city.*.required' => 'city field is required',
+        //     'address.*.required' => 'address field is required.',
+        // ]
     );
+
+    
 
        $customer_id = Customer::create([
             'first_name' => $this->first_name,
@@ -82,7 +88,9 @@ class Customers extends Component
                    'customer_id' => $customer_id,
                    'branch' => $this->branch[$key], 
                    'city_id' => $this->city[$key],
-                   'address' => $this->address[$key]
+                   'address' => $this->address[$key],
+                   'latitude' => $this->latitude[$key],
+                   'longitude' => $this->longitude[$key]
                 ]);
         }
 
@@ -107,11 +115,15 @@ class Customers extends Component
 
         $locations = CustomerLocation::where('customer_id','=', $this->customer_id)->get();
         
+        
         if($locations){
             foreach($locations as $key =>$value){
+                //echo $value->address;
+                $this->locations[] = $value->branch; 
                 $this->branch[$key] = $value->branch;
                 $this->city[$key] = $value->city_id;
-                $this->address[$key] = $value->address;
+                $this->address_edit[$key] = $value->address;
+                // $this->latitude[$key] = $value->latitude;
             }
         }
 
@@ -195,6 +207,20 @@ class Customers extends Component
 
     public function remove($i)
     {
+        $this->i = $this->i-1;
         unset($this->locations[$i]);
+        // $this->address[$i] = null;
+        // $this->latitude[$i] = null;
+        // $this->longitude[$i] = null;
+    }
+
+    public function customerGetLatLngForInput($address, $lat, $lng, $row)
+    {
+        //   echo $address;exit;
+            $this->address[$row] = $address;
+            $this->latitude[$row] = $lat;
+            $this->longitude[$row] = $lng;
+
+            
     }
 }

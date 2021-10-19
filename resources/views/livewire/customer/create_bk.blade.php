@@ -89,24 +89,20 @@
                           </div>
                 </div>
 
-
-                <div class="flex flex-wrap w-full md:w-1/2 -mx-3 mb-6  add-input">
-
-                </div>
-                <div class=" add-input">
+               
+                <div class="add-input">
                     <div class="flex mr-12">
                       <div class="w-1/2  ">
-                      
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-branch-name">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                               Branch
                             </label>
-                            <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-branch-name" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="branch.0" type="text" placeholder="" wire:model="branch.0">
                              @error('branch.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                           
 
-                            <x-jet-label for="city.0" value="{{ __('City') }}" />
-                            <select id="city.0" wire:model="city.0"  class="block mt-1 w-full p-2 bg-gray-200" name="city.0">
+                            <x-jet-label for="role" value="{{ __('City') }}" />
+                            <select id="city.0" wire:model="city.0"  class="block mt-1 w-full p-2 bg-gray-200" name="city">
                               <option value="">Select City</option>
                               @foreach ($cities as $city)
                                           <option value="{{ $city->id }}">
@@ -116,89 +112,77 @@
 
                            </select>
                              @error('city.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-                             <div wire:ignore class="md:w-1/2 m-2 mr-3  @if($createMode)  hidden @endif " id="address-div.0"> 
+
+                             <div wire:ignore class="md:w-1/2 m-2 mr-3 @if($createMode)  @endif " id="address-div"> 
                                       <span><b>Address</b></span><br>
-                                      <span id="cust-address-section.0">@if($updateMode) {{ $this->address_edit[0] }} @endif </span><br>
-                                      <span><b>Latitude</b></span> :  <span id="lat-section.0"> @if($updateMode){{ isset($this->latitude[0]) ? $this->latitude[0] : $this->latitude  }} @endif</span>
-                                      <span><b>Longitude</b></span> : <span id="lng-section.0">@if($updateMode) {{ isset($this->longitude[0]) ? $this->longitude[0] : $this->longitude }}@endif </span>
-                                      <!-- <input type="text" name = "address.0" id="input_address.0" wire:model="address.0"/> -->
-                                      <!-- <input type="text" name = "latitude.0" id="input_latitude.0" wire:model="latitude.0"/>
-                                      <input type="text" name = "longitude.0" id="input_longitude.0" wire:model="longitude.0" /> -->
-                            </div>
+                                      <span id="cust-address-section.0">{{ $this->address }}</span><br>
+                                      <span><b>Latitude</b></span> :  <span id="lat-section.0"> {{ $this->latitude }}</span>
+                                      <span><b>Longitude</b></span> : <span id="lng-section.0"> {{ $this->longitude }} </span>
+                                    
+                              </div>
+                               
+                       </div>
+                       <div class="w-1/2  ">
+                            <span wire:click.prevent="add({{$i}})" class=" rounded-full h-7 w-7 mt-24 flex items-center justify-center bg-green-500 bg-orange-500 hover:bg-orange-700 ml-10 mt-5 ">
+                                          +
+                            </span>
+                       </div>
+                      
                                 
-                      </div>
-                     
-                     
-                                 <div class="rounded-full h-7 w-7 mt-16 flex items-center justify-center bg-green-500">
-                                  <span wire:click.prevent="add({{$i}})" class="bg-orange-500 hover:bg-orange-700 float-right">
-                                        +
-                                  </span>
-                                  </div>
                     </div>
                    
                 </div>
-                
-                
+
                 @foreach($locations as $key => $value)
-                  @if($key > 0 )
-                  <div class=" add-input">
-                    <hr class="mt-10 mb-5 ">
-                    <div class="flex mr-12">
-                       <div class="w-1/2  ">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                              Branch
-                            </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                              name="branch.{{$key}}" type="text" placeholder="" wire:model="branch.{{ $key }}">
-                             @error('branch.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
 
-                              <x-jet-label for="city.{{ $key }}" value="{{ __('City') }}" />
-                                <select id="city.{{ $key }}" wire:model="city.{{ $key }}"  class="block mt-1 w-full p-2 bg-gray-200" name="city.{{ $key }}">
-                                    <option value="">Select City</option>
-                                    @foreach ($cities as $city)
-                                          <option value="{{ $city->id }}">
-                                                {{ ucfirst($city->name) }}
-                                          </option>
-                                    @endforeach
-                                </select>
-                               
-                                @error('city.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                  <div class="add-input">
+                      <hr class="mt-10 mb-5 ">
+                      <div class="flex mr-12">
+                        <div class="w-1/2  ">
+                              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                Branch
+                              </label>
+                              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                                name="branch.{{ $value }}" type="text" placeholder="" wire:model="branch.{{ $value }}">
+                              @error('branch.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+
+                                <x-jet-label for="role" value="{{ __('City') }}" />
+                                  <select id="city" wire:model="city.{{ $value }}"  class="block mt-1 w-full p-2 bg-gray-200" name="city.{{ $value }}">
+                                      <option value="">Select City</option>
+                                      @foreach ($cities as $city)
+                                            <option value="{{ $city->id }}">
+                                                  {{ ucfirst($city->name) }}
+                                            </option>
+                                      @endforeach
+                                  </select>
                                 
-                                
-                                <div wire:ignore class="md:w-1/2 m-2 mr-3   @if($createMode) hidden @endif " id="address-div.{{$value}}"> 
-                                      <span><b>Address</b></span><br>
-                                      <span id="cust-address-section.{{$value}}"> @if($updateMode){{ $this->address_edit[$key] }} @endif </span><br>
-                                      <span><b>Latitude</b></span> :  <span id="lat-section.{{$value}}">@if($updateMode) {{ isset($this->latitude[$key]) ? $this->latitude[$key] : $this->latitude }} @endif </span>
-                                      <span><b>Longitude</b></span> : <span id="lng-section.{{$value}}">@if($updateMode) {{ isset($this->longitude[$key]) ? $this->longitude[$key] : $this->longitude  }} @endif </span>
-                                      <!-- <input type="text" name = "address.{{$value}}" id="input_address.{{$value}}" wire:model="address.{{ $value }}" /> -->
-                                      <!-- <input type="text" name = "latitude.{{$value}}" id="input_latitude.{{$value}}" wire:model="latitude.{{ $value }}"/>
-                                      <input type="text" name = "longitude.{{$value}}" id="input_longitude.{{$value}}" wire:model="longitude.{{ $value }}" /> -->
-                            </div>
-                                
-                      </div>
-                     
-                      
-                      <div wire:click.prevent="remove({{$key}})" class="rounded-full h-7 w-7 mt-16 flex items-center justify-center bg-red-500 text-white-700">
+                                  @error('city.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                              
+                                  <span wire:click.prevent="remove({{$key}})" class=" rounded-full h-7 w-7 mt-24 flex items-center justify-center bg-red-500 bg-orange-500 hover:bg-orange-700 ml-10">
+                                            -
+                                  </span>
                                  
-                                        -
-                              </div>
-                     
-                    </div>
-                  
-                </div>
-                @endif
-                @endforeach
+                      </div>
+                      <div class="w-1/2  ">
+                                 
+                      </div>
+     
+                  </div>
+                
+              </div>
+              @endforeach
+                   
 
-               <div class="flex">
-                       <div wire:ignore  class="w-full m-2 mr-28 "> 
+                  <div class="flex">
+                          
+                          <div wire:ignore  class="w-full m-2 mr-28 "> 
                                 <div wire:ignore style="display: block">
                                       <input
                                       id="pac-input"
-                                      class="pac-input"
+                                      class="controls"
                                       type="text"
                                       placeholder="Enter Address"
                                       value="@if($updateMode) {{ $this->address }} @endif"
-                                      data-val="{{$this->i}}"
                                       />
                                 </div>
                               
@@ -207,11 +191,11 @@
                                       <span id="place-name" class="title"></span><br />
                                       <span id="place-address"></span>
                                 </div>      
-                        </div>
-               </div>
+                          </div>
+                    </div>
+                  </div>
                 
-               
-               
+                
                 @if($createMode)
                   <x-jet-button wire:click.prevent="store()" class="bg-orange-500 hover:bg-orange-700  mt-4">
                         Save
@@ -226,7 +210,6 @@
 
                 </div>
 </form>
-
 </div>
 <style>
       #map{
@@ -236,3 +219,4 @@
 <script>
       customerMap();
 </script>
+
