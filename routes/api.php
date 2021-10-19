@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('job-update', 'App\Http\Controllers\Api\JobController@jobUpdate')->name('job-update');
     
     Route::post('add-over-time', 'App\Http\Controllers\Api\JobController@addOverTime')->name('add-over-time');
+    
+    Route::post('track-location', 'App\Http\Controllers\Api\ApiController@trackLocation')->name('track-location');
 
     //Route::post('/leaves',LeaveController::class, 'leaves')->name('leaves');
     //Route::resource('', LeaveController::class);

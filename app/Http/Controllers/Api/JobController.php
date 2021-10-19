@@ -185,7 +185,7 @@ class JobController extends Controller
     }
 
     public function addOverTime(Request $request){
-          
+
           $overTime = new OvertimeJob();
           $overTime->user_id = $request->user_id;
           $overTime->customer_id = $request->customer_id;
@@ -193,6 +193,7 @@ class JobController extends Controller
           $overTime->date = $request->date;
           $overTime->start_time = $request->start_time;
           $overTime->end_time = $request->end_time;
+          $overTime->description = $request->description;
           if($overTime->save()){
               return [
                   'status' => 1, 
