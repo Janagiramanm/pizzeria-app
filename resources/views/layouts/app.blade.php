@@ -31,8 +31,8 @@
     ></script>
     <script src="{{ URL::asset('/js/googlemap.js') }}" defer></script>
     <!-- <script src="{{ URL::asset('/js/geocode.js') }}" defer></script> -->
-         <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+         <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>-->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
        
        
         

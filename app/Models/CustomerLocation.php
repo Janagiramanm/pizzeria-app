@@ -12,7 +12,7 @@ class CustomerLocation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'branch' , 'city_id', 'address', 'customer_id'
+        'branch' , 'city_id', 'address', 'customer_id','latitude','longitude'
     ];
 
     public function customer(){

@@ -6,30 +6,39 @@ use App\Models\Customer;
 use App\Models\City;
 use App\Models\CustomerLocation;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 
 
 class Customers extends Component
 {
     public $customer, $confirmingItemDeletion, $customer_id, $error, $address_edit;
-    public $updateMode,$createMode, $addMore = false;
+    public $updateMode,$createMode, $addMore, $editLocationMode = false;
     public $show = true;
    
     public $first_name,$last_name, $customer_type,
      $customer_email, $company_name, $phone, $website , $branch, $city, $address,  $latitude, $longitude ;
-    
+   
+    public $edit_branch,$edit_city,$edit_lat,$edit_lng, $edit_address, $edit_location_id;
     public $locations = [];
     // public $address = [];
     protected $listeners = [
-        'customerGetLatLngForInput'
+        'customerGetLatLngForInput','customerLatLngChange'
    ];
   
     public $i=0;
 
+    use WithPagination;
+
     public function render()
     {
-        $this->customers = Customer::all();
-        $this->cities = City::all();
-        return view('livewire.customer.list');
+       // $this->customers = Customer::paginate(10);
+       $this->cities = City::all();
+
+        return view('livewire.customer.list', [
+            'customers' => Customer::paginate(5),
+        ]);
+      
     }
 
     private function resetInput()
@@ -39,8 +48,9 @@ class Customers extends Component
         $this->company_name = null;
         $this->customer_email = null;
         $this->branch = null;
-        $this->error = null;
+        $this->error = false;
         $this->locations = [];
+        $this->resetValidation();
         $this->render();
     }
 
@@ -48,6 +58,7 @@ class Customers extends Component
         $this->createMode = true;
         $this->addMore = true;
         $this->show = true;
+        $this->error = false;
         return view('livewire.customer.create');
     }
 
@@ -66,12 +77,11 @@ class Customers extends Component
         ],
         // [
         //     'branch.*.required' => 'branch field is required',
-        //     'city.*.required' => 'city field is required',
+        //     'city.*.required' => 'city field is required',row
         //     'address.*.required' => 'address field is required.',
         // ]
     );
 
-    
 
        $customer_id = Customer::create([
             'first_name' => $this->first_name,
@@ -84,6 +94,7 @@ class Customers extends Component
         ])->id;
 
         foreach ($this->branch as $key => $value) {
+            
             CustomerLocation::create([
                    'customer_id' => $customer_id,
                    'branch' => $this->branch[$key], 
@@ -112,22 +123,11 @@ class Customers extends Component
         $this->company_name = $customer->company_name;
         $this->phone = $customer->phone;
         $this->website = $customer->website;
-
-        $locations = CustomerLocation::where('customer_id','=', $this->customer_id)->get();
-        
-        
-        if($locations){
-            foreach($locations as $key =>$value){
-                //echo $value->address;
-                $this->locations[] = $value->branch; 
-                $this->branch[$key] = $value->branch;
-                $this->city[$key] = $value->city_id;
-                $this->address_edit[$key] = $value->address;
-                //$this->latitude[$key] = $value->latitude;
-            }
-        }
-
-        
+        $this->locations = CustomerLocation::where('customer_id','=', $this->customer_id)->get();
+        $this->edit_branch =null;     
+        $this->edit_city =null;     
+        $this->edit_lat =null;     
+        $this->edit_lng =null;     
     }
 
 
@@ -142,6 +142,7 @@ class Customers extends Component
     public function view(){
         $this->createMode = false;
         $this->updateMode = false;
+        $this->editLocationMode = false;
         $this->resetInput();
     }
 
@@ -177,6 +178,7 @@ class Customers extends Component
     public function cancel()
     {
         $this->updateMode = false;
+        $this->editLocationMode = false;
         $this->resetInput();
 
 
@@ -199,28 +201,75 @@ class Customers extends Component
     public function add($i)
     {
         // $this->addMore = true;
-        $i = $i + 1;
+        $i = $i + 1 ;
         $this->i = $i;
-        
         array_push($this->locations ,$i);
     }
 
     public function remove($i)
     {
-        $this->i = $this->i-1;
         unset($this->locations[$i]);
-        // $this->address[$i] = null;
-        // $this->latitude[$i] = null;
-        // $this->longitude[$i] = null;
+      
     }
 
-    public function customerGetLatLngForInput($address, $lat, $lng, $row)
+    public function customerGetLatLngForInput($address, $latitude, $longitude, $row)
     {
         //   echo $address;exit;
             $this->address[$row] = $address;
-            $this->latitude[$row] = $lat;
-            $this->longitude[$row] = $lng;
+            $this->latitude[$row] = $latitude;
+            $this->longitude[$row] = $longitude;
+    }
+    public function customerLatLngChange($address, $latitude, $longitude)
+    {
+        //   echo $address;exit;
+            $this->edit_address = $address;
+            $this->edit_lat = $latitude;
+            $this->edit_lng = $longitude;
+    }
 
-            
+    public function editLocation($id){
+
+        $this->customer_location_id = $id;
+        $custLocation = CustomerLocation::find($id);
+        $this->edit_branch = $custLocation->branch;
+        $this->edit_city = $custLocation->city_id;
+        $this->edit_lat = $custLocation->latitude;
+        $this->edit_lng = $custLocation->longitude;
+        $this->edit_address = $custLocation->address;
+        $this->editLocationMode = true;
+        $this->updateMode = false;
+
+        
+       // $this->edit($this->customer_id);
+    }
+
+    public function updateLocation(){
+
+        $location =  CustomerLocation::find($this->customer_location_id);
+        $location->branch = $this->edit_branch;
+        $location->city_id = $this->edit_city;
+        $location->address = $this->edit_address;
+        $location->latitude = $this->edit_lat;
+        $location->longitude = $this->edit_lng;
+        $location->save();
+        $this->editLocationMode = false;
+        $this->updateMode = true;
+
+        $customer = Customer::where('id',$this->customer_id)->first();
+        $this->customer_type = $customer->customer_type;
+        $this->first_name = $customer->first_name;
+        $this->last_name = $customer->last_name;
+        $this->customer_email = $customer->customer_email;
+        $this->company_name = $customer->company_name;
+        $this->phone = $customer->phone;
+        $this->website = $customer->website;
+        $this->locations = CustomerLocation::where('customer_id','=', $this->customer_id)->get();
+        $this->edit_branch =null;     
+        $this->edit_city =null;     
+        $this->edit_lat =null;     
+        $this->edit_lng =null; 
+
+        
+
     }
 }

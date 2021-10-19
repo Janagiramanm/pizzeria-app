@@ -87,91 +87,42 @@
                           </div>
                 </div>
 
-                <div class="flex flex-wrap -mx-3 mb-6">
-                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                              Branch
-                            </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                              name="website" type="text" placeholder="" wire:model="website">
-                             @error('website') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-                          </div>
-                          <div id='map'></div>
-                </div>
-                <div class=" add-input">
-                    <div class="flex mr-12">
-                      <div class="w-1/3  ">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                                  City
-                                </label>
-                                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                                  name="city.0" type="text" placeholder="" wire:model="city.0">
-                                @error('branch') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-5" for="grid-first-name">
-                                  Address
-                                </label>
-                                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                                  name="address.0" type="text" placeholder="" wire:model="address.0">
-                                @error('branch') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-                      </div>
-                      <div class="w-2/3 bg-red-200 m-2">
-                            
-                      </div>
-                                 <div class="rounded-full h-7 w-7 mt-16 flex items-center justify-center bg-green-500">
-                                  <span wire:click.prevent="add({{$i}})" class="bg-orange-500 hover:bg-orange-700 float-right">
-                                        +
-                                  </span>
-                                  </div>
+                @if($show)
+                <div class="w-1/2">
+                    <div>
+                      <b>Branch Details</b> 
                     </div>
-                   
-                </div>
-                
-                
-                @foreach($locations as $key => $value)
-
-                <div class=" add-input">
-                    <hr class="mt-10 mb-5 ">
-                    <div class="flex mr-12">
-                       <div class="w-1/3  ">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                                  City
-                                </label>
-                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                                  name="city.{{ $value }}" type="text" placeholder="" wire:model="city.{{ $value }}">
-                                @error('branch') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-5" for="grid-first-name">
-                                  Address
-                                </label>
-                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
-                                  name="address.{{ $value }}" type="text" placeholder="" wire:model="address.{{ $value }}">
-                                @error('branch') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-                      </div>
-                      <div class="w-2/3 bg-red-200 m-2">
-                            
-                      </div>
-                      <div wire:click.prevent="remove({{$key}})" class="rounded-full h-7 w-7 mt-16 flex items-center justify-center bg-red-500 text-white-700">
-                                 
-                                        -
+                    <hr class="mt-2 mb-2">
+                    @if($this->locations)
+                      @foreach($locations as $key => $value)
+                              <div class="branch_div">
+                                  <div class="md:w-1/2"> <b>{{ $value->branch }}</b></div>
+                                  <div class=" md:w-1/2"> {{ $value->city->name }}</div>
+                                  <div class=" md:w-1/2"> {{ $value->address }}</div>
+                                  <div class=" md:w-1/2"><b>Latitude</b> : {{ $value->latitude }}</div>
+                                  <div class=" md:w-1/2"><b>Longitude</b> : {{ $value->longitude }}</div>
+                                  <div class="edit-icon"> <i class="fas fa-edit " wire:click="editLocation({{ $value->id }})"></i> <i class="fas fa-trash-alt"></i></div>
                               </div>
+                              <hr class="mt-2 mb-2">
+                      @endforeach
+                    @endif
                      
-                    </div>
-                  
                 </div>
-
-
-                     
-                @endforeach
-               
-
+                @endif
                   
-                  <x-jet-button wire:click.prevent="update()" class="bg-orange-500 hover:bg-orange-700 mt-10">
+                <x-jet-button wire:click.prevent="update()" class="bg-orange-500 hover:bg-orange-700 mt-10">
                      Update
-                  </x-jet-button>
-                  <x-jet-danger-button class="ml-2 mt-10" wire:click.prevent="cancel()" wire:loading.attr="disabled">
+                </x-jet-button>
+                <x-jet-danger-button class="ml-2 mt-10" wire:click.prevent="cancel()" wire:loading.attr="disabled">
                             {{ __('Cancel') }}
-                 </x-jet-danger-button>
+                </x-jet-danger-button>
                 </div>
 </form>
+
+<script>
+     $('document').ready(function(){
+      
+          
+     })
+</script>
   
