@@ -8,6 +8,7 @@ use App\Models\Job;
 use App\Models\Task;
 use App\Models\Customer;
 use App\Models\AssignJobEmployee;
+use App\Models\OvertimeJob;
 
 class JobController extends Controller
 {
@@ -181,6 +182,28 @@ class JobController extends Controller
               ];
 
          }
+    }
+
+    public function addOverTime(Request $request){
+          
+          $overTime = new OvertimeJob();
+          $overTime->user_id = $request->user_id;
+          $overTime->customer_id = $request->customer_id;
+          $overTime->task_id = $request->task_id;
+          $overTime->date = $request->date;
+          $overTime->start_time = $request->start_time;
+          $overTime->end_time = $request->end_time;
+          if($overTime->save()){
+              return [
+                  'status' => 1, 
+                  'message' => 'Overtime Created Successfully.'
+              ];
+          }
+
+          return [
+               'status' => 0 ,
+               'message' => 'Oops Something went wrong.'
+          ];
     }
 
 

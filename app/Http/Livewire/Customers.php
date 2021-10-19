@@ -123,7 +123,7 @@ class Customers extends Component
                 $this->branch[$key] = $value->branch;
                 $this->city[$key] = $value->city_id;
                 $this->address_edit[$key] = $value->address;
-                // $this->latitude[$key] = $value->latitude;
+                //$this->latitude[$key] = $value->latitude;
             }
         }
 
