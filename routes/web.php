@@ -11,6 +11,7 @@ use App\Http\Livewire\Users;
 use App\Http\Livewire\Cities;
 use App\Http\Livewire\Jobs;
 use App\Http\Livewire\Leaves;
+use App\Http\Livewire\Dashboard;
 
 
 /*
@@ -28,10 +29,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('dashboard', Dashboard::class)->name('dashboard');
 
 Route::get('customers', Customers::class)->name('customers');
 

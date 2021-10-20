@@ -432,6 +432,45 @@ function addNewBranch() {
 
   
 }
+
+function dashboardMap(){
+  
+  var locations = [
+                      ['Bondi Beach', 12.972442,77.580643, 4],
+                      ['Coogee Beach', 12.872442,77.680643, 5],
+                      ['Cronulla Beach', 12.772442,77.780643, 3],
+                      ['Manly Beach', 12.672442,77.880643, 2],
+                      ['Maroubra Beach', 12.572442,77.980643, 1]
+       ];
+
+  // var locations = latLang;
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: new google.maps.LatLng(12.972442,77.580643),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  var infowindow = new google.maps.InfoWindow();
+
+  var marker, i;
+
+  for (i = 0; i < locations.length; i++) {  
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+      map: map
+    });
+
+    google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+      return function() {
+        infowindow.setContent(locations[i][0]);
+        infowindow.open(map, marker);
+      }
+    })(marker, i));
+  }
+
+  
+}
  
 
 

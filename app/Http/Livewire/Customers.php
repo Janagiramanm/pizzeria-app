@@ -21,7 +21,7 @@ class Customers extends Component
    
     public $edit_branch,$edit_city,$edit_lat,$edit_lng, $edit_address, $edit_location_id;
     public $locations = [];
-    // public $address = [];
+   
     protected $listeners = [
         'customerGetLatLngForInput','customerLatLngChange'
    ];
