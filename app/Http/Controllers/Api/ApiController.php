@@ -84,4 +84,14 @@ class ApiController extends Controller
                'message' => 'Successfully Inserted.'
            ];
     }
+
+    public function userLocation(Request $request){
+
+           $userLocations = TrackLocations::get();
+         
+           return [
+            'status' => 1,
+            'data' => $userLocations
+        ];
+    }
 }

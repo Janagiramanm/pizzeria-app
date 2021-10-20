@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->group( function () {
     
     Route::post('track-location', 'App\Http\Controllers\Api\ApiController@trackLocation')->name('track-location');
 
+    Route::get('user-location', 'App\Http\Controllers\Api\ApiController@userLocation')->name('user-location');
     //Route::post('/leaves',LeaveController::class, 'leaves')->name('leaves');
     //Route::resource('', LeaveController::class);
 });
