@@ -78,11 +78,17 @@ class ApiController extends Controller
                     $track->status = $value['status'];
                     $track->save();
                }
+               return [
+                    'status' => 1,
+                    'message' => 'Successfully Inserted.'
+               ];
            }
+
            return [
-               'status' => 1,
-               'message' => 'Successfully Inserted.'
-           ];
+             'status' => 0,
+             'message' => 'Empty data is coming .'
+            ];
+           
     }
 
     public function userLocation(Request $request){
