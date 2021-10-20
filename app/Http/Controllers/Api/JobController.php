@@ -168,7 +168,7 @@ class JobController extends Controller
 
          $customer_type = $request->customer_type;
          if($customer_type){
-              $customers = Customer::where('customer_type','=', $customer_type)->get();
+              $customers = Customer::with('customerLocation')->where('customer_type','=', $customer_type)->get();
               if($customers->isEmpty()){
                   return [
                       'status' => 0,
