@@ -262,15 +262,6 @@ class Customers extends Component
         $location->save();
         $this->editLocationMode = false;
         $this->updateMode = true;
-
-        $customer = Customer::where('id',$this->customer_id)->first();
-        $this->customer_type = $customer->customer_type;
-        $this->first_name = $customer->first_name;
-        $this->last_name = $customer->last_name;
-        $this->customer_email = $customer->customer_email;
-        $this->company_name = $customer->company_name;
-        $this->phone = $customer->phone;
-        $this->website = $customer->website;
         $this->locations = CustomerLocation::where('customer_id','=', $this->customer_id)->get();
         $this->edit_branch =null;     
         $this->edit_city =null;     
@@ -304,11 +295,11 @@ class Customers extends Component
         $custLocation->save();
         $this->addnewBranch = false;
         $this->updateMode = true;
-        $this->edit_branch = null;
-        $this->edit_city = null;
-        $this->edit_address = null;
-        $this->edit_lat = null;
-        $this->edit_lng = null;
+        $this->locations = CustomerLocation::where('customer_id','=', $this->customer_id)->get();
+        $this->edit_branch =null;     
+        $this->edit_city =null;     
+        $this->edit_lat =null;     
+        $this->edit_lng =null; 
     }
 
     protected $messages = [
