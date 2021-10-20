@@ -87,11 +87,17 @@
                           </div>
                 </div>
 
-                @if($show)
+               
                 <div class="w-1/2">
-                    <div>
-                      <b>Branch Details</b> 
-                    </div>
+                   @if($this->customer_type == 'BUSINESS')
+                      <div>
+                        <b>Branch Details</b>   <span class="float-right cursor-pointer" wire:click="addNewBranch({{ $this->customer_id }})"><i class="fa fa-plus" aria-hidden="true"></i> Add New Branch</span>
+                      </div>
+                    @else
+                      <div>
+                        <b>Address Details</b>   <span class="float-right cursor-pointer" wire:click="addNewBranch({{ $this->customer_id }})"><i class="fa fa-plus" aria-hidden="true"></i> Add New Address</span>
+                      </div>
+                    @endif
                     <hr class="mt-2 mb-2">
                     @if($this->locations)
                       @foreach($locations as $key => $value)
@@ -108,7 +114,7 @@
                     @endif
                      
                 </div>
-                @endif
+                
                   
                 <x-jet-button wire:click.prevent="update()" class="bg-orange-500 hover:bg-orange-700 mt-10">
                      Update

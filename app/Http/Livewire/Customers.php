@@ -13,7 +13,7 @@ use Livewire\WithPagination;
 class Customers extends Component
 {
     public $customer, $confirmingItemDeletion, $customer_id, $error, $address_edit;
-    public $updateMode,$createMode, $addMore, $editLocationMode = false;
+    public $updateMode,$createMode, $addMore, $editLocationMode, $addnewBranch = false;
     public $show = true;
    
     public $first_name,$last_name, $customer_type,
@@ -127,7 +127,8 @@ class Customers extends Component
         $this->edit_branch =null;     
         $this->edit_city =null;     
         $this->edit_lat =null;     
-        $this->edit_lng =null;     
+        $this->edit_lng =null; 
+        $this->resetValidation();    
     }
 
 
@@ -143,6 +144,7 @@ class Customers extends Component
         $this->createMode = false;
         $this->updateMode = false;
         $this->editLocationMode = false;
+        $this->addnewBranch = false;
         $this->resetInput();
     }
 
@@ -245,6 +247,12 @@ class Customers extends Component
 
     public function updateLocation(){
 
+        $this->validate([
+            'edit_branch' => 'required',
+            'edit_city' => 'required',
+            'edit_address' => 'required',
+           
+        ]);
         $location =  CustomerLocation::find($this->customer_location_id);
         $location->branch = $this->edit_branch;
         $location->city_id = $this->edit_city;
@@ -269,7 +277,43 @@ class Customers extends Component
         $this->edit_lat =null;     
         $this->edit_lng =null; 
 
-        
-
     }
+
+
+    public function addNewBranch($id){
+
+          $this->addnewBranch = true;
+          $this->updateMode = false;
+    }
+
+    public function saveNewBranch(){
+
+        $this->validate([
+            'edit_branch' => 'required',
+            'edit_city' => 'required',
+            'edit_address' => 'required',
+           
+        ]);
+        $custLocation = new CustomerLocation();
+        $custLocation->customer_id = $this->customer_id;
+        $custLocation->branch = $this->edit_branch;
+        $custLocation->city_id = $this->edit_city;
+        $custLocation->address = $this->edit_address;
+        $custLocation->latitude = $this->edit_lat;
+        $custLocation->longitude = $this->edit_lng;
+        $custLocation->save();
+        $this->addnewBranch = false;
+        $this->updateMode = true;
+        $this->edit_branch = null;
+        $this->edit_city = null;
+        $this->edit_address = null;
+        $this->edit_lat = null;
+        $this->edit_lng = null;
+    }
+
+    protected $messages = [
+        'edit_branch.required' => 'Please enter the branch name.',
+        'edit_city.required' => 'Please select the city.',
+        'edit_address.required' => 'Please enter the address.',
+    ];
 }

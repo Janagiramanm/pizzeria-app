@@ -27,12 +27,12 @@
 
                                     <div wire:ignore class="md:w-1/2 m-2 mr-3  @if($createMode)  hidden @endif " id="address-div.0"> 
                                           <span><b>Address</b></span><br>
-                                          <span id="cust-address-section"> {{ $this->edit_address }} </span><br>
-                                          <span><b>Latitude</b></span> :  <span id="lat-section" data-lat="{{ $this->edit_lat }}"> {{ $this->edit_lat }} </span>
-                                          <span><b>Longitude</b></span> : <span id="lng-section" data-lat="{{ $this->edit_lng }}"> {{ $this->edit_lng }} </span>
+                                          <span id="cust-address-section">  </span><br>
+                                          <span><b>Latitude</b></span> :  <span id="lat-section" data-lat="{{ $this->edit_lat }}">  </span>
+                                          <br>
+                                          <span><b>Longitude</b></span> : <span id="lng-section" data-lat="{{ $this->edit_lng }}"> </span>
                                     </div>
                                     @error('edit_address') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-                          
                             </div>
 
                             <div class="w-full mr-12">
@@ -56,8 +56,8 @@
                                             </div>
                             </div>
                             <div class="w-full">
-                                    <x-jet-button wire:click.prevent="updateLocation()" class="bg-orange-500 hover:bg-orange-700 ml-2">
-                                                Update
+                                    <x-jet-button wire:click.prevent="saveNewBranch()" class="bg-orange-500 hover:bg-orange-700 ml-2">
+                                                Add Branch
                                           </x-jet-button>
                             </div>
                              

@@ -174,7 +174,7 @@
              
 
                <div class="flex">
-                       <div wire:ignore  class="w-full m-2 mr-28 "> 
+                       <div wire:ignore  class="w-full mt-5 mr-28 "> 
                                 <div wire:ignore style="display: block">
                                       <input
                                       id="pac-input"

@@ -15,6 +15,8 @@
             @include('livewire.customer.create')
         @elseif($editLocationMode)
             @include('livewire.customer.editLocation')
+        @elseif($addnewBranch)
+            @include('livewire.customer.addbranch')
         @else
             <table class="table-fixed w-full">
                           
