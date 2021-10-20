@@ -5,7 +5,7 @@
            Back
 </x-jet-button>
 
-<div class="w-full mr-12">
+<div class="w-full mr-12 ml-10">
                             <div class="w-1/2  ">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-branch-name">
                                       Branch
