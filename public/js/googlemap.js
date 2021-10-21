@@ -433,21 +433,33 @@ function addNewBranch() {
   
 }
 
-function dashboardMap(){
+function dashboardMap(locations){
   
-  var locations = [
-                      ['Bondi Beach', 12.972442,77.580643, 4],
-                      ['Coogee Beach', 12.872442,77.680643, 5],
-                      ['Cronulla Beach', 12.772442,77.780643, 3],
-                      ['Manly Beach', 12.672442,77.880643, 2],
-                      ['Maroubra Beach', 12.572442,77.980643, 1]
-       ];
+  
+  // var locations = [
+  //                     ['Bondi Beach', 12.972442,77.580643, 4],
+  //                     ['Coogee Beach', 12.872442,77.680643, 5],
+  //                     ['Cronulla Beach', 12.772442,77.780643, 3],
+  //                     ['Manly Beach', 12.672442,77.880643, 2],
+  //                     ['Maroubra Beach', 12.572442,77.980643, 1]
+  //      ];
 
-  // var locations = latLang;
+  // var locations = [
+  //                     ["Janagiraman",19.009883,77.9988899,0],
+  //                     ["Muhesh",19.997883,77.9987899,1],
+  //                     ["Muhesh",19.165883,77.1985899,2],
+  //                     ["Janagiraman",19.129883,77.9988899,3]
+  //                 ];
 
+  // var locations = locations;
+  //var locations = {{$this->latLong}} 
+  
+
+  console.log(locations);
+  console.log(locations.length);
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
-    center: new google.maps.LatLng(12.972442,77.580643),
+    center: new google.maps.LatLng(19.009883,77.9988899),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 

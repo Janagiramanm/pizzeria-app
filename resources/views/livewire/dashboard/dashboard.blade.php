@@ -21,7 +21,7 @@
                         <span id="place-address"></span>
                 </div>      
         </div>
-
+      
 <style>
       #map{
             height: 600px; 
@@ -32,8 +32,41 @@
 <script>
   $('document').ready(function(){
           setTimeout(function(){
-              
-                dashboardMap();
+                var locations = @php echo $this->latLong;  @endphp
+
+        //        var locations = [
+        //               ["Janagiraman",19.009883,77.9988899,0],
+        //               ["Muhesh",19.997883,77.9987899,1],
+        //               ["Muhesh",19.165883,77.1985899,2],
+        //               ["Janagiraman",19.129883,77.9988899,3]
+        //           ];
+               console.log(locations);
+                var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 10,
+                        center: new google.maps.LatLng(19.009883,77.9988899),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                        });
+
+                        var infowindow = new google.maps.InfoWindow();
+
+                        var marker, i;
+
+                        for (i = 0; i < locations.length; i++) {  
+                        marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map
+                        });
+
+                        google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+                              //  var projection = overlay.getProjection(); 
+                            // var pixel = projection.fromLatLngToContainerPixel(marker.getPosition());
+                        return function() {
+                                infowindow.setContent(locations[i][0]);
+                                infowindow.open(map, marker);
+                               
+                        }
+                        })(marker, i));
+                        }
            },500)
       
   });
