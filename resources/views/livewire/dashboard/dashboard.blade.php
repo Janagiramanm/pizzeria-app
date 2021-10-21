@@ -40,7 +40,7 @@
         //               ["Muhesh",19.165883,77.1985899,2],
         //               ["Janagiraman",19.129883,77.9988899,3]
         //           ];
-               console.log(locations);
+               
                 var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 10,
                         center: new google.maps.LatLng(locations[0][1],locations[0][2]),
