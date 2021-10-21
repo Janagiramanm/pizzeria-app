@@ -24,6 +24,7 @@ class Dashboard extends Component
                                     ->where('date', '=', date('Y-m-d'))
                                     ->groupBy('user_id');
                                 })->select('user_id', 'date', 'time', 'latitude', 'longitude')
+                                ->where('date', '=', date('Y-m-d'))
                                 ->orderBy('created_at', 'desc')
                                 ->get();
        
