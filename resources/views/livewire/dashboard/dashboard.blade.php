@@ -14,10 +14,10 @@
 <div class="flex">
         <div   class="w-full mt-2 mr-1 ml-1 "> 
                
-                
                 <div class="w-full " id="map"></div>
                 <div id="infowindow-content">
-                       
+                        <span id="place-name" class="title"></span><br />
+                        <span id="place-address"></span>
                 </div>      
         </div>
       
@@ -31,10 +31,13 @@
 <script>
   $('document').ready(function(){
           setTimeout(function(){
-                var locations = @php echo $this->latLong;  @endphp
+                var locations = @php echo $this->latLong;  @endphp;
+                 var lt = @php echo $this->lat;  @endphp;
+                 var ln = @php echo $this->lng;  @endphp;
+                
                 var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 10,
-                        center: new google.maps.LatLng(locations[0][1],locations[0][2]),
+                        zoom: 8,
+                        center: new google.maps.LatLng(lt,ln),
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                         });
 
@@ -49,6 +52,8 @@
                         });
 
                         google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+                              //  var projection = overlay.getProjection(); 
+                            // var pixel = projection.fromLatLngToContainerPixel(marker.getPosition());
                         return function() {
                                 infowindow.setContent(locations[i][0]);
                                 infowindow.open(map, marker);

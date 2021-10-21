@@ -10,7 +10,7 @@ use DB;
 
 class Dashboard extends Component
 {
-    public $locations;
+    public $locations,$lat,$lng;
     public $latLong = [];
       
    
@@ -31,14 +31,20 @@ class Dashboard extends Component
         $res = [];
         if($this->locations){
             foreach($this->locations as $key => $value){
-                $detials = '<b>'.$value->user->name.'</b>'
-                          .'<br> Date : '.date('d-m-Y',strtotime($value->date)) 
+                
+                $details = '<b>'.$value->user->name.'</b><br> Date : '.date('d-m-Y',strtotime($value->date)) 
                           .'<br> Time : '. $value->time;
-                $res[] = [$detials, $value->latitude, $value->longitude, $key];
+                    
+                $res[] = [$details, $value->latitude, $value->longitude, $key];
+                $this->lat =  $value->latitude;
+                $this->lng = $value->longitude;
+                
             }
             $this->latLong = json_encode($res, JSON_NUMERIC_CHECK);
               
         }
+
+        // print_r($this->latLong);
 
         return view('livewire.dashboard.dashboard');
     }
