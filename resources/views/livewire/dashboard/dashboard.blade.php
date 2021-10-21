@@ -43,7 +43,7 @@
                console.log(locations);
                 var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 10,
-                        center: new google.maps.LatLng(19.009883,77.9988899),
+                        center: new google.maps.LatLng(locations[i][1],locations[i][2]),
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                         });
 
