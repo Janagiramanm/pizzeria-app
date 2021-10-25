@@ -90,6 +90,7 @@ class JobController extends Controller
                }
         
                 $result[] = [
+                    'sr_no' => ($value->job->id < 100) ? 'SR00'.$value->job->id : 'SR'.$value->job->id,
                     'job_id' => $value->job->id,
                     'job_assign_id' => $value->id,
                     'job_date' => $value->job->date,
