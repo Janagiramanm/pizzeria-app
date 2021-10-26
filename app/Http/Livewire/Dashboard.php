@@ -20,7 +20,7 @@ class Dashboard extends Component
    
     public function render()
     {
-        $date = date('Y-m-d');
+        $curdate = date('Y-m-d');
        /// $curdate = '2021-10-25';
         $this->locations  = TrackLocations::whereIn('time', function($query) use ($curdate) {
                                     $query->selectRaw('max(`time`)')
