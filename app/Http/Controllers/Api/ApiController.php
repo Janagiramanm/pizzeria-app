@@ -93,7 +93,7 @@ class ApiController extends Controller
 
     public function userLocation(Request $request){
 
-           $userLocations = TrackLocations::where('date','=','2021-10-25')->get();
+           $userLocations = TrackLocations::where('date','=','2021-10-25')->where('user_id','=',3)->get();
          
            return [
             'status' => 1,
