@@ -100,4 +100,31 @@ class ApiController extends Controller
             'data' => $userLocations
         ];
     }
+
+    public function getUserPath(Request $request){
+
+        $date = $request->date;
+        $user_id = $request->user_id;
+
+        $result = TrackLocations::where('date', '=', $date)
+        ->where('user_id', '=', $user_id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+        if(!$result){
+            return [
+                'status' => 0,
+                'message' => 'No data found'
+            ];
+       
+        }
+
+        return [
+            'status' => 1,
+            'data' => $result
+        ];
+   
+    
+    }
+
+
 }
