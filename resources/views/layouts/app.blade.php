@@ -26,7 +26,7 @@
          <script src="{{ mix('js/app.js') }}" defer></script>
          <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9G5CsqGsNlwFR7rIG9qyEJYDTi3yckjI"></script> -->
          <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9G5CsqGsNlwFR7rIG9qyEJYDTi3yckjI&callback=initMap&libraries=places&v=weekly"
+            src="https://maps.googleapis.com/maps/api/js?key=@php echo env('GOOGLEMAPAPI') @endphp&callback=initMap&libraries=places&v=weekly"
             async
             ></script>
          <script src="{{ URL::asset('/js/googlemap.js') }}" defer></script>

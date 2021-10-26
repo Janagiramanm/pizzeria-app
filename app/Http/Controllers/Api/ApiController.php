@@ -108,7 +108,7 @@ class ApiController extends Controller
 
         $result = TrackLocations::where('date', '=', $date)
         ->where('user_id', '=', $user_id)
-        ->orderBy('created_at', 'desc')
+        ->orderBy('created_at', 'asc')
         ->get();
         if(!$result){
             return [

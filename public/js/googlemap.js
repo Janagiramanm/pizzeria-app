@@ -202,7 +202,7 @@ function customerMap() {
                   
         infowindow.open(map, marker);
       })
-      .catch((e) => window.alert("Geocoder failed due to asada: " + e));
+      .catch((e) => window.alert("Geocoder failed due to : " + e));
 
   });
 

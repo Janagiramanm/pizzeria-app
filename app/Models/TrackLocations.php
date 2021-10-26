@@ -13,8 +13,5 @@ class TrackLocations extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function lastMessage()
-        {
-        return $this->hasOne('App\Models\TrackLocations','id', 'id')->latest();
-        }
+   
 }
