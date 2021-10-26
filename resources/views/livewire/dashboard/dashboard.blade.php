@@ -70,7 +70,7 @@
 
                                               var udetails = urlParams.get('udetails');
 
-                                              console.log(data);
+                                             
                                                 geocoder.geocode({
                                                 'address': data.results[0].formatted_address,
                                                                                             
@@ -80,8 +80,8 @@
                                                                         map.setCenter(results[0].geometry.location);
 
                                                                         var infowindow = new google.maps.InfoWindow({
-                                                                        content: details+'<br><b>' + results[0].formatted_address + '</b>',
-                                                                        size: new google.maps.Size(150, 50)
+                                                                                content: details+'<br><b>' + results[0].formatted_address + '</b>',
+                                                                                size: new google.maps.Size(150, 50)
                                                                         });
 
                                                                         var marker = new google.maps.Marker({
