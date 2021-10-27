@@ -5,7 +5,7 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
 <div class="flex">
         <div   class="w-full mt-2 mr-1 ml-1 "> 
-               Detail Path
+             
                <x-jet-secondary-button wire:click="back()" class=" float-right bg-orange-500 hover:bg-gray-300 hover:text-white-100 px-4 py-2 my-6">
                                         Back
                 </x-jet-button>
@@ -28,42 +28,52 @@
 
     
          
-    // detailMap();
-    // function detailMap() {
+    detailMap();
+    function detailMap() {
       
-    // var lt =  11.0168;
-    // var ln = 76.9558;
+    var lt =  11.0168;
+    var ln = 76.9558;
     // var locations = @php echo $this->latLong;  @endphp;
-    // var mapProp = {
-    //   center: new google.maps.LatLng(11.0168, 76.9558),
-    //   zoom: 5,
-    // };
-    // var map = new google.maps.Map(document.getElementById("detail-map"), mapProp);
+   
+    var mapProp = {
+      center: new google.maps.LatLng(11.0168, 76.9558),
+      zoom: 5,
+    };
+    var map = new google.maps.Map(document.getElementById("detail-map"), mapProp);
 
     
-    // var goldenGatePosition = @php echo $this->reslatLong;  @endphp;
+    var goldenGatePosition = @php echo $this->reslatLong;  @endphp;
    
-    // var bounds = new google.maps.LatLngBounds();
-    // for (let i = 0; i < goldenGatePosition.length; i++) {
-    //   var marker = new google.maps.Marker({
-    //     position: goldenGatePosition[0],
-    //     map: map,
-    //     title: 'Golden Gate Bridge'
-    //   });
-      
-    //   bounds.extend(goldenGatePosition[i]);
-    // }
-    // var flightPath = new google.maps.Polyline({
-    //   path: goldenGatePosition,
-    //   strokeColor: "#0000FF",
-    //   strokeOpacity: 0.8,
-    //   strokeWeight: 2
-    // });
-    // flightPath.setMap(map);
-    // map.fitBounds(bounds);
+    var bounds = new google.maps.LatLngBounds();
+    var lastplace = goldenGatePosition.length - 1 ;
+    var distance =  getDistanceFromLatLonInKm(goldenGatePosition[0].lat,goldenGatePosition[0].lng,goldenGatePosition[lastplace].lat,goldenGatePosition[lastplace].lng);
+    for (let i = 0; i < goldenGatePosition.length; i++) {
+      var marker = new google.maps.Marker({ 
+        position: goldenGatePosition[0],
+        map: map,
+        title: 'Golden Gate Bridge'+' distance '+distance+' length '+lastplace
+      });
 
-    // var infowindow = new google.maps.InfoWindow();
-    // var codeStr = ''
+      var marker = new google.maps.Marker({
+        position: goldenGatePosition[lastplace],
+        map: map,
+        title: 'Golden Gate Bridge'
+      });
+      
+      bounds.extend(goldenGatePosition[i]);
+    }
+    var flightPath = new google.maps.Polyline({
+      path: goldenGatePosition,
+      geodesic: true,
+      strokeColor: "#0000FF",
+      strokeOpacity: 0.8,
+      strokeWeight: 2
+    });
+    flightPath.setMap(map);
+    map.fitBounds(bounds);
+
+    var infowindow = new google.maps.InfoWindow();
+    var codeStr = ''
     // google.maps.event.addListener(flightPath, 'click', function(event) {
     //   // make polyline for each segment of the input line
     //   for (var i = 0; i < this.getPath().getLength() - 1; i++) {
@@ -82,7 +92,7 @@
     //     }
     //   }
     // });
-    // }
+    }
   
 
   // var directionsDisplay;
@@ -137,7 +147,7 @@
   // initialize(); 
 
 
-   initMap();
+  /* initMap();
   function initMap() {
     var service = new google.maps.DirectionsService;
     var map = new google.maps.Map(document.getElementById('detail-map'));
@@ -176,7 +186,7 @@
     //     // ... as many other stations as you need
     // ];
 
-    var stations = @php echo $this->reslatLong;  @endphp;
+     var stations = @php echo $this->reslatLong;  @endphp;
     
 
     // Zoom and center map automatically by stations (each station will be in visible map area)
@@ -254,12 +264,12 @@
             waypoints: waypoints,
             travelMode: 'WALKING'
         };
-        
+        console.log(waypoints);
         // Send request
         service.route(service_options, service_callback);
     }
   }
-
+*/
   function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
         var R = 6371; // Radius of the earth in km
         var dLat = deg2rad(lat2-lat1);  // deg2rad below

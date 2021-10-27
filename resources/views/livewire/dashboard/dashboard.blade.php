@@ -33,7 +33,8 @@
 </style> 
 @push('scripts') 
 <script>
-  $('document').ready(function(){
+//   $('document').ready(function(){
+        window.onload = function () {
           setTimeout(function(){
                 var locations = @php echo $this->latLong;  @endphp;
                  var lt = @php echo $this->lat;  @endphp;
@@ -117,8 +118,8 @@
                         }
            },500)
       
-                        
-  });
+        }                  
+//   });
 
    
 </script>
