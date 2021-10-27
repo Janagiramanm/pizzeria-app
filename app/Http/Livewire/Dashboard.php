@@ -21,13 +21,13 @@ class Dashboard extends Component
     public function render()
     {
         $curdate = date('Y-m-d');
-        $curdate = '2021-10-26';
+       // $curdate = '2021-10-26';
 
         
         $users  = DB::select('SELECT * 
                                         FROM track_locations 
                                         INNER JOIN 
-                                        (SELECT MAX(id) as id FROM track_locations where date="2021-10-26" GROUP BY user_id) last_updates 
+                                        (SELECT MAX(id) as id FROM track_locations where date="'.$curdate.'" GROUP BY user_id) last_updates 
                                         ON last_updates.id = track_locations.id');
 
         if($users){
@@ -66,12 +66,8 @@ class Dashboard extends Component
                 $this->job_date = $value->date;
                 
             }
-            
-           
             $this->latLong = json_encode($res, JSON_NUMERIC_CHECK);
-            //  echo '<pre>';
-            // print_r($this->latLong);
-            // exit;
+      
               
         }
 
