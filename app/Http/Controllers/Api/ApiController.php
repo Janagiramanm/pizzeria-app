@@ -105,9 +105,12 @@ class ApiController extends Controller
 
         $date = $request->date;
         $user_id = $request->user_id;
+        $start_time = $request->start_time;
+        $end_time = $request->end_time;
 
         $result = TrackLocations::where('date', '=', $date)
         ->where('user_id', '=', $user_id)
+        ->whereBetween('time',[$start_time,$end_time])
         ->orderBy('created_at', 'asc')
         ->get();
         if(!$result){
