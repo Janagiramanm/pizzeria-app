@@ -49,9 +49,10 @@
     var distance =  getDistanceFromLatLonInKm(goldenGatePosition[0].lat,goldenGatePosition[0].lng,goldenGatePosition[lastplace].lat,goldenGatePosition[lastplace].lng);
     for (let i = 0; i < goldenGatePosition.length; i++) {
       var marker = new google.maps.Marker({ 
-        position: goldenGatePosition[0],
+        position: goldenGatePosition[1],
         map: map,
-        title: 'Golden Gate Bridge'+' distance '+distance+' length '+lastplace
+        title: goldenGatePosition[0].lat+', '+goldenGatePosition[0].lng
+        // title: 'Golden Gate Bridge'+' distance '+distance+' length '+lastplace
       });
 
       var marker = new google.maps.Marker({
@@ -67,7 +68,8 @@
       geodesic: true,
       strokeColor: "#0000FF",
       strokeOpacity: 0.8,
-      strokeWeight: 2
+      strokeWeight: 2,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING
     });
     flightPath.setMap(map);
     map.fitBounds(bounds);
