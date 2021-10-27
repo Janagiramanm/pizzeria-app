@@ -49,17 +49,18 @@
     var distance =  getDistanceFromLatLonInKm(goldenGatePosition[0].lat,goldenGatePosition[0].lng,goldenGatePosition[lastplace].lat,goldenGatePosition[lastplace].lng);
     for (let i = 0; i < goldenGatePosition.length; i++) {
       var marker = new google.maps.Marker({ 
-        position: goldenGatePosition[1],
+        position: goldenGatePosition[i],
         map: map,
-        title: goldenGatePosition[0].lat+', '+goldenGatePosition[0].lng
+        title: goldenGatePosition[i].lat+', '+goldenGatePosition[i].lng
         // title: 'Golden Gate Bridge'+' distance '+distance+' length '+lastplace
       });
 
-      var marker = new google.maps.Marker({
-        position: goldenGatePosition[lastplace],
-        map: map,
-        title: 'Golden Gate Bridge'
-      });
+      // var marker = new google.maps.Marker({
+      //   position: goldenGatePosition[lastplace],
+      //   map: map,
+      //   // title: 'Golden Gate Bridge'
+      //   title:  title: goldenGatePosition[lastplace].lat+', '+goldenGatePosition[lastplace].lng
+      // });
       
       bounds.extend(goldenGatePosition[i]);
     }
