@@ -48,19 +48,19 @@
     var lastplace = goldenGatePosition.length - 1 ;
     var distance =  getDistanceFromLatLonInKm(goldenGatePosition[0].lat,goldenGatePosition[0].lng,goldenGatePosition[lastplace].lat,goldenGatePosition[lastplace].lng);
     for (let i = 0; i < goldenGatePosition.length; i++) {
-      var marker = new google.maps.Marker({ 
-        position: goldenGatePosition[i],
-        map: map,
-        title: goldenGatePosition[i].lat+', '+goldenGatePosition[i].lng
-        // title: 'Golden Gate Bridge'+' distance '+distance+' length '+lastplace
-      });
+            var marker = new google.maps.Marker({ 
+              position: goldenGatePosition[0],
+              map: map,
+              title: goldenGatePosition[i].lat+', '+goldenGatePosition[i].lng+', '+goldenGatePosition[i].time
+              // title: 'Golden Gate Bridge'+' distance '+distance+' length '+lastplace
+            });
 
-      // var marker = new google.maps.Marker({
-      //   position: goldenGatePosition[lastplace],
-      //   map: map,
-      //   // title: 'Golden Gate Bridge'
-      //   title:  title: goldenGatePosition[lastplace].lat+', '+goldenGatePosition[lastplace].lng
-      // });
+            var marker = new google.maps.Marker({
+              position: goldenGatePosition[lastplace],
+              map: map,
+              // title: 'Golden Gate Bridge'
+              title: goldenGatePosition[lastplace].lat+', '+goldenGatePosition[lastplace].lng
+            });
       
       bounds.extend(goldenGatePosition[i]);
     }
@@ -68,8 +68,8 @@
       path: goldenGatePosition,
       geodesic: true,
       strokeColor: "#0000FF",
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
+      strokeOpacity: 2.8,
+      strokeWeight: 4,
       travelMode: google.maps.DirectionsTravelMode.DRIVING
     });
     flightPath.setMap(map);

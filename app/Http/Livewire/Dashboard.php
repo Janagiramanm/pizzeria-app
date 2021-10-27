@@ -20,18 +20,35 @@ class Dashboard extends Component
    
     public function render()
     {
-       $curdate = date('Y-m-d');
-        //$curdate = '2021-10-26';
-        $this->locations  = TrackLocations::whereIn('time', function($query) use ($curdate) {
-                                    $query->selectRaw('max(`time`)')
-                                    ->from('track_locations')
-                                    ->where('date', '=', $curdate)
-                                    ->groupBy('user_id');
-                                })->select('user_id', 'date', 'time', 'latitude', 'longitude')
-                                ->where('date', '=', $curdate)
-                                ->orderBy('created_at', 'asc')
-                                ->get();
+        $curdate = date('Y-m-d');
+        $curdate = '2021-10-26';
 
+        
+        $users  = DB::select('SELECT * 
+                                        FROM track_locations 
+                                        INNER JOIN 
+                                        (SELECT MAX(id) as id FROM track_locations where date="2021-10-26" GROUP BY user_id) last_updates 
+                                        ON last_updates.id = track_locations.id');
+
+        if($users){
+            foreach($users as $key => $user){
+                $trackIds[] = $user->id;
+            }
+        }                                    
+
+        
+        // $this->locations  = TrackLocations::whereIn('time', function($query) use ($curdate) {
+        //                             $query->selectRaw('max(`time`)')
+        //                             ->from('track_locations')
+        //                             ->where('date', '=', $curdate)
+        //                             ->groupBy('user_id')->orderBy('time', 'asc');
+        //                         })->select('user_id', 'date', 'time', 'latitude', 'longitude')
+        //                         ->where('date', '=', $curdate)
+        //                         ->orderBy('time', 'asc')
+        //                         ->get();
+
+       $this->locations  = TrackLocations::whereIn('id',$trackIds)->get();
+      
         $res = [];
         if($this->locations){
             foreach($this->locations as $key => $value){
@@ -40,8 +57,8 @@ class Dashboard extends Component
                  $details = '<b>'.$value->user->name.'</b><br> Date : '.date('d-m-Y',strtotime($value->date)) 
                           .'<br> Time : '. $value->time;
                
-                    
-                $res[] = [$details, $value->latitude, $value->longitude, $key, $value->user_id, $value->date];
+                $res[] = ['lat'=>$value->latitude, 'lng'=>$value->longitude, 'details'=>$details, 'user_id'=>$value->user_id, 'date'=>$value->date];
+                //$res[] = [$details, $value->latitude, $value->longitude, $key, $value->user_id, $value->date];
                 // $res[] = [$details, $value->latitude, $value->longitude, $key];
                 $this->lat =  $value->latitude;
                 $this->lng = $value->longitude;
