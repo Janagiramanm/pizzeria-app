@@ -66,12 +66,12 @@ class Dashboard extends Component
         //    $user_id = 2;
         //    $date = "2021-10-26";
         //    $start_time = "18:50";
-        //    $end_time ="19:10";
+        //    $end_time ="23:10";
 
         $this->locations = TrackLocations::where('date', '=', $date)
         ->where('user_id', '=', $user_id)
-        //  ->whereBetween('time',[$start_time,$end_time])
-        ->orderBy('created_at', 'asc')
+        // ->whereBetween('time',[$start_time,$end_time])
+        ->orderBy('time', 'asc')
         ->get();
             // $this->locations = TrackLocations::select('user_id', 'date', 'time' , 'latitude', 'longitude')
             // ->where('date', '=', $date)
@@ -93,7 +93,7 @@ class Dashboard extends Component
                 $details = '<b>'.$value->user->name.'</b><br> Date : '.date('d-m-Y',strtotime($value->date)) 
                           .'<br> Time : '. $value->time;
                     
-                $reslatLong[] = ['lat'=>$value->latitude, 'lng'=>$value->longitude];
+                $reslatLong[] = ['lat'=>$value->latitude, 'lng'=>$value->longitude, 'time'=>$value->time];
             // $reslatLong[] = ['lat'=>$value->latitude, 'lng'=>$value->longitude, 'detail'=>$details];
                //  $res[] = [$details, $value->latitude, $value->longitude, $key];
                // $wayPoints[] = $value->latitude.','.$value->longitude;
