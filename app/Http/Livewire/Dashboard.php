@@ -21,13 +21,14 @@ class Dashboard extends Component
     public function render()
     {
         $curdate = date('Y-m-d');
-       // $curdate = '2021-10-26';
+        $startdate = '2021-10-26';
+        $enddate = '2021-10-27';
 
-        
+       $trackIds = [];
         $users  = DB::select('SELECT * 
                                         FROM track_locations 
                                         INNER JOIN 
-                                        (SELECT MAX(id) as id FROM track_locations where date="'.$curdate.'" GROUP BY user_id) last_updates 
+                                        (SELECT MAX(id) as id FROM track_locations where date BETWEEN "'.$startdate.'" and "'.$enddate.'" and status = 1  GROUP BY user_id,date) last_updates 
                                         ON last_updates.id = track_locations.id');
 
         if($users){
@@ -36,6 +37,7 @@ class Dashboard extends Component
             }
         }                                    
 
+        
         
         // $this->locations  = TrackLocations::whereIn('time', function($query) use ($curdate) {
         //                             $query->selectRaw('max(`time`)')
@@ -48,8 +50,14 @@ class Dashboard extends Component
         //                         ->get();
 
        $this->locations  = TrackLocations::whereIn('id',$trackIds)->get();
+
+     
       
         $res = [];
+        if($this->locations->isEmpty()){
+            $this->lat = 13.02313732;
+            $this->lng = 77.6471962;
+        }
         if($this->locations){
             foreach($this->locations as $key => $value){
                 
@@ -66,10 +74,8 @@ class Dashboard extends Component
                 $this->job_date = $value->date;
                 
             }
-            $this->latLong = json_encode($res, JSON_NUMERIC_CHECK);
-      
-              
         }
+        $this->latLong = json_encode($res, JSON_NUMERIC_CHECK);
 
         return view('livewire.dashboard.dashboard');
     }

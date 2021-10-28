@@ -44,9 +44,10 @@ $('document').ready(function(){
                  const apikey = "@php echo env('GOOGLEMAPAPI') @endphp";
                 //const infowindow = new google.maps.InfoWindow();
                // var infowindow = [];
+               console.log(lt);
                 var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 10,
-                        center: new google.maps.LatLng(lt,ln),
+                        center: new google.maps.LatLng(13.00232321,77.9899200),
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                         });
 
@@ -104,11 +105,9 @@ $('document').ready(function(){
                                                                                                         Livewire.emit('getDetailPath',  user_id, date);
                                                                                                 });
                 
-                                                                                        //details = null;
-                                                                                       
-                
+                                                                                    
                                                                                         } else {
-                                                                                        alert("No results found");
+                                                                                             alert("No results found");
                                                                                         }
                                                                                 } else {
                                                                                         alert("Geocode was not successful for the following reason: " + status);
