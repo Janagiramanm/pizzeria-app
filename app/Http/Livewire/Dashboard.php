@@ -10,7 +10,8 @@ use DB;
 
 class Dashboard extends Component
 {
-    public $locations,$lat,$lng, $user_id, $job_date, $details, $date, $reslatLong, $wayPoints;
+    public $locations,$lat,$lng, $user_id, $job_date, $details, $date, $reslatLong, $wayPoints,
+           $apiKey, $count, $distance, $user_name,$from_address,$to_address;
     public $latLong = [];
     public $detailMap = false;
       
@@ -72,6 +73,7 @@ class Dashboard extends Component
                 $this->lng = $value->longitude;
                 $this->user_id = $value->user_id;
                 $this->job_date = $value->date;
+               
                 
             }
         }
@@ -111,22 +113,29 @@ class Dashboard extends Component
                 
                 $details = '<b>'.$value->user->name.'</b><br> Date : '.date('d-m-Y',strtotime($value->date)) 
                           .'<br> Time : '. $value->time;
+
+                
                     
                 $reslatLong[] = ['lat'=>$value->latitude, 'lng'=>$value->longitude, 'time'=>$value->time];
-            // $reslatLong[] = ['lat'=>$value->latitude, 'lng'=>$value->longitude, 'detail'=>$details];
-               //  $res[] = [$details, $value->latitude, $value->longitude, $key];
-               // $wayPoints[] = $value->latitude.','.$value->longitude;
+                // $reslatLong[] = ['lat'=>$value->latitude, 'lng'=>$value->longitude, 'detail'=>$details];
+                // $res[] = [$details, $value->latitude, $value->longitude, $key];
+                // $wayPoints[] = $value->latitude.','.$value->longitude;
                 $this->lat =  $value->latitude;
                 $this->lng = $value->longitude;
                 $this->user_id = $value->user_id;
                 $this->job_date = $value->date;
-                
+                $this->user_name = $value->user->name;
             }
           //  $this->wayPoints = json_encode($wayPoints, JSON_NUMERIC_CHECK);
+            $this->date = $date;
             $this->reslatLong = json_encode($reslatLong, JSON_NUMERIC_CHECK);
-            //  echo '<pre>';
-            //  print_r($reslatLong);
-            //  exit; 
+            $this->apiKey = env('GOOGLEMAPAPI');
+            $count = $this->locations->count() -1;
+            $this->from_address = $this->getAddressByLatLng($this->locations[0]->latitude,$this->locations[0]->longitude);
+            $this->to_address = $this->getAddressByLatLng($this->locations[$count]->latitude,$this->locations[$count]->longitude);
+            $this->distance = round($this->point2point_distance($this->locations[0]->latitude,$this->locations[0]->longitude, $this->locations[$count]->latitude, $this->locations[$count]->longitude), 2);
+           
+           
         }
         
     }
@@ -135,6 +144,41 @@ class Dashboard extends Component
         $this->detailMap = false;
         $this->render();
     }
+
+      
+      public function point2point_distance($lat1, $lon1, $lat2, $lon2, $unit='K') 
+      { 
+          $theta = $lon1 - $lon2; 
+          $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)); 
+          $dist = acos($dist); 
+          $dist = rad2deg($dist); 
+          $miles = $dist * 60 * 1.1515;
+          $unit = strtoupper($unit);
+  
+          if ($unit == "K") 
+          {
+              return ($miles * 1.609344); 
+          } 
+          else if ($unit == "N") 
+          {
+          return ($miles * 0.8684);
+          } 
+          else 
+          {
+          return $miles;
+        }
+      }  
+      
+      public function getAddressByLatLng($lat, $lng){
+        
+        $latLng = $lat.','.$lng;
+        $this->apiKey = env('GOOGLEMAPAPI');
+        $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$latLng.'&sensor=false&key='.$this->apiKey);
+        // $geocode=file_get_contents('https://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
+        $output= json_decode($geocode);
+        return $output->results[0]->formatted_address;
+       
+      }
 
    
 }
