@@ -142,7 +142,8 @@ class Dashboard extends Component
 
     public function back(){
         $this->detailMap = false;
-        $this->render();
+       // $this->render();
+        return redirect(request()->header('Referer'));
     }
 
       
