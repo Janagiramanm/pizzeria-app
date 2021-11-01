@@ -29,7 +29,7 @@ class Dashboard extends Component
         
         // $startdate = isset( $this->from_date) ? $this->from_date:$curdate;
         // $enddate = isset($this->to_date) ? $this->to_date:$curdate;
-        $this->user_id = isset($_GET['user_id'] != '') ? $_GET['user_id']:'';
+        $this->user_id = isset($_GET['user_id'])!='' ? $_GET['user_id']:'';
         $this->from_date = isset($_GET['from_date']) ? $_GET['from_date']:$curdate;
         $this->to_date = isset($_GET['to_date']) ? $_GET['to_date']:$curdate;
         $userCondition = '';
