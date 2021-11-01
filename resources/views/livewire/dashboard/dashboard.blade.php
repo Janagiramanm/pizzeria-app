@@ -47,7 +47,7 @@
 
                                  <x-jet-button  class="bg-orange-500 hover:bg-orange-700  mt-4" wire:click="backToDashboard()">
                                         Reset
-                                 </x-jet-button>
+                                 </x-jet-button> 
                             </div>
                             
                     </div>
