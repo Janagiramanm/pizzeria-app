@@ -21,6 +21,7 @@ class CreateCustomerLocationsTable extends Migration
             $table->string('address')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

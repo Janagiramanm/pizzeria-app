@@ -57,6 +57,7 @@
 
     
     var goldenGatePosition = @php echo $this->reslatLong;  @endphp;
+    var ideal_locations = @php echo $this->ideal_locations;  @endphp;
    
 
    
@@ -79,6 +80,14 @@
             });
       
       bounds.extend(goldenGatePosition[i]);
+    }
+    for (let i=0; i <ideal_locations.length; i++){
+           var marker = new google.maps.Marker({ 
+              position: ideal_locations[0],
+              map: map,
+              title: 'halt'
+              // title: 'Golden Gate Bridge'+' distance '+distance+' length '+lastplace
+            });
     }
     var flightPath = new google.maps.Polyline({
       path: goldenGatePosition,

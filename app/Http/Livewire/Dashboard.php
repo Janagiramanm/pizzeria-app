@@ -3,15 +3,19 @@
 namespace App\Http\Livewire;
 
 use App\Models\TrackLocations;
+use App\Models\UserRole;
 use Livewire\Component;
 use Carbon\Carbon;
 use DB;
+use DateTime;
+
 
 
 class Dashboard extends Component
 {
     public $locations,$lat,$lng, $user_id, $job_date, $details, $date, $reslatLong, $wayPoints,
-           $apiKey, $count, $distance, $user_name,$from_address,$to_address;
+           $apiKey, $count, $distance, $user_name,$from_address,$to_address,$ideal,$ideal_locations,
+           $from_date,$to_date,$customer_type, $business, $individual, $show;
     public $latLong = [];
     public $detailMap = false;
       
@@ -22,14 +26,29 @@ class Dashboard extends Component
     public function render()
     {
         $curdate = date('Y-m-d');
-        $startdate = '2021-10-26';
-        $enddate = '2021-10-27';
+        
+        // $startdate = isset( $this->from_date) ? $this->from_date:$curdate;
+        // $enddate = isset($this->to_date) ? $this->to_date:$curdate;
+        $this->user_id = isset($_GET['user_id']) ? $_GET['user_id']:'';
+        $this->from_date = isset($_GET['from_date']) ? $_GET['from_date']:$curdate;
+        $this->to_date = isset($_GET['to_date']) ? $_GET['to_date']:$curdate;
+        $userCondition = '';
+        if($this->user_id!=''){
+           $userCondition = " and user_id = ".$this->user_id;
+        }
+    
+       
 
+        //$this->customers = Customer::get();
+      //  $this->business = Customer::where('customer_type','=','BUSINESS')->get();
+        $this->users = UserRole::where('role_id','=',3)->get();
+
+        ///echo $startdate.'---'.$enddate;exit;
        $trackIds = [];
         $users  = DB::select('SELECT * 
                                         FROM track_locations 
                                         INNER JOIN 
-                                        (SELECT MAX(id) as id FROM track_locations where date BETWEEN "'.$startdate.'" and "'.$enddate.'" and status = 1  GROUP BY user_id,date) last_updates 
+                                        (SELECT MAX(id) as id FROM track_locations where date BETWEEN "'.$this->from_date.'" and "'.$this->to_date.'" '.$userCondition.'  and status = 1  GROUP BY user_id,date) last_updates 
                                         ON last_updates.id = track_locations.id');
 
         if($users){
@@ -89,11 +108,42 @@ class Dashboard extends Component
         //    $start_time = "18:50";
         //    $end_time ="23:10";
 
+        // SELECT * 
+        //                                 FROM track_locations 
+        //                                 INNER JOIN 
+        //                                 (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(15 * 60)) AS timekey FROM track_locations where status = 1  GROUP BY timekey) last_updates 
+        //                                 ON last_updates.id = track_locations.id
+
+        // $users  = DB::select('SELECT * 
+        //                         FROM track_locations 
+        //                         INNER JOIN 
+        //                         (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(15 * 60)) AS timekey FROM track_locations where status = 1  GROUP BY timekey) last_updates 
+        //                         ON last_updates.id = track_locations.id');
+
+        // if($users){
+        //     foreach($users as $key => $user){
+        //         $trackIds[] = $user->id;
+        //     }
+        // }  
+
+        // $this->locations  = TrackLocations::whereIn('id',$trackIds)
+        
+        // ->get();
+
+        $idealLocation = $this->idealLocations($user_id, $date);
         $this->locations = TrackLocations::where('date', '=', $date)
         ->where('user_id', '=', $user_id)
         // ->whereBetween('time',[$start_time,$end_time])
         ->orderBy('time', 'asc')
         ->get();
+
+
+
+
+
+
+
+
             // $this->locations = TrackLocations::select('user_id', 'date', 'time' , 'latitude', 'longitude')
             // ->where('date', '=', $date)
             // ->where('user_id', '=', $user_id)
@@ -133,7 +183,7 @@ class Dashboard extends Component
             $count = $this->locations->count() -1;
             $this->from_address = $this->getAddressByLatLng($this->locations[0]->latitude,$this->locations[0]->longitude);
             $this->to_address = $this->getAddressByLatLng($this->locations[$count]->latitude,$this->locations[$count]->longitude);
-            $this->distance = round($this->point2point_distance($this->locations[0]->latitude,$this->locations[0]->longitude, $this->locations[$count]->latitude, $this->locations[$count]->longitude), 2);
+            $this->distance = round($this->point2point_distance($this->locations[0]->latitude,$this->locations[0]->longitude, $this->locations[$count]->latitude, $this->locations[$count]->longitude,'K'), 2);
            
            
         }
@@ -147,7 +197,7 @@ class Dashboard extends Component
     }
 
       
-      public function point2point_distance($lat1, $lon1, $lat2, $lon2, $unit='K') 
+      public function point2point_distance($lat1, $lon1, $lat2, $lon2, $unit) 
       { 
           $theta = $lon1 - $lon2; 
           $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)); 
@@ -155,18 +205,24 @@ class Dashboard extends Component
           $dist = rad2deg($dist); 
           $miles = $dist * 60 * 1.1515;
           $unit = strtoupper($unit);
+
+         /// echo $miles;
   
           if ($unit == "K") 
           {
+           
               return ($miles * 1.609344); 
           } 
           else if ($unit == "N") 
           {
-          return ($miles * 0.8684);
+              return ($miles * 0.8684);
           } 
+          else if ($unit == "M"){
+              return ($miles * 1609.34);
+          }
           else 
           {
-          return $miles;
+             return $miles;
         }
       }  
       
@@ -181,5 +237,50 @@ class Dashboard extends Component
        
       }
 
+      public function idealLocations($user_id, $date){
+                   $result  = DB::select('SELECT * 
+                                            FROM track_locations 
+                                            INNER JOIN 
+                                            (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(5 * 60)) AS timekey FROM track_locations where status = 1 and user_id='.$user_id.' and date = "'.$date.'"  GROUP BY timekey) last_updates 
+                                            ON last_updates.id = track_locations.id');
+            
+            
+             
+              $count = count($result);
+              $ideal = [];
+             if($result){
+                 foreach($result as $key => $value){
+
+                      if($key != $count-1){
+                        $lat1 = $value->latitude;
+                        $lng1 = $value->longitude;
+                        $lat2 = $result[$key+1]->latitude;
+                        $lng2 = $result[$key+1]->longitude;
+                        // $time1 = new DateTime($value->time);
+                        // $time2 = new DateTime($result[$key+1]->time);
+                        // $halt_time = $time1->diff($time2);
+                        $distance =  $this->point2point_distance($lat1, $lng1, $lat2, $lng2, 'M');
+                     
+                     if($distance < 20){
+                           $ideal[] = [$lat2,$lng2,];
+                       }
+                       
+                        
+                      }
+
+             }
+              return  $this->ideal_locations = json_encode($ideal, JSON_NUMERIC_CHECK);
+             }
+
+      }
+
+     public function searchFilter(){
+
+       
+        $this->render();
+     }
    
+     public function backToDashboard(){
+        return $this->redirect('/dashboard');
+     }
 }
