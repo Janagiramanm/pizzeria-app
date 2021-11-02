@@ -44,7 +44,7 @@ class Dashboard extends Component
         $this->users = UserRole::where('role_id','=',3)->get();
 
         ///echo $startdate.'---'.$enddate;exit;
-       $trackIds = [];
+        $trackIds = [];
         $users  = DB::select('SELECT * 
                                         FROM track_locations 
                                         INNER JOIN 

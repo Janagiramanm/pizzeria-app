@@ -12,6 +12,7 @@ use App\Http\Livewire\Cities;
 use App\Http\Livewire\Jobs;
 use App\Http\Livewire\Leaves;
 use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\Reports;
 
 
 /*
@@ -48,6 +49,8 @@ Route::get('cities', Cities::class)->name('cities');
 Route::get('jobs', Jobs::class)->name('jobs');
 
 Route::get('leaves', Leaves::class)->name('leaves');
+
+Route::get('reports', Reports::class)->name('reports');
 
 
 

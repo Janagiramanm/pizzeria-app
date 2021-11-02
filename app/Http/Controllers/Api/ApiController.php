@@ -166,7 +166,7 @@ class ApiController extends Controller
         $result  = DB::select('SELECT * 
         FROM track_locations 
         INNER JOIN 
-        (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(15 * 60)) AS timekey FROM track_locations where  user_id='.$user_id.' and date = "'.$date.'"  GROUP BY timekey) last_updates 
+        (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(14 * 60)) AS timekey FROM track_locations where  user_id='.$user_id.' and date = "'.$date.'"  GROUP BY timekey) last_updates 
         ON last_updates.id = track_locations.id');
  
          if(!$result){
@@ -176,10 +176,11 @@ class ApiController extends Controller
              ];
          }
  
+
         
          return [
              'status' => 1,
-             'data' => $result
+             'travelhistory' => $result
          ];
  
      }
