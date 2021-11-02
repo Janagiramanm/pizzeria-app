@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TrackLocations;
+use DB;
 
 class ApiController extends Controller
 {
@@ -128,6 +129,60 @@ class ApiController extends Controller
    
     
     }
+
+    public function workReport(Request $request){
+       $from_date = $request->from_date !='' ? $request->from_date : date('Y-m-d', strtotime('-10 days'));
+       $to_date = $request->to_date !='' ? $request->to_date :  date('Y-m-d');
+       $user_id = $request->user_id;
+      //     $user_id = 2;
+
+
+       
+        $result  = DB::select('SELECT * 
+        FROM track_locations 
+        INNER JOIN 
+        (SELECT MAX(id) as id,date FROM track_locations where status = 2 or date BETWEEN "'.$from_date.'" and "'.$to_date.'" and user_id='.$user_id.'  GROUP BY date) last_updates 
+        ON last_updates.id = track_locations.id order by track_locations.id asc');
+
+        if(!$result){
+            return [
+                'status' => 0,
+                'message' => 'No data found'
+            ];
+        }
+
+       
+        return [
+            'status' => 1,
+            'data' => $result
+        ];
+
+    }
+
+    public function workReportDetails(Request $request){
+        $date = $request->date;
+        $user_id = $request->user_id;
+       
+        $result  = DB::select('SELECT * 
+        FROM track_locations 
+        INNER JOIN 
+        (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(15 * 60)) AS timekey FROM track_locations where  user_id='.$user_id.' and date = "'.$date.'"  GROUP BY timekey) last_updates 
+        ON last_updates.id = track_locations.id');
+ 
+         if(!$result){
+             return [
+                 'status' => 0,
+                 'message' => 'No data found'
+             ];
+         }
+ 
+        
+         return [
+             'status' => 1,
+             'data' => $result
+         ];
+ 
+     }
 
 
 }
