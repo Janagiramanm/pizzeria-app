@@ -164,26 +164,63 @@ class ApiController extends Controller
         $user_id = $request->user_id;
        
         $result  = DB::select('SELECT * 
-        FROM track_locations 
-        INNER JOIN 
-        (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(14 * 60)) AS timekey FROM track_locations where  user_id='.$user_id.' and date = "'.$date.'"  GROUP BY timekey) last_updates 
-        ON last_updates.id = track_locations.id');
- 
-         if(!$result){
+                               FROM track_locations 
+                               INNER JOIN 
+                               (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(14 * 60)) AS timekey FROM track_locations where  user_id='.$user_id.' and date = "'.$date.'"  GROUP BY timekey) last_updates 
+                               ON last_updates.id = track_locations.id');
+
+        $pause = TrackLocations::where('status', '=', 2)
+        ->where('user_id','=', $user_id)
+        ->where('date','=', $date)->get();
+
+        $count = count($result) - 1;
+
+        $distance = round($this->point2point_distance($result[0]->latitude,$result[0]->longitude, $result[$count]->latitude, $result[$count]->longitude,'K'), 2);
+
+        if(!$result){
              return [
                  'status' => 0,
                  'message' => 'No data found'
              ];
-         }
+        }
  
-
-        
-         return [
+        return [
              'status' => 1,
-             'travelhistory' => $result
+             'travelhistory' => $result,
+             'pauselocations' => $pause,
+             'distance' => $distance
          ];
  
      }
+
+     public function point2point_distance($lat1, $lon1, $lat2, $lon2, $unit) 
+     { 
+         $theta = $lon1 - $lon2; 
+         $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)); 
+         $dist = acos($dist); 
+         $dist = rad2deg($dist); 
+         $miles = $dist * 60 * 1.1515;
+         $unit = strtoupper($unit);
+
+        /// echo $miles;
+ 
+         if ($unit == "K") 
+         {
+          
+             return ($miles * 1.609344); 
+         } 
+         else if ($unit == "N") 
+         {
+             return ($miles * 0.8684);
+         } 
+         else if ($unit == "M"){
+             return ($miles * 1609.34);
+         }
+         else 
+         {
+            return $miles;
+       }
+     }  
 
 
 }
