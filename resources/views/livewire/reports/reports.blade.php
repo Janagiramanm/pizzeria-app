@@ -45,7 +45,7 @@
                                         Generate
                                  </x-jet-button>
 
-                                 <x-jet-button  class="bg-orange-500 hover:bg-orange-700  mt-4" wire:click="backToDashboard()">
+                                 <x-jet-button  class="bg-orange-500 hover:bg-orange-700  mt-4" wire:click="backToReports()">
                                         Reset
                                  </x-jet-button> 
                             </div>
@@ -62,8 +62,12 @@
                             border-t-2 border-b-2 border-purple-500
                             "
                         ></div>
-                        </div>
+                        </div>  
                     </div>
+
+                    @if($detailReport)
+                          @include('livewire.reports.detail')
+                    @endif
                    
                    @if($show)
                     <div wire:loading.remove>
@@ -82,7 +86,7 @@
                                <tr>
                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['date'] }} <br> {{ $value['time'] }} </td>
                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['address'] }}</td>
-                                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['status'] }}</td>
+                                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><span wire:click="viewReport('{{ $value['date'] }}')">View Details</span></td>
                                </tr>
                          @endforeach
                          </table>

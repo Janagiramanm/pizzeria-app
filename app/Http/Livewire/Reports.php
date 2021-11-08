@@ -13,7 +13,8 @@ class Reports extends Component
 {
     public $user_id, $from_date,$to_date;
     public $result = [];
-    public $show, $processing = false;
+    public $show, $processing, $detailReport = false;
+    public $status = ['logout','login','pause'];
     public function render()
     {
 
@@ -29,6 +30,7 @@ class Reports extends Component
         ]);
 
         $this->show =true;
+        $this->detailReport = false;
 
         //$result = TrackLocations::where('user_id','=',$this->user_id)->whereBetween('date',[$this->from_date, $this->to_date]);
 
@@ -120,5 +122,41 @@ class Reports extends Component
             return $result;
     }
 
+    public function viewReport($date){
+
+          $this->show = false;
+          $this->detailReport = true;
+         //  echo $date;exit;  
+        //   $result  = DB::select('SELECT * 
+        //                         FROM track_locations 
+        //                         INNER JOIN 
+        //                         (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(30 * 60)) AS timekey FROM track_locations where date BETWEEN "'.$this->from_date.'" and "'.$this->to_date.'" and user_id='.$this->user_id.'  GROUP BY timekey) last_updates 
+        //                         ON last_updates.id = track_locations.id order by track_locations.id asc');
+
+            $details =  TrackLocations::where('user_id','=',$this->user_id)->whereBetween('date',[$date, $date])
+            ->get()->sortBy('id');
+        
+        $status = '';
+            if($details){
+                foreach($details as $key => $value){
+                   
+                    if($status != $value->status){
+                            $url="https://maps.google.com/maps/api/geocode/json?latlng=".$value->latitude.",".$value->longitude."&key=".env('GOOGLEMAPAPI');
+                            $curl_return=$this->curl_get($url);
+                            $obj=json_decode($curl_return);
+                            $result[$key]['date'] = $value->date;
+                            $result[$key]['time'] = $value->time;
+                            $result[$key]['address'] = $obj->results[0]->formatted_address;
+                            $result[$key]['status'] = ucfirst($this->status[$value->status]);
+                    }
+                    $status = $value->status;
+                }
+            }
+            $this->result = $result;
+    }
+
+    public function backToReports(){
+        return $this->redirect('/reports');
+    }
 
 }
