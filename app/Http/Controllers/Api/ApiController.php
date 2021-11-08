@@ -136,15 +136,59 @@ class ApiController extends Controller
        $user_id = $request->user_id;
       //     $user_id = 2;
 
+                         
+      $result = DB::table('track_locations')
+      ->select(DB::raw('DATE(date) as date'))
+      ->where('user_id','=', $user_id)
+      ->groupBy('date')
+      ->get();
 
+     
+      $final_result = [];
+       if($result){
+           $dateWiseData = [];
+           foreach($result as $key => $value){
+
+                // $a = TrackLocations::where('user_id', '=', $user_id)
+                //      ->where('date', '=' , $value->date)->orderBy('id','asc')->limit(1);
+
+                // $dateWiseData[$value->date] = TrackLocations::where('user_id', '=', $user_id)
+                //      ->where('date', '=' , $value->date)->orderBy('id','desc')->limit(1)->union($a)->get();
+
+
+                // $table = DB::table("track_locations")
+                //         ->select('*')->where('date', '=' , $value->date)->orderBy('id','asc')->skip(0)->limit(1);
+
+                // $dateWiseData[$value->date] =       DB::table("track_locations")
+                //         ->select('*')
+                //         ->union($table)
+                //         ->where('date', '=' , $value->date)->orderBy('id','desc')->skip(0)->limit(1)
+                //         ->get();
+
+                $dateWiseData[$value->date] =  DB::select('(SELECT * FROM track_locations where user_id = '.$user_id.' and date = "'.$value->date.'" ORDER BY id LIMIT 1)
+                                                            UNION ALL
+                                                            (SELECT * FROM track_locations where user_id = '.$user_id.' and date = "'.$value->date.'" ORDER BY id DESC LIMIT 1)');
+           }
+
+           if(!empty($dateWiseData)){
+               foreach($dateWiseData as $key => $value){
+
+                    $final_result[] = [
+                               'date' => $value[0]->date,
+                               'start_time' =>  $value[0]->time,
+                               'end_time' => $value[1]->time,
+                               'from_lat' => $value[0]->latitude,
+                               'from_lng' => $value[0]->longitude,
+                               'to_lat' => $value[1]->latitude,
+                               'to_lng' => $value[1]->longitude,
+                    ];
+               }
+           }
+       }
+      
+      
        
-        $result  = DB::select('SELECT * 
-        FROM track_locations 
-        INNER JOIN 
-        (SELECT MAX(id) as id,date FROM track_locations where status = 2 or date BETWEEN "'.$from_date.'" and "'.$to_date.'" and user_id='.$user_id.'  GROUP BY date) last_updates 
-        ON last_updates.id = track_locations.id order by track_locations.id asc');
-
-        if(!$result){
+        if( empty($final_result)){
             return [
                 'status' => 0,
                 'message' => 'No data found'
@@ -154,7 +198,7 @@ class ApiController extends Controller
        
         return [
             'status' => 1,
-            'data' => $result
+            'data' => $final_result
         ];
 
     }

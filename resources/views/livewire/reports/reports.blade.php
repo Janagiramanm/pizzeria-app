@@ -74,21 +74,36 @@
                          <table class="min-w-full leading-normal">
                              <tr>
                                 <th  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"> 
-                                    Date / Time 
+                                    Date  
                                 </th>
                                 <th  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"> 
-                                Locations </th>
+                                    Start Time  
+                                </th>
+                                <th  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"> 
+                                    End Time  
+                                </th>
+                                <th  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"> 
+                                From</th>
+                                <th  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"> 
+                                To </th>
                                 <th  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"> 
                                 Status </th>
                              </tr>
+                                @if(!$result)
+                                   <tr><td colspan="6" class="text-center">No Result Found</td></tr>
+                                @else
                         
-                         @foreach($result as $key => $value)
-                               <tr>
-                                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['date'] }} <br> {{ $value['time'] }} </td>
-                                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['address'] }}</td>
-                                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><span wire:click="viewReport('{{ $value['date'] }}')">View Details</span></td>
-                               </tr>
-                         @endforeach
+                                    @foreach($result as $key => $value)
+                                        <tr>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['date'] }}  </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['start_time'] }} </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['end_time'] }} </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['from_address'] }}</td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $value['to_address'] }}</td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><span wire:click="viewReport('{{ $value['date'] }}')">View Details</span></td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                          </table>
                     </div>
                     @endif
