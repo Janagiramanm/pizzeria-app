@@ -31,6 +31,7 @@ class Reports extends Component
 
         $this->show =true;
         $this->detailReport = false;
+        $this->result = null;
         
 
 
@@ -62,7 +63,7 @@ class Reports extends Component
                     ];
                 }
             }
-          //  print_r($this->result);
+          
         }
 
         
