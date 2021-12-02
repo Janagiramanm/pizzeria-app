@@ -1,22 +1,18 @@
     <!-- Primary Navigation Menu -->
-    <nav x-data="{ open: false }" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-50 top-0">
+    <nav x-data="{ open: false }" class="pt-2 md:pt-1 pb-1 px-1 mt-0 h-14 fixed w-full z-50 top-0">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-50">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between h-18">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
+                <!-- <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                         
                     </a>
-                </div>
+                </div> -->
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}">
-                        {{ __('PLANET WORK') }}
-                    </x-jet-nav-link>
-                </div>
+               
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -216,3 +212,9 @@
         </div>
     </div>
 </nav>
+
+<style>
+     img.head_logo {
+            width: 70px;
+      }
+</style> 

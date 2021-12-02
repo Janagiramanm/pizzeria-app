@@ -128,9 +128,6 @@
                                 </div>
                 </div>
                
-
-                
-               
                 @if($createMode)
                   <x-jet-button wire:click.prevent="store()" class="bg-orange-500 hover:bg-orange-700  mt-4">
                         Save

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrackLocationsTable extends Migration
+class CreateRawMaterialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,24 @@ class CreateTrackLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('track_locations', function (Blueprint $table) {
+        Schema::create('raw_materials', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->date('date');
-            $table->time('time');
-            $table->text('latitude');
-            $table->text('longitude');
-            $table->integer('status');
+            $table->string('name');
+            $table->string('uom');
+            $table->string('quantity');
+            $table->string('ppl');
+            $table->string('price');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *  
+     *
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('track_locations');
+        Schema::dropIfExists('raw_materials');
     }
 }

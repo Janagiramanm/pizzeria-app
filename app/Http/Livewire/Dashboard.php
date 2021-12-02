@@ -26,78 +26,6 @@ class Dashboard extends Component
     public function render()
     {
         $curdate = date('Y-m-d');
-        
-        // $startdate = isset( $this->from_date) ? $this->from_date:$curdate;
-        // $enddate = isset($this->to_date) ? $this->to_date:$curdate;
-        $this->user_id = isset($_GET['user_id'])!='' ? $_GET['user_id']:'';
-        $this->from_date = isset($_GET['from_date']) ? $_GET['from_date']:$curdate;
-        $this->to_date = isset($_GET['to_date']) ? $_GET['to_date']:$curdate;
-        $userCondition = '';
-        if($this->user_id!=''){
-           $userCondition = " and user_id = ".$this->user_id;
-        }
-    
-       
-
-        //$this->customers = Customer::get();
-      //  $this->business = Customer::where('customer_type','=','BUSINESS')->get();
-        $this->users = UserRole::where('role_id','=',3)->get();
-
-        ///echo $startdate.'---'.$enddate;exit;
-        $trackIds = [];
-        $users  = DB::select('SELECT * 
-                                        FROM track_locations 
-                                        INNER JOIN 
-                                        (SELECT MAX(id) as id FROM track_locations where date BETWEEN "'.$this->from_date.'" and "'.$this->to_date.'" '.$userCondition.'  and status = 1  GROUP BY user_id,date) last_updates 
-                                        ON last_updates.id = track_locations.id');
-
-        if($users){
-            foreach($users as $key => $user){
-                $trackIds[] = $user->id;
-            }
-        }                                    
-
-        
-        
-        // $this->locations  = TrackLocations::whereIn('time', function($query) use ($curdate) {
-        //                             $query->selectRaw('max(`time`)')
-        //                             ->from('track_locations')
-        //                             ->where('date', '=', $curdate)
-        //                             ->groupBy('user_id')->orderBy('time', 'asc');
-        //                         })->select('user_id', 'date', 'time', 'latitude', 'longitude')
-        //                         ->where('date', '=', $curdate)
-        //                         ->orderBy('time', 'asc')
-        //                         ->get();
-
-       $this->locations  = TrackLocations::whereIn('id',$trackIds)->get();
-
-     
-      
-        $res = [];
-        if($this->locations->isEmpty()){
-            $this->lat = 13.02313732;
-            $this->lng = 77.6471962;
-        }
-        if($this->locations){
-            foreach($this->locations as $key => $value){
-                
-
-                 $details = '<b>'.$value->user->name.'</b><br> Date : '.date('d-m-Y',strtotime($value->date)) 
-                          .'<br> Time : '. $value->time;
-               
-                $res[] = ['lat'=>$value->latitude, 'lng'=>$value->longitude, 'details'=>$details, 'user_id'=>$value->user_id, 'date'=>$value->date];
-                //$res[] = [$details, $value->latitude, $value->longitude, $key, $value->user_id, $value->date];
-                // $res[] = [$details, $value->latitude, $value->longitude, $key];
-                $this->lat =  $value->latitude;
-                $this->lng = $value->longitude;
-                $this->user_id = $value->user_id;
-                $this->job_date = $value->date;
-               
-                
-            }
-        }
-        $this->latLong = json_encode($res, JSON_NUMERIC_CHECK);
-
         return view('livewire.dashboard.dashboard');
     }
 
@@ -268,6 +196,7 @@ class Dashboard extends Component
                      if($distance < 20){
                           // $ideal[] = $lat2.','.$lng2;
                            $ideal[] = ['lat'=> $lat2, 'lng'=>$lng2];
+                           
                        }
                        
                         
@@ -292,7 +221,7 @@ class Dashboard extends Component
         return $this->redirect('/dashboard');
      }
 
-     function calculateDistanceBetweenTwoPoints($latitudeOne='', $longitudeOne='', $latitudeTwo='', $longitudeTwo='',$distanceUnit ='',$round=false,$decimalPoints='')
+     public function calculateDistanceBetweenTwoPoints($latitudeOne='', $longitudeOne='', $latitudeTwo='', $longitudeTwo='',$distanceUnit ='',$round=false,$decimalPoints='')
     {
         if (empty($decimalPoints)) 
         {

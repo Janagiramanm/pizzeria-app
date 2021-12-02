@@ -25,10 +25,17 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'SuperAdmin',
                 'mobile' => '9943308193',
-                'email' => 'admin@admin.com',
+                'email' => 'admin@pizzerialocale.in',
                 'password' => 'password',
                
             ],
+            [
+                'name' => 'Manager',
+                'mobile' => '1214121212',
+                'email' => 'manager@pizzerialocale.in',
+                'password' => 'password',
+               
+            ]
         );
 
         $roles = [
@@ -40,10 +47,7 @@ class AdminSeeder extends Seeder
                         'name' => 'manager',
                         'description' => 'Manager, having limited access.'
                     ],
-                    [
-                        'name' => 'employee',
-                        'description' => 'Employee has access of web app.'
-                    ]
+                    
                 ];
 
         foreach($roles as $key => $value){
@@ -69,26 +73,7 @@ class AdminSeeder extends Seeder
             }
         }
 
-        $cities = [
-               ['name' => 'Bangalore'],
-               ['name' => 'Chennai']
-        ];
-        foreach($cities as $key => $city){
-           City::create($city);
-        }
 
-        $tasks = [
-            [
-                 'name' => 'System Issues',
-                 'description' => "System Not working"
-            ],
-            [
-                'name' => 'Network Issues',
-                'description' => "Internet Not working"
-            ]
-        ];
-        foreach($tasks as $key => $task){
-          Task::create($task);
-        }
+       
     }
 }
