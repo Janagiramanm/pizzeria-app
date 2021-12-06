@@ -8,8 +8,7 @@
         <title>{{ config('app.name', 'Pizzerialocale') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
+       
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         
@@ -25,12 +24,9 @@
         <!-- Scripts -->
          <script src="{{ mix('js/app.js') }}" defer></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-       
-       
         
 
         <!-- Select2 -->
-      
         <script type="text/javascript" src="https://unpkg.com/moment"></script>
     
     </head>
@@ -93,14 +89,10 @@
                     {{ $slot }}
                 </main>
             </div>
-    
-
-           
           
         @stack('modals')
         @stack('styles')
         @stack('scripts')
-        @stack('before-livewire-scripts')
         @stack('js');
         @livewireScripts
        
