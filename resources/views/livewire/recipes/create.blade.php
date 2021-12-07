@@ -28,12 +28,13 @@
                                           </option>
                                    @endforeach
                               </select>
+                              @error('item.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                  </div> 
                  <div class="md:w-1/5 m-2"> 
                             <x-jet-label for="quantity" value="{{ __('Quantity') }}" />
                             <input class="appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="quantity.0"
                               name="quantity.0" type="text" placeholder="" wire:model.defer="quantity.0">
-                             @error('quantity') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                             @error('quantity.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                  </div> 
                  
                     <button class="btn text-green btn-info btn-sm" wire:click.prevent="add({{$i}})">Add</button>
@@ -55,12 +56,13 @@
                                                       </option>
                                                 @endforeach
                                           </select>
+                                          @error('item.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                         </div> 
                         <div class="md:w-1/5 m-2"> 
                                     <x-jet-label for="quantity" value="{{ __('Quantity') }}" />
                                     <input class="appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="quantity.{{ $value }}" 
                                           name="quantity.{{$value}}" type="text" placeholder="" wire:model.defer="quantity.{{$value}}">
-                                    @error('quantity') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                                    @error('quantity.{{$value}}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                         </div> 
                             
                         <button class="btn btn-danger text-red btn-sm" wire:click.prevent="remove({{$key}})">remove</button>

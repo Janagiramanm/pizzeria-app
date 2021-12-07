@@ -10,9 +10,13 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
         @if($updateMode)
+            @include('livewire.recipes.update')
+        @elseif($createMode)
             @include('livewire.recipes.create')
-            @elseif($createMode)
-                @include('livewire.recipes.create')
+        @elseif($editIngredientMode)
+            @include('livewire.recipes.update_ingredient')
+        @elseif($addnewIngredients)
+            @include('livewire.recipes.add_ingredient')
         @else
             <table class="table-fixed w-full">
                           
@@ -23,55 +27,44 @@
                             <thead>
                                 <tr class="bg-gray-100">
                                     <th class="px-4 py-2 w-20">No.</th>
-                                    <th class="px-4 py-2">Name</th>
-                                    <th class="px-4 py-2">UOM</th>                                   
+                                    <th class="px-4 py-2">Recipe Name</th>
+                                    <th class="px-4 py-2">Ingredients</th>                                   
                                     <th class="px-4 py-2">Quantity</th>
-                                    <th class="px-4 py-2">PPL</th>
-                                    <th class="px-4 py-2">Price</th>
                                     <th class="px-4 py-2">Action</th>
                                 </tr>   
                             </thead>
                             <tbody>
                             @php $no = 1; @endphp
                                 @foreach($recipes as $recipe)
-                                <tr>
-                                    <td class="border px-4 py-2">{{ $no++ }}</td>
-                                    <td class="border px-4 py-2">{{ ucfirst($recipe->name) }}</td>
-                                    <td class="border px-4 py-2">{{ $recipe->uom }}</td>
-                                    <td class="border px-4 py-2">{{ $recipe->quantity }}</td>
-                                    <td class="border px-4 py-2">{{ $recipe->ppl}} </td>
-                                    <td class="border px-4 py-2">{{ $recipe->price}} </td>
-                                    <td class="border px-4 py-2">
-                                       <x-jet-button wire:click="edit( {{ $recipe->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-20">
-                                        Edit
-                                       </x-jet-button>
-                                    </td>
-                                </tr>
+                                    <tr class="">
+                                        <td class="border px-4 py-2">{{ $no++ }}</td>
+                                        <td class="border px-4 py-2" colspan="3">{{ ucfirst($recipe->product_name) }}</td>
+                                        <td class="border px-4 py-2">
+                                        <x-jet-button wire:click="edit( {{ $recipe->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-20">
+                                            View 
+                                        </x-jet-button>
+                                        <!-- <x-jet-danger-button wire:click="confirmItemDeletion( {{ $recipe->id}})" wire:loading.attr="disabled" class="m-1 w-20">
+                                           Delete
+                                        </x-jet-danger-button> -->
+                                        </td>
+                                    </tr>
+                                    <!-- @foreach($recipe->recipeIngredients as $ingredients)
+                                    <tr>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2">{{ $ingredients->rawMaterial->name }}</td>
+                                        <td class="border px-4 py-2">{{ $ingredients->quantity }}</td>
+                                        <td class="border px-4 py-2">
+                                        </td>
+                                    </tr>
+                                    @endforeach -->
                                 @endforeach
                             </tbody>
             </table>
             @endif
 
 
-            <x-jet-confirmation-modal wire:model="confirmingItemDeletion">
-                    <x-slot name="title">
-                        {{ __('Delete Item') }}
-                    </x-slot>
             
-                    <x-slot name="content">
-                        {{ __('Are you sure you want to delete Item? ') }}
-                    </x-slot>
-            
-                    <x-slot name="footer">
-                        <x-jet-secondary-button wire:click="$set('confirmingItemDeletion', false)" wire:loading.attr="disabled">
-                            {{ __('Cancel') }}
-                        </x-jet-secondary-button>
-            
-                        <x-jet-danger-button class="ml-2" wire:click="deleteItem({{ $confirmingItemDeletion }})" wire:loading.attr="disabled">
-                            {{ __('Delete') }}
-                        </x-jet-danger-button>
-                    </x-slot>
-            </x-jet-confirmation-modal>
 
 </div>
 </div>
