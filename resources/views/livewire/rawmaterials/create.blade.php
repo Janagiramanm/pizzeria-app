@@ -25,7 +25,7 @@
                                     <option value="ml">ML</option>
                                     <option value="nos">Nos</option>
                               </select>
-                           
+                              @error('uom') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror 
                  </div> 
             </div>
             <div class="flex">
@@ -39,7 +39,7 @@
 
             <div class="flex">
                  <div class="md:w-1/2 m-2"> 
-                            <x-jet-label for="ppl" value="{{ __('PPL') }}" />
+                            <x-jet-label for="ppl" value="{{ __('PPL ( % )') }}" />
                             <input class="appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="ppl" type="text" placeholder="" wire:model="ppl">
                              @error('ppl') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror

@@ -26,6 +26,9 @@ class RawMaterials extends Component
     public function store(){
         $this->validate([
             'name' => 'required',
+            'uom' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
             
         ]);
         RawMaterial::create([

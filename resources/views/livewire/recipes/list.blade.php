@@ -48,7 +48,7 @@
                                         </x-jet-danger-button> -->
                                         </td>
                                     </tr>
-                                    <!-- @foreach($recipe->recipeIngredients as $ingredients)
+                                    @foreach($recipe->recipeIngredients as $ingredients)
                                     <tr>
                                         <td class="border px-4 py-2"></td>
                                         <td class="border px-4 py-2"></td>
@@ -57,7 +57,7 @@
                                         <td class="border px-4 py-2">
                                         </td>
                                     </tr>
-                                    @endforeach -->
+                                    @endforeach
                                 @endforeach
                             </tbody>
             </table>

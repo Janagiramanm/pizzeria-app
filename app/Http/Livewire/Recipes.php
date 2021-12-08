@@ -41,6 +41,7 @@ class Recipes extends Component
     public function view(){
         $this->createMode = false;
         $this->updateMode = false;
+        $this->addnewIngredients = false;
         $this->editIngredientMode = false;
         $this->resetInput();
     }
@@ -179,7 +180,27 @@ class Recipes extends Component
 
         $this->addnewIngredients = true;
         $this->updateMode = false;
+        $this->inputs = [];
   }
+   
+    public function saveNewIngredient(){
+
+        $this->validate([
+            'item.0' => 'required',
+            'quantity.0' => 'required',
+            'item.*' => 'required',
+            'quantity.*' => 'required',
+        ]);
+
+
+        foreach ($this->item as $key => $value) {
+            Ingredient::create([
+                   'recipe_id' => $this->recipe_id,
+                   'raw_material_id' => $this->item[$key],
+                   'quantity' => $this->quantity[$key],
+                ]);
+        }
+    }
     
    
 }

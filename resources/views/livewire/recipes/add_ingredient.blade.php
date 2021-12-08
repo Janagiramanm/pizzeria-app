@@ -60,18 +60,16 @@
             <button class="btn btn-danger text-red btn-sm" wire:click.prevent="remove({{$key}})">remove</button>
                   
             </div>
+
         
     </div>
 </div>
 @endforeach
-@if($createMode)
-      <x-jet-button wire:click.prevent="store()" class="bg-orange-500 hover:bg-orange-700  mt-4">
-            Save
-      </x-jet-button>
-@elseif($updateMode)
-          <x-jet-button wire:click.prevent="update()" class="bg-orange-500 hover:bg-orange-700  mt-4">
-                Update
-          </x-jet-button>
-@endif
+<div class="md:w-1/5 m-2"> 
+            <x-jet-button wire:click.prevent="saveNewIngredient()" class="bg-orange-500 hover:bg-orange-700  mt-4">
+                  Add Ingredient
+            </x-jet-button>   
+</div>
+
 
 </form>

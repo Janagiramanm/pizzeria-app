@@ -16,10 +16,10 @@ class CreateRawMaterialsTable extends Migration
         Schema::create('raw_materials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('uom');
+            $table->string('uom')->nullable();
             $table->string('quantity');
-            $table->string('ppl');
-            $table->string('price');
+            $table->string('ppl')->nullable();
+            $table->string('price')->nullable();
             $table->timestamps();
         });
     }
