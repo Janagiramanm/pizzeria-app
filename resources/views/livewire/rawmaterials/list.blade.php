@@ -19,7 +19,12 @@
                             <x-jet-secondary-button wire:click="create()" class=" float-right bg-orange-500 hover:bg-gray-300 hover:text-white-100 px-4 py-2 my-6">
                                         Add New 
                             </x-jet-button>
-                    
+
+                            <div class="md:w-1/2 m-2"> 
+                                <input wire:model="searchTerm" class="appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                                name="material_name" type="text" placeholder="Search Item" wire:model="material_name">
+                            </div>
+
                             <thead>
                                 <tr class="bg-gray-100">
                                     <th class="px-4 py-2 w-20">No.</th>
@@ -45,6 +50,9 @@
                                        <x-jet-button wire:click="edit( {{ $material->id}})" class="bg-orange-500 hover:bg-orange-700 m-1 w-20">
                                         Edit
                                        </x-jet-button>
+                                       <x-jet-danger-button wire:click="confirmItemDeletion( {{ $material->id}})" wire:loading.attr="disabled" class="m-1 w-20">
+                                           Delete
+                                        </x-jet-danger-button>
                                     </td>
                                 </tr>
                                 @endforeach

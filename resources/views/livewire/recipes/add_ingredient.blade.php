@@ -66,9 +66,15 @@
 </div>
 @endforeach
 <div class="md:w-1/5 m-2"> 
-            <x-jet-button wire:click.prevent="saveNewIngredient()" class="bg-orange-500 hover:bg-orange-700  mt-4">
-                  Add Ingredient
-            </x-jet-button>   
+      <x-jet-button wire:click.prevent="saveNewIngredient()" class="bg-orange-500 hover:bg-orange-700  mt-4">
+            Add Ingredient
+      </x-jet-button>   
+
+      <x-jet-button wire:click.prevent="goBack()" class="bg-orange-500 hover:bg-orange-700  mt-4">
+            Back
+      </x-jet-button>   
+      
+
 </div>
 
 

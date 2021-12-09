@@ -95,6 +95,7 @@ class Recipes extends Component
     public function confirmingRecipeDeletion($id) 
     {
         $this->confirmingRecipeDeletion = $id;
+       
     }
     public function deleteItem(Recipe $recipe) 
     {
@@ -120,6 +121,7 @@ class Recipes extends Component
         $ingredients->delete();
         $recipe->delete();
         $this->confirmingRecipeDeletion = false;
+        $this->view();
         session()->flash('message', 'Item Deleted Successfully');
     }
 
@@ -181,8 +183,13 @@ class Recipes extends Component
         $this->addnewIngredients = true;
         $this->updateMode = false;
         $this->inputs = [];
-  }
+    }
    
+    public function goBack(){
+        $this->updateMode = true;
+        $this->addnewIngredients = false;
+        $this->inputs = Ingredient::where('recipe_id','=', $this->recipe_id)->get();
+    }
     public function saveNewIngredient(){
 
         $this->validate([
@@ -200,6 +207,9 @@ class Recipes extends Component
                    'quantity' => $this->quantity[$key],
                 ]);
         }
+        $this->updateMode = true;
+        $this->addnewIngredients = false;
+        $this->inputs = Ingredient::where('recipe_id','=', $this->recipe_id)->get();
     }
     
    

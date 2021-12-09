@@ -46,7 +46,7 @@
                 Update
 </x-jet-button>
 <x-jet-danger-button wire:click="confirmingRecipeDeletion({{ $this->recipe_id }})" wire:loading.attr="disabled" class="m-1 w-20">
-                                           Delete
+     Delete
 </x-jet-danger-button>
 
 </div>
@@ -55,7 +55,7 @@
          
 
 </form>
-<x-jet-confirmation-modal wire:model="confirmingRecipeDeletion">
+<x-jet-confirmation-modal  wire:model="confirmingRecipeDeletion">
                     <x-slot name="title">
                         {{ __('Delete Item') }}
                     </x-slot>
@@ -75,7 +75,7 @@
                     </x-slot>
 </x-jet-confirmation-modal>
 
-<x-jet-confirmation-modal wire:model="confirmingItemDeletion">
+<x-jet-confirmation-modal wire:ignore.self wire:model="confirmingItemDeletion">
                     <x-slot name="title">
                         {{ __('Delete Item') }}
                     </x-slot>

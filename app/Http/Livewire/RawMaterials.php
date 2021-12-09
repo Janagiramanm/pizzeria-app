@@ -9,12 +9,17 @@ class RawMaterials extends Component
 {
 
     public $updateMode,$createMode = false;
-    public $name,$uom, $quantity, $ppl, $price, $raw_material_id, $confirmingItemDeletion;
+    public $name,$uom, $quantity, $ppl, $price, $raw_material_id, $confirmingItemDeletion, $searchTerm, $material_name;
     public $show = true;
 
     public function render()
     {
-        $this->materials = RawMaterial::all();
+        $query = '%'.$this->searchTerm.'%';
+        $this->materials =  RawMaterial::where(function($query){
+            $query->where('name', 'like', '%'.$this->searchTerm.'%');
+                   
+        })->get();
+       // $this->materials = RawMaterial::all();
         return view('livewire.rawmaterials.list');
     }
 
@@ -97,5 +102,18 @@ class RawMaterials extends Component
         }
         $this->createMode = false;
         $this->resetInput();
+    }
+
+    public function confirmItemDeletion( $id) 
+    {
+        $this->confirmingItemDeletion = $id;
+    }
+    public function deleteItem(RawMaterial $rawmaterial) 
+    {
+
+        $rawmaterial->delete();
+        $this->confirmingItemDeletion = false;
+        session()->flash('message', 'Item Deleted Successfully');
+       
     }
 }
