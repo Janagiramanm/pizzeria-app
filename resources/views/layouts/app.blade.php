@@ -13,7 +13,8 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-        <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> 
+        <!-- <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">  -->
+        <link href="https://cdn.tailwindcss.com" rel="stylesheet"> 
         
         
         <!-- <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet"> -->
