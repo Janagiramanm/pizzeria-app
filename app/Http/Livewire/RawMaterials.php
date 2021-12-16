@@ -4,9 +4,12 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\RawMaterial;
+use Livewire\WithPagination;
+
 
 class RawMaterials extends Component
 {
+    use WithPagination;
 
     public $updateMode,$createMode = false;
     public $name,$uom, $quantity, $ppl, $price, $raw_material_id, $confirmingItemDeletion, $searchTerm, $material_name;
@@ -15,12 +18,11 @@ class RawMaterials extends Component
     public function render()
     {
         $query = '%'.$this->searchTerm.'%';
-        $this->materials =  RawMaterial::where(function($query){
-            $query->where('name', 'like', '%'.$this->searchTerm.'%');
-                   
-        })->get();
-       // $this->materials = RawMaterial::all();
-        return view('livewire.rawmaterials.list');
+        return view('livewire.rawmaterials.list', [
+            'materials' => RawMaterial::where(function($query){
+                             $query->where('name', 'like', '%'.$this->searchTerm.'%');
+                           })->paginate(10)
+        ]);
     }
 
     public function create(){
