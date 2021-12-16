@@ -37,10 +37,12 @@
                                 </tr>   
                             </thead>
                             <tbody>
-                            @php $no = 1; @endphp
+                            @php $no = 1; 
+                            $index = $materials->firstItem()
+                            @endphp
                                 @foreach($materials as $material)
                                 <tr>
-                                    <td class="border px-4 py-2">{{ $no++ }}</td>
+                                    <td class="border px-4 py-2">{{ $index++ }}</td>
                                     <td class="border px-4 py-2">{{ ucfirst($material->name) }}</td>
                                     <td class="border px-4 py-2">{{ $material->uom }}</td>
                                     <td class="border px-4 py-2">{{ $material->quantity }}</td>
