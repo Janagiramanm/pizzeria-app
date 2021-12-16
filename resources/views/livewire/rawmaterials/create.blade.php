@@ -20,7 +20,7 @@
                  <div class="md:w-1/2 m-2"> 
                               <x-jet-label for="uom" value="{{ __('UOM') }}" />
                               <select id="uom" wire:model="uom"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="uom">
-                                    <option value="">Select City</option>
+                                    <option value="">Select UOM</option>
                                     <option value="gms">Gms</option>
                                     <option value="ml">ML</option>
                                     <option value="nos">Nos</option>
