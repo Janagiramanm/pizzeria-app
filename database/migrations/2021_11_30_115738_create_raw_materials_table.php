@@ -21,6 +21,7 @@ class CreateRawMaterialsTable extends Migration
             $table->string('ppl')->nullable();
             $table->string('price')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

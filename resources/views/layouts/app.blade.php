@@ -78,6 +78,13 @@
                                         <li class="my-px">
 											<span class="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase bg-purple-50 w-60 p-3">Reports</span>
 										</li>
+                                           <ul>
+                                               <li class="mr-3 flex-1">
+                                                        <x-jet-nav-link href="{{ route('reports') }}" :active="request()->routeIs('reports')">
+                                                            <i class="fas fa-comment-dollar pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Utilization Report</span>
+                                                        </x-jet-nav-link>
+                                               </li>
+                                           </ul>
                                        
                                     </ul>
                                 </div>

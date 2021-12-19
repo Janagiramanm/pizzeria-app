@@ -15,7 +15,7 @@ use App\Http\Livewire\Cities;
 // use App\Http\Livewire\Jobs;
 // use App\Http\Livewire\Leaves;
 use App\Http\Livewire\Dashboard;
-// use App\Http\Livewire\Reports;
+use App\Http\Livewire\Reports;
 // use App\Http\Livewire\Holidays;
 
 
@@ -56,7 +56,7 @@ Route::get('cities', Cities::class)->name('cities');
 
 // Route::get('leaves', Leaves::class)->name('leaves');
 
-// Route::get('reports', Reports::class)->name('reports');
+Route::get('reports', Reports::class)->name('reports');
 
 // Route::get('holidays', Holidays::class)->name('holidays');
 
