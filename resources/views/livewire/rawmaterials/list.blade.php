@@ -60,10 +60,10 @@
                                 @endforeach
                             </tbody>
             </table>
+                 
+                    {{ $materials->links() }}
+                 
             @endif
-            <div class="p-2 bg-gray-200">
-            {{ $materials->links() }}
-            </div>
 
 
             <x-jet-confirmation-modal wire:model="confirmingItemDeletion">

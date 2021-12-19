@@ -59,9 +59,9 @@
                         Save
                   </x-jet-button>
             @elseif($updateMode)
-                      <x-jet-button wire:click.prevent="update()" class="bg-orange-500 hover:bg-orange-700  mt-4">
-                            Update
-                      </x-jet-button>
+               <x-jet-button wire:click.prevent="update()" class="bg-orange-500 hover:bg-orange-700  mt-4">
+                    Update
+               </x-jet-button>
             @endif
 
 </form>

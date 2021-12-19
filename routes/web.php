@@ -7,15 +7,16 @@ use App\Http\Controllers\TaskController;
 use App\Http\Livewire\Customers;
 use App\Http\Livewire\RawMaterials;
 use App\Http\Livewire\Recipes;
-use App\Http\Livewire\Tasks;
+use App\Http\Livewire\Sales;
+// use App\Http\Livewire\Tasks;
 use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Cities;
-use App\Http\Livewire\Jobs;
-use App\Http\Livewire\Leaves;
+// use App\Http\Livewire\Jobs;
+// use App\Http\Livewire\Leaves;
 use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\Reports;
-use App\Http\Livewire\Holidays;
+// use App\Http\Livewire\Reports;
+// use App\Http\Livewire\Holidays;
 
 
 /*
@@ -43,6 +44,7 @@ Route::get('raw-materials', RawMaterials::class)->name('raw-materials');
 // Route::get('customers', Customers::class)->name('customers');
 
 Route::get('recipes', Recipes::class)->name('recipes');
+Route::get('sales', Sales::class)->name('sales');
 
 // Route::get('tasks', Tasks::class)->name('tasks');
 

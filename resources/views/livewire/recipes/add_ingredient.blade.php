@@ -13,7 +13,7 @@
      <div class="md:w-1/5 m-2"> 
                   <x-jet-label for="item" value="{{ __('Ingredients') }}" />
                   <select id="item.0" wire:model.defer="item.0"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="item.0">
-                        <option value="">Select City</option>
+                        <option value="">Select Item</option>
                         @foreach ($materials as $material)
                               <option value="{{ $material->id }}">
                                     {{ ucfirst($material->name) }} ({{ $material->uom }})
@@ -41,7 +41,7 @@
             <div class="md:w-1/5 m-2"> 
                               <x-jet-label for="item" value="{{ __('Ingredients') }}" />
                               <select id="item.{{ $value }}" wire:model.defer="item.{{$value}}"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="item.{{$value}}">
-                                    <option value="">Select City</option>
+                                    <option value="">Select Item</option>
                                     @foreach ($materials as $material)
                                           <option value="{{ $material->id }}">
                                                 {{ ucfirst($material->name) }} ({{ $material->uom }})

@@ -68,6 +68,11 @@
                                                         <i class="fas fa-city pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Recipes</span>
                                                 </x-jet-nav-link>
                                             </li>
+                                            <li class="mr-3 flex-1">
+                                                <x-jet-nav-link href="{{ route('sales') }}" :active="request()->routeIs('sales')">
+                                                <i class="fas fa-comment-dollar pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Sales</span>
+                                                </x-jet-nav-link>
+                                            </li>
 											
                                         </ul>
                                         <li class="my-px">

@@ -10,7 +10,7 @@
                         <div class="md:w-1/5 m-2"> 
                                           <x-jet-label for="item" value="{{ __('Ingredients') }}" />
                                           <select id="item" wire:model.defer="item"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="item">
-                                                <option value="">Select City</option>
+                                                <option value="">Select Item</option>
                                                 @foreach ($materials as $material)
                                                       <option value="{{ $material->id }}" >
                                                             {{ ucfirst($material->name) }} ({{ $material->uom }})

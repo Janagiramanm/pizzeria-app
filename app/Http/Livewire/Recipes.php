@@ -29,6 +29,8 @@ class Recipes extends Component
         $this->quantity = null;      
         $this->ppl = null;      
         $this->price = null;      
+        $this->item = null;      
+        $this->inputs = [];      
         $this->render();
     }
 
