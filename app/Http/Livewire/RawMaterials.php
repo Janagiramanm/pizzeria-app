@@ -34,7 +34,7 @@ class RawMaterials extends Component
 
     public function store(){
         $this->validate([
-            'name' => 'required',
+            'name' => 'required|unique:raw_materials,name',
             'uom' => 'required',
             'quantity' => 'required',
             'price' => 'required',
@@ -84,7 +84,7 @@ class RawMaterials extends Component
         $this->error = true;
 
         $this->validate([
-            'name' => 'required'
+            'name' => 'required|unique:raw_materials,name,'.$this->raw_material_id
         ]);
 
         if ($this->raw_material_id) {
