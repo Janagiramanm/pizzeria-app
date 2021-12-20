@@ -20,8 +20,7 @@ class Sales extends Component
     {
         $query = '%'.$this->searchTerm.'%'; 
         return view('livewire.sales.list', [
-            'sales' => Sale::select("*")
-            ->when($this->searchTerm, function ($query){
+            'sales' => Sale::when($this->searchTerm, function ($query){
                 $query->where('month', $this->searchTerm);
             })->paginate(10)
         ]);

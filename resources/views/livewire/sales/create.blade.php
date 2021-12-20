@@ -10,13 +10,13 @@
                 <div class="flex">
                  <div class="md:w-1/5 m-2"> 
                               <x-jet-label for="month" value="{{ __('Month') }}" />
-                              <select id="month" wire:model.defer="month"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="item.0">
+                              <select id="month" wire:model="month"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="month">
                                     <option value="">Select Month</option>
                                     @foreach ($months as $key => $month)
                                           <option value="{{ $key }}">
                                                 {{ ucfirst($month) }}  
                                           </option>
-                                   @endforeach
+                                    @endforeach
                               </select>
                               @error('month') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                  </div> 
