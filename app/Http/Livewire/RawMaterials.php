@@ -21,7 +21,9 @@ class RawMaterials extends Component
         return view('livewire.rawmaterials.list', [
             'materials' => RawMaterial::where(function($query){
                              $query->where('name', 'like', '%'.$this->searchTerm.'%');
-                           })->paginate(10)
+                           })
+                           ->orderBy('id', 'DESC')
+                           ->paginate(10)
         ]);
     }
 
