@@ -110,7 +110,7 @@
                         var name = $(this).attr('name');
                         @this.set(name, item);
                   });
-            }, 500);
+            }, 200); 
       })
      
        
