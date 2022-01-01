@@ -11,7 +11,8 @@ class Recipes extends Component
 {
 
     public $updateMode,$createMode, $editIngredientMode, $addnewIngredients = false;
-    public $name,$uom, $quantity, $ppl, $price, $item, $raw_material_id,  $confirmingItemDeletion, $confirmingRecipeDeletion;
+    public $name,$uom, $quantity, $ppl, $price, $item, $raw_material_id,  
+    $confirmingItemDeletion, $confirmingRecipeDeletion, $query, $highlightIndex, $inputsearchMaterial, $searchMaterials;
     public $show = true;
     public $inputs = [];
     public $i=0;
@@ -39,6 +40,59 @@ class Recipes extends Component
         $this->materials = RawMaterial::all();
         return view('livewire.recipes.create');
     }
+    public function resetVal()
+    {
+        $this->query = '';
+        $this->materials = [];
+        $this->highlightIndex = 0;
+    }
+
+    public function incrementHighlight()
+    {
+        if ($this->highlightIndex === count($this->materials) - 1) {
+            $this->highlightIndex = 0;
+            return;
+        }
+        $this->highlightIndex++;
+    }
+
+    public function decrementHighlight()
+    {
+        if ($this->highlightIndex === 0) {
+            $this->highlightIndex = count($this->materials) - 1;
+            return;
+        }
+        $this->highlightIndex--;
+    }
+
+    // public function selectMaterial()
+    // {
+    //     $material = $this->materials[$this->highlightIndex] ?? null;
+    //     if ($material) {
+    //         $this->redirect(route('show-material', $material['id']));
+    //     }
+    // }
+
+    public function selectMaterial($supplier_id, $terms)
+    {
+
+        $this->supplier_id = $supplier_id;
+        $this->terms = $terms;
+        $this->inputsearchMaterial='';
+    }
+
+    public function selectSearch(Request $request)
+    {
+    	$rawMaterials = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            $rawMaterials =RawMaterial::select("id", "name")
+            		->where('name', 'LIKE', "%$search%")
+            		->get();
+        }
+        return response()->json($rawMaterials);
+    }
 
     public function view(){
         $this->createMode = false;
@@ -54,10 +108,12 @@ class Recipes extends Component
         $i = $i + 1 ;
         $this->i = $i;
         array_push($this->inputs ,$i);
+        $this->dispatchBrowserEvent('reApplySelect2');
     }
 
     public function remove($i)
     {
+        
         unset($this->inputs[$i]);
       
     }
@@ -212,6 +268,11 @@ class Recipes extends Component
         $this->updateMode = true;
         $this->addnewIngredients = false;
         $this->inputs = Ingredient::where('recipe_id','=', $this->recipe_id)->get();
+    }
+
+    public function addRequestDetail()
+    {
+            $this->dispatchBrowserEvent('reApplySelect2');
     }
     
    

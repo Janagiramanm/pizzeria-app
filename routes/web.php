@@ -41,10 +41,12 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('dashboard', Dashboard::class)->name('dashboard');
 
 Route::get('raw-materials', RawMaterials::class)->name('raw-materials');
+// Route::get('show-material',  Recipes::selectMaterial())->name('raw-material');
 // Route::get('customers', Customers::class)->name('customers');
 
 Route::get('recipes', Recipes::class)->name('recipes');
 Route::get('sales', Sales::class)->name('sales');
+Route::get('/ajax-autocomplete-search', [Recipes::class, 'selectSearch']);
 
 // Route::get('tasks', Tasks::class)->name('tasks');
 

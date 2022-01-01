@@ -16,52 +16,20 @@
                  </div> 
 
             </div>
-           
-           
-            @foreach($inputs as $key => $value)
-            <div class=" add-input">
-                <div class="row">
-                <div class="flex">
-                        <div class="md:w-1/5 m-2"> 
-                                          <x-jet-label for="item" value="{{ __('Ingredients') }}" />
-                                          <select id="item.{{ $value }}" wire:model.defer="item.{{$value}}"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="item.{{$value}}">
-                                                <option value="">Select Item</option>
-                                                @foreach ($materials as $material)
-                                                      <option value="{{ $material->id }}">
-                                                            {{ ucfirst($material->name) }} ({{ $material->uom }})
-                                                      </option>
-                                                @endforeach
-                                          </select>
-                                          @error('item.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-                        </div> 
-                        <div class="md:w-1/5 m-2"> 
-                                    <x-jet-label for="quantity" value="{{ __('Quantity') }}" />
-                                    <input class="appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="quantity.{{ $value }}" 
-                                          name="quantity.{{$value}}" type="text" placeholder="" wire:model.defer="quantity.{{$value}}">
-                                    @error('quantity.{{$value}}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
-                        </div> 
-                            
-                        <button class="btn btn-danger text-red btn-sm" wire:click.prevent="remove({{$key}})">remove</button>
-                              
-                        </div>
-                    
-                </div>
-            </div>
-            @endforeach
 
             <div class="add-input">
             <div class="flex">
-                 <div class="md:w-1/5 m-2"> 
-                              <x-jet-label for="item" value="{{ __('Ingredients') }}" />
-                              <select id="item.0" wire:model.defer="item.0"  class="block mt-1 w-4/5 p-2 bg-gray-200" name="item.0">
-                                    <option value="">Select Item</option>
-                                    @foreach ($materials as $material)
-                                          <option value="{{ $material->id }}">
-                                                {{ ucfirst($material->name) }} ({{ $material->uom }})
-                                          </option>
-                                   @endforeach
-                              </select>
-                              @error('item.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                 <div wire:ignore class="md:w-1/5 m-2"> 
+                                   <div  >
+                                    <x-jet-label for="item" value="{{ __('Ingredients') }}" />
+                                    <select  class="select2 select2-container select2-container--default select2-container--focus"  wire:model.defer="item.0" name="item.0">
+                                          <option value="">Select Item</option>
+                                          @foreach($materials as $material)
+                                          <option value="{{ $material->id }}">{{ ucfirst($material->name) }} ({{ $material->uom }})</option>
+                                          @endforeach
+                                    </select>
+                                    </div>
+                                    @error('item.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                  </div> 
                  <div class="md:w-1/5 m-2"> 
                             <x-jet-label for="quantity" value="{{ __('Quantity') }}" />
@@ -70,10 +38,48 @@
                              @error('quantity.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                  </div> 
                  
-                    <button class="btn text-green btn-info btn-sm" wire:click.prevent="add({{$i}})">Add</button>
+                  <button class="btn text-green btn-info btn-sm" data-no={{$i}} id="addMoreBtn" wire:click.prevent="add({{$i}})">Add</button>
                 
             </div>
             </div>
+
+            @foreach($inputs as $key => $value)
+            <div class=" add-input-{{$key}}">
+                <div class="flex">
+                        <div class="md:w-1/5 m-2">    
+                                        
+                                          <div wire:ignore >
+                                                <x-jet-label for="item" value="{{ __('Ingredients') }}" />
+                                                <select  class="select2 " wire:model.defer="item.{{$value}}" name="item.{{$value}}" >
+                                                      <option value="">Select Item</option>
+                                                            @foreach($materials as $material)
+                                                            <option value="{{ $material->id }}">{{ ucfirst($material->name) }} ({{ $material->uom }})</option>
+                                                            @endforeach
+                                                </select>
+                                           </div>
+                                          @error('item.{{ $value }}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                        </div> 
+                        <div class="md:w-1/5 m-2"> 
+                                 
+                                    <x-jet-label for="quantity" value="{{ __('Quantity') }}" />
+                                    <input class="appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="quantity.{{ $value }}" 
+                                          name="quantity.{{$value}}" type="text" placeholder="" wire:model.defer="quantity.{{$value}}">
+                                    @error('quantity.{{$value}}') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
+                                  
+                        </div> 
+                            
+                        <button class="btn btn-danger text-red btn-sm" wire:click.prevent="remove({{$key}})">remove</button>
+                              
+                      
+                    
+                </div>
+            </div>
+            
+            @endforeach
+           
+          
+
+           
             @if($createMode)
                   <x-jet-button wire:click.prevent="store()" class="bg-orange-500 hover:bg-orange-700  mt-4">
                         Save
@@ -85,3 +91,65 @@
             @endif
 
 </form>
+<script>
+    $(document).ready(function () {
+
+        $('.select2').select2();
+        $('.select2').on('change', function (e) {
+            var item = $(this).select2("val");
+            var name = $(this).attr('name');
+            @this.set(name, item);
+        });
+     $('#addMoreBtn').click(function(){
+          
+            setTimeout(() => {
+            $('.select2').select2();
+            $('.select2').trigger('change');
+            $('.select2').on('change', function (e) {
+                        var item = $(this).select2("val");
+                        var name = $(this).attr('name');
+                        @this.set(name, item);
+                  });
+            }, 300);
+      })
+     
+       
+     
+    });
+
+</script>
+<style>
+.select2 select {
+  background: transparent;
+  width: 250px;
+  font-size: 16px;
+  border: 1px solid #CCC;
+  height: 44px;
+}
+.select2 {
+  /* margin: 50px; */
+  width: 220px;
+  height: 44px;
+  border: 1px solid #111;
+  border-radius: 3px;
+  overflow: hidden;
+  
+}
+.select2-container .select2-selection--single {
+      height: 44px;
+}
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+</style>
