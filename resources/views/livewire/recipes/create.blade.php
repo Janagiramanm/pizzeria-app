@@ -10,7 +10,7 @@
             <div class="flex">
                  <div class="md:w-1/2 m-2"> 
                             <x-jet-label for="ame " value="{{ __('Product Name') }}" />
-                            <input class="appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4   leading-tight focus:outline-none focus:bg-white" id="grid-first-name" 
                               name="name" type="text" placeholder="" wire:model="name">
                              @error('name') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                  </div> 
@@ -19,7 +19,7 @@
 
             <div class="add-input">
             <div class="flex">
-                 <div wire:ignore class="md:w-1/5 m-2"> 
+                 <div wire:ignore class="md:w-2/5 m-2"> 
                                    <div  >
                                     <x-jet-label for="item" value="{{ __('Ingredients') }}" />
                                     <select  class="select2 select2-container select2-container--default select2-container--focus"  wire:model.defer="item.0" name="item.0">
@@ -46,7 +46,7 @@
             @foreach($inputs as $key => $value)
             <div class=" add-input-{{$key}}">
                 <div class="flex">
-                        <div class="md:w-1/5 m-2">    
+                        <div class="md:w-2/5 m-2">    
                                         
                                           <div wire:ignore >
                                                 <x-jet-label for="item" value="{{ __('Ingredients') }}" />
@@ -120,14 +120,14 @@
 <style>
 .select2 select {
   background: transparent;
-  width: 250px;
+  width: 400px;
   font-size: 16px;
   border: 1px solid #CCC;
   height: 44px;
 }
 .select2 {
   /* margin: 50px; */
-  width: 220px;
+  width: 370px;
   height: 44px;
   border: 1px solid #111;
   border-radius: 3px;
