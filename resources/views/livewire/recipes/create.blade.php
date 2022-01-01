@@ -42,7 +42,7 @@
                 
             </div>
             </div>
-
+ 
             @foreach($inputs as $key => $value)
             <div class=" add-input-{{$key}}">
                 <div class="flex">
