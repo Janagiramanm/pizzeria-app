@@ -38,7 +38,7 @@
                              @error('quantity.0') <span class="font-mono text-xs text-red-700">{{ $message }}</span> @enderror
                  </div> 
                  
-                  <button class="btn text-green btn-info btn-sm" data-no={{$i}} id="addMoreBtn" wire:click.prevent="add({{$i}})">Add</button>
+                  
                 
             </div>
             </div>
@@ -76,10 +76,9 @@
             </div>
             
             @endforeach
-           
-          
-
-           
+            <div class="md:w-1/5 m-2">
+                <button class="btn text-green btn-info btn-sm" data-no={{$i}} id="addMoreBtn" wire:click.prevent="add({{$i}})">Add More..</button>
+            </div>
             @if($createMode)
                   <x-jet-button wire:click.prevent="store()" class="bg-orange-500 hover:bg-orange-700  mt-4">
                         Save
