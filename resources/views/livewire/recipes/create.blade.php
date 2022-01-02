@@ -98,6 +98,7 @@
             var item = $(this).select2("val");
             var name = $(this).attr('name');
             @this.set(name, item);
+            $('select2 option:selected').prop('disabled', true);
         });
      $('#addMoreBtn').click(function(){
           
@@ -108,6 +109,7 @@
                         var item = $(this).select2("val");
                         var name = $(this).attr('name');
                         @this.set(name, item);
+                        $('select2 option:selected').prop('disabled', true); 
                   });
             }, 1000); 
       })

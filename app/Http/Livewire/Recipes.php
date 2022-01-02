@@ -134,11 +134,13 @@ class Recipes extends Component
 
         foreach ($this->item as $key => $value) {
             
-            Ingredient::create([
-                   'recipe_id' => $recipe_id,
-                   'raw_material_id' => $this->item[$key],
-                   'quantity' => $this->quantity[$key],
-                ]);
+            if(isset($this->item[$key]) && isset($this->quantity[$key]) ){
+                Ingredient::create([
+                    'recipe_id' => $recipe_id,
+                    'raw_material_id' => $this->item[$key],
+                    'quantity' => $this->quantity[$key],
+                    ]);
+            }
         }
         $this->createMode = false;
         $this->resetInput();
