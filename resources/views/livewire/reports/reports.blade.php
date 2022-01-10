@@ -83,7 +83,7 @@
                                     @foreach($result as $sales)
                                         @foreach($sales->recipes->recipeIngredients as $ingredients)
                                             @php 
-                                                 $items[$ingredients->rawMaterial->name][]= $sales->quantity * $ingredients->quantity;
+                                                 $items[$ingredients->rawMaterial->name][]= (int) $sales->quantity * (int) $ingredients->quantity;
                                             @endphp 
                                         @endforeach
                                     @endforeach
