@@ -77,37 +77,39 @@
                                 @else
 
                                      @php $no = 1;
+                                     $recipes = [];
                                      $items = [];
                                      @endphp
                         
                                     @foreach($result as $sales)
-                                      @php 
-                                      //echo '<pre>';
-                                        //             print_r($sales);
-                                        @endphp
+                                      
                                         @foreach($sales->recipes->recipeIngredients as $ingredients)
                                             @php 
                                                 
                                                     // print_r($ingredients);
                                                 if(isset($sales->quantity)!='' && isset($ingredients->quantity)!=''){
-                                                 $items[$ingredients->rawMaterial->name][]= (int) $sales->quantity * (int) $ingredients->quantity;
+                                                    $recipes[$ingredients->rawMaterial->uom][$ingredients->rawMaterial->name][]= ( (int) $sales->quantity * (int) $ingredients->quantity ) ;
+                                                    
                                                 }
                                             @endphp 
                                         @endforeach
                                     @endforeach
                                     
-                                    @if(!empty($items))
-                                        @foreach($items as $item => $value)
-                                        @php 
-                                                $quantity = array_sum($items[$item]);
-                                        @endphp
-                                                <tr>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $no++ }}  </td>
-                                                    <td class="border px-4 py-2">{{ isset($item) ? $item : '' }}</td>
-                                                    <td class="border px-4 py-2">{{ $quantity }}</td>
-                                                    <td class="border px-4 py-2">{{ isset($ingredients->rawMaterial->uom) ? $ingredients->rawMaterial->uom : '' }}</td>
-                                                    
-                                                </tr>
+                                    @if(!empty($recipes))
+                                      
+                                       @foreach($recipes as $key => $items)
+                                                @foreach($items as $item => $value)
+                                                @php 
+                                                        $quantity = array_sum($items[$item]);
+                                                @endphp
+                                                        <tr>
+                                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $no++ }}  </td>
+                                                            <td class="border px-4 py-2">{{ isset($item) ? $item : '' }}</td>
+                                                            <td class="border px-4 py-2">{{ $quantity }}</td>
+                                                            <td class="border px-4 py-2">{{ $key }}</td>
+                                                            
+                                                        </tr>
+                                                @endforeach
                                         @endforeach
                                     @else
                                           <tr>
