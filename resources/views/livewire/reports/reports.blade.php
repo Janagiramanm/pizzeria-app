@@ -89,7 +89,9 @@
                                             @php 
                                                 
                                                     // print_r($ingredients);
+                                                if(isset($sales->quantity)!='' && isset($ingredients->quantity)!=''){
                                                  $items[$ingredients->rawMaterial->name][]= $sales->quantity *  $ingredients->quantity;
+                                                }
                                             @endphp 
                                         @endforeach
                                     @endforeach
