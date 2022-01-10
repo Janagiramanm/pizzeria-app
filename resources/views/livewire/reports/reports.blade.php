@@ -82,14 +82,14 @@
                         
                                     @foreach($result as $sales)
                                       @php 
-                                      echo '<pre>';
-                                                     print_r($sales);
+                                      //echo '<pre>';
+                                        //             print_r($sales);
                                         @endphp
                                         @foreach($sales->recipes->recipeIngredients as $ingredients)
                                             @php 
                                                 
                                                     // print_r($ingredients);
-                                                 $items[$ingredients->rawMaterial->name][]= (int) $sales->quantity * (int) $ingredients->quantity;
+                                                 $items[$ingredients->rawMaterial->name][]= $sales->quantity *  $ingredients->quantity;
                                             @endphp 
                                         @endforeach
                                     @endforeach
