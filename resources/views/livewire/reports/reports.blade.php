@@ -21,7 +21,7 @@
                                     <select id="month" wire:model.defer="month"   class="block mt-1 w-4/5 p-2  bg-gray-200" name="month">
                                     <option value="">Select Month</option>
                                     @foreach ($months as $key => $month)
-                                          <option value="{{ $key }}">
+                                          <option value="{{ $key }}" >
                                                 {{ ucfirst($month) }}  
                                           </option>
                                    @endforeach

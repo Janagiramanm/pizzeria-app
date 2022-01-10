@@ -21,8 +21,11 @@ class Reports extends Component
     public function render()
     {
         $this->lastMonth = $this->month ? $this->month : Carbon::now()->subMonth()->month;
+
         $this->result =Sale::where('month', $this->lastMonth)->get();
+        $this->month = $this->lastMonth;
         return view('livewire.reports.reports');
+       
     }
 
     public function generateWorkReport(){
@@ -32,12 +35,12 @@ class Reports extends Component
        
     }
 
-    public function getAddress($lat,$lng){
-        $url="https://maps.google.com/maps/api/geocode/json?latlng=".$lat.",".$lng."&key=".env('GOOGLEMAPAPI');
-        $curl_return=$this->curl_get($url);
-        $obj=json_decode($curl_return);
-        return $obj->results[0]->formatted_address;
-    }
+    // public function getAddress($lat,$lng){
+    //     $url="https://maps.google.com/maps/api/geocode/json?latlng=".$lat.",".$lng."&key=".env('GOOGLEMAPAPI');
+    //     $curl_return=$this->curl_get($url);
+    //     $obj=json_decode($curl_return);
+    //     return $obj->results[0]->formatted_address;
+    // }
 
     public function curl_get($url,  array $options = array())
     {
@@ -58,38 +61,38 @@ class Reports extends Component
             return $result;
     }
 
-    public function viewReport($date){
+    // public function viewReport($date){
 
-          $this->show = false;
-          $this->detailReport = true;
-         //  echo $date;exit;  
-        //   $result  = DB::select('SELECT * 
-        //                         FROM track_locations 
-        //                         INNER JOIN 
-        //                         (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(30 * 60)) AS timekey FROM track_locations where date BETWEEN "'.$this->from_date.'" and "'.$this->to_date.'" and user_id='.$this->user_id.'  GROUP BY timekey) last_updates 
-        //                         ON last_updates.id = track_locations.id order by track_locations.id asc');
+    //       $this->show = false;
+    //       $this->detailReport = true;
+    //      //  echo $date;exit;  
+    //     //   $result  = DB::select('SELECT * 
+    //     //                         FROM track_locations 
+    //     //                         INNER JOIN 
+    //     //                         (SELECT MAX(id) as id,FLOOR(UNIX_TIMESTAMP(time)/(30 * 60)) AS timekey FROM track_locations where date BETWEEN "'.$this->from_date.'" and "'.$this->to_date.'" and user_id='.$this->user_id.'  GROUP BY timekey) last_updates 
+    //     //                         ON last_updates.id = track_locations.id order by track_locations.id asc');
 
-            $details =  TrackLocations::where('user_id','=',$this->user_id)->whereBetween('date',[$date, $date])
-            ->get()->sortBy('id');
+    //         $details =  TrackLocations::where('user_id','=',$this->user_id)->whereBetween('date',[$date, $date])
+    //         ->get()->sortBy('id');
         
-        $status = '';
-            if($details){
-                foreach($details as $key => $value){
+    //     $status = '';
+    //         if($details){
+    //             foreach($details as $key => $value){
                    
-                    if($status != $value->status){
-                            $url="https://maps.google.com/maps/api/geocode/json?latlng=".$value->latitude.",".$value->longitude."&key=".env('GOOGLEMAPAPI');
-                            $curl_return=$this->curl_get($url);
-                            $obj=json_decode($curl_return);
-                            $result[$key]['date'] = $value->date;
-                            $result[$key]['time'] = $value->time;
-                            $result[$key]['address'] = $obj->results[0]->formatted_address;
-                            $result[$key]['status'] = ucfirst($this->status[$value->status]);
-                    }
-                    $status = $value->status;
-                }
-            }
-            $this->result = $result;
-    }
+    //                 if($status != $value->status){
+    //                         $url="https://maps.google.com/maps/api/geocode/json?latlng=".$value->latitude.",".$value->longitude."&key=".env('GOOGLEMAPAPI');
+    //                         $curl_return=$this->curl_get($url);
+    //                         $obj=json_decode($curl_return);
+    //                         $result[$key]['date'] = $value->date;
+    //                         $result[$key]['time'] = $value->time;
+    //                         $result[$key]['address'] = $obj->results[0]->formatted_address;
+    //                         $result[$key]['status'] = ucfirst($this->status[$value->status]);
+    //                 }
+    //                 $status = $value->status;
+    //             }
+    //         }
+    //         $this->result = $result;
+    // }
 
     public function backToReports(){
 
