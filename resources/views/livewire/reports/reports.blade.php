@@ -90,7 +90,7 @@
                                                 
                                                     // print_r($ingredients);
                                                 if(isset($sales->quantity)!='' && isset($ingredients->quantity)!=''){
-                                                 $items[$ingredients->rawMaterial->name][]= $sales->quantity *  $ingredients->quantity;
+                                                 $items[$ingredients->rawMaterial->name][]= (int) $sales->quantity * (int) $ingredients->quantity;
                                                 }
                                             @endphp 
                                         @endforeach
