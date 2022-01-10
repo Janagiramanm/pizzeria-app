@@ -81,8 +81,10 @@
                                      @endphp
                         
                                     @foreach($result as $sales)
+                                      @php 
                                       echo '<pre>';
                                                      print_r($sales);
+                                        @endphp
                                         @foreach($sales->recipes->recipeIngredients as $ingredients)
                                             @php 
                                                 
