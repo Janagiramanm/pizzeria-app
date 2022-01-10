@@ -48,12 +48,14 @@
                                         </x-jet-danger-button> -->
                                         </td>
                                     </tr>
+                                    
                                     @foreach($recipe->recipeIngredients as $ingredients)
+                                   
                                     <tr>
                                         <td class="border px-4 py-2"></td>
                                         <td class="border px-4 py-2"></td>
                                         <td class="border px-4 py-2">{{ isset($ingredients->rawMaterial->name) ? $ingredients->rawMaterial->name : '' }}</td>
-                                        <td class="border px-4 py-2">{{ isset($ingredients->quantity) ? $ingredients->quantity : '' }}</td>
+                                        <td class="border px-4 py-2">{{ isset($ingredients->quantity) ? $ingredients->quantity ." ( ". $ingredients->rawMaterial->uom." ) " : '' }}</td>
                                         <td class="border px-4 py-2">
                                         </td>
                                     </tr>
