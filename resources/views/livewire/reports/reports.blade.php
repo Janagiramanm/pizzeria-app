@@ -89,19 +89,13 @@
                                      $recipes = [];
                                      $items = [];
 
-                                     echo '<pre>';
-                                                    //print_r($result);
-  
                                      @endphp
                         
                                     @foreach($result as $sales)
                                       
                                         @foreach($sales->recipes->recipeIngredients as $ingredients)
                                             @php 
-                                               
-
                                                 if(isset($sales->quantity)!='' && isset($ingredients->quantity)!=''){
-                                                    echo $ingredients->rawMaterial->name."---". $sales->quantity. "----". $ingredients->quantity."<br>";
                                                     $recipes[$ingredients->rawMaterial->uom][$ingredients->rawMaterial->name]['used_qty'][]= ( (int) $sales->quantity * (int) $ingredients->quantity ) ;
                                                     $recipes[$ingredients->rawMaterial->uom][$ingredients->rawMaterial->name]['price']= $ingredients->rawMaterial->price;
                                                     $recipes[$ingredients->rawMaterial->uom][$ingredients->rawMaterial->name]['ppl']= $ingredients->rawMaterial->ppl;
@@ -110,18 +104,12 @@
                                         @endforeach
                                     @endforeach
 
-                                    @php 
-                                          echo '<pre>';
-                                          print_r($recipes);
-                                    @endphp
                                                                     
                                     @if(!empty($recipes))
                                       
                                        @foreach($recipes as $key => $items)
                                                 @foreach($items as $item => $value)
                                                 @php 
-                                                        
-                                                       // $used_qty =  array_sum($items[$item]);
                                                         $used_qty =  array_sum($value['used_qty']);
                                                         $used_price = (int) $value['used_qty'] * (int) $value['price'];
                                                         $waste_qty = '';
