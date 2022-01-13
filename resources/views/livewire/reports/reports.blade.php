@@ -164,6 +164,7 @@
                                     
                                 @endif
                          </table>
+                         {{ $result->links() }}
                     </div>
               
         </div>
