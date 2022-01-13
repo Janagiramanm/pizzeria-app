@@ -88,7 +88,7 @@
                                      @php $no = 1;
                                      $recipes = [];
                                      $items = [];
-                                     $index = $materials->firstItem()
+                                     $index = $result->firstItem()
                                      @endphp
                         
                                     @foreach($result as $sales)
