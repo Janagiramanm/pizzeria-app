@@ -121,6 +121,9 @@
                                                            $waste_qty = (int) $value['used_qty'] * ( (int) $value['ppl'] / 100);
                                                        
                                                         }
+                                                        if($key == 'nos'){
+                                                            $used_price = (int) $value['used_qty'] * (int) $value['price'];
+                                                        }
                                                         if($used_qty >= 1000 && $key != 'nos'){
                                                             $used_qty = $used_qty / 1000 ;
                                                             $used_price = $used_qty * (int) $value['price'];
