@@ -103,6 +103,11 @@
                                             @endphp 
                                         @endforeach
                                     @endforeach
+
+                                    @php 
+                                          echo '<pre>';
+                                          print_r($recipes);
+                                    @endphp
                                                                     
                                     @if(!empty($recipes))
                                       
