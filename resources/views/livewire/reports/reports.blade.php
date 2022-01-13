@@ -146,7 +146,7 @@
                                                         
                                                 @endphp
                                                         <tr>
-                                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $index++ }}  </td>
+                                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $no++ }}  </td>
                                                             <td class="border px-4 py-2">{{ isset($item) ? $item : '' }}</td>
                                                             <td class="border px-4 py-2">{{ $used_qty."  ". $ukey  }}</td>
                                                             <td class="border px-4 py-2 text-right">{{ number_format((float)$used_price, 2, '.', '') }}</td>
@@ -164,7 +164,7 @@
                                     
                                 @endif
                          </table>
-                         {{ $result->links() }}
+                        
                     </div>
               
         </div>

@@ -26,13 +26,13 @@ class Reports extends Component
         $this->lastMonth = $this->month ? $this->month : Carbon::now()->subMonth()->month;
         $query = $this->lastMonth;
         $this->month = $this->lastMonth;
-        // $this->result =Sale::where('month', $this->lastMonth)->get();
-        // return view('livewire.reports.reports');
+        $this->result =Sale::where('month', $this->lastMonth)->get();
+        return view('livewire.reports.reports');
         
-        return view('livewire.reports.reports', [
-            'result' => Sale::where('month', '=', $this->lastMonth)->paginate(10),
+        // return view('livewire.reports.reports', [
+        //     'result' => Sale::where('month', '=', $this->lastMonth)->paginate(10),
             
-        ]);
+        // ]);
        
     }
 
