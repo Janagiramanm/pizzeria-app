@@ -122,7 +122,7 @@
                                                        
                                                         }
                                                         if($key == 'nos'){
-                                                            $used_price = (int) $value['used_qty'] * (int) $value['price'];
+                                                             $used_price = ($used_qty * (int) $value['price']);
                                                         }
                                                         if($used_qty >= 1000 && $key != 'nos'){
                                                             $used_qty = $used_qty / 1000 ;
