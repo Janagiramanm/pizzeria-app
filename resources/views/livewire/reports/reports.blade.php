@@ -122,7 +122,7 @@
                                                 @php 
                                                         
                                                        // $used_qty =  array_sum($items[$item]);
-                                                        $used_qty =  array_sum($items['used_qty']);
+                                                        $used_qty =  array_sum($value['used_qty']);
                                                         $used_price = (int) $value['used_qty'] * (int) $value['price'];
                                                         $waste_qty = '';
                                                         $waste_price = '';
