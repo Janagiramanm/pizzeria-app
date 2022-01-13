@@ -9,11 +9,14 @@ use App\Models\TrackLocations;
 use Carbon\Carbon;
 use DB;
 use DateTime;
+use Livewire\WithPagination;
+
 
 class Reports extends Component
 {
+    use WithPagination;
     public $user_id, $from_date,$to_date, $month;
-    public $result = [];
+    // public $result = [];
     public $show, $processing, $detailReport = false;
     public $status = ['logout','login','pause'];
     public $months = ['1'=>'January','2'=>'February','2'=>'March','4'=>'April','5'=>'May','6'=>'June','7'=>'July','8'=>'August','9'=>'September','10'=>'October','11'=>'November','12'=>'December'];
@@ -21,10 +24,15 @@ class Reports extends Component
     public function render()
     {
         $this->lastMonth = $this->month ? $this->month : Carbon::now()->subMonth()->month;
-
-        $this->result =Sale::where('month', $this->lastMonth)->get();
+        $query = $this->lastMonth;
         $this->month = $this->lastMonth;
-        return view('livewire.reports.reports');
+        // $this->result =Sale::where('month', $this->lastMonth)->get();
+        // return view('livewire.reports.reports');
+        
+        return view('livewire.reports.reports', [
+            'result' => Sale::where('month', '=', $this->lastMonth)->paginate(10),
+            
+        ]);
        
     }
 

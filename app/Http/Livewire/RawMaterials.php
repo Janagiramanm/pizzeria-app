@@ -18,6 +18,7 @@ class RawMaterials extends Component
     public function render()
     {
         $query = '%'.$this->searchTerm.'%';
+       
         return view('livewire.rawmaterials.list', [
             'materials' => RawMaterial::where(function($query){
                              $query->where('name', 'like', '%'.$this->searchTerm.'%');
