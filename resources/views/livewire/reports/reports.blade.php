@@ -102,7 +102,7 @@
 
                                                 if(isset($sales->quantity)!='' && isset($ingredients->quantity)!=''){
                                                     echo $ingredients->rawMaterial->name."---". $sales->quantity. "----". $ingredients->quantity."<br>";
-                                                    $recipes[$ingredients->rawMaterial->uom][$ingredients->rawMaterial->name]['used_qty']= ( (int) $sales->quantity * (int) $ingredients->quantity ) ;
+                                                    $recipes[$ingredients->rawMaterial->uom][$ingredients->rawMaterial->name]['used_qty'][]= ( (int) $sales->quantity * (int) $ingredients->quantity ) ;
                                                     $recipes[$ingredients->rawMaterial->uom][$ingredients->rawMaterial->name]['price']= $ingredients->rawMaterial->price;
                                                     $recipes[$ingredients->rawMaterial->uom][$ingredients->rawMaterial->name]['ppl']= $ingredients->rawMaterial->ppl;
                                                 }
