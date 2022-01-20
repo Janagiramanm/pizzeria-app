@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use DB;
 use DateTime;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportReports;
 
 
 class Reports extends Component
@@ -112,6 +114,12 @@ class Reports extends Component
         $this->show = true;
         $this->detailReport = false;
         $this->generateWorkReport();
+    }
+
+    public function export() 
+    {
+        //echo "Hi";
+        return Excel::download(new ExportReports, $this->month.'_Utilization_Report.xlsx');
     }
 
 }

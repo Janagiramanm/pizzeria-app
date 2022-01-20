@@ -38,6 +38,7 @@
                                         Reset
                                  </x-jet-button> 
                             </div>
+                            <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>
                             
                     </div>
                     <div wire:loading class="flex ml-24 justify-center items-center">
@@ -88,6 +89,8 @@
                                      @php $no = 1;
                                      $recipes = [];
                                      $items = [];
+                                     $total_used_price = 0;
+                                     $total_waste_price = 0;
                                     // $index = $result->firstItem()
                                      @endphp
                         
@@ -122,7 +125,7 @@
                                                        
                                                         }
                                                         if($key == 'nos'){
-                                                             $used_price = ($used_qty * (int) $value['price']);
+                                                             $used_price = ($used_qty * (float) $value['price']);
                                                         }
                                                         if($used_qty >= 1000 && $key != 'nos'){
                                                             $used_qty = $used_qty / 1000 ;
@@ -146,19 +149,28 @@
                                                         if($key != 'nos'){
                                                                 $waste_price = $waste_qty * $value['price'];
                                                         }
+
+                                                        $total_used_price += (float)$used_price;
+                                                        $total_waste_price += (float)$waste_price;
                                                         
                                                 @endphp
-                                                        <tr>
-                                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $no++ }}  </td>
-                                                            <td class="border px-4 py-2">{{ isset($item) ? $item : '' }}</td>
-                                                            <td class="border px-4 py-2">{{ $used_qty."  ". $ukey  }}</td>
-                                                            <td class="border px-4 py-2 text-right">{{ number_format((float)$used_price, 2, '.', '') }}</td>
-                                                            <td class="border px-4 py-2">{{ $waste_qty ? $waste_qty."  ". $wkey : ''  }}</td>
-                                                            <td class="border px-4 py-2 text-right">{{ $waste_price ? number_format((float)$waste_price, 2, '.', '') : '' }}</td>
-                                                            
+                                                                <tr>
+                                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $no++ }}  </td>
+                                                                    <td class="border px-4 py-2">{{ isset($item) ? $item : '' }}</td>
+                                                                    <td class="border px-4 py-2">{{ $used_qty."  ". $ukey  }}</td>
+                                                                    <td class="border px-4 py-2 text-right">{{ number_format((float)$used_price, 2, '.', '') }}</td>
+                                                                    <td class="border px-4 py-2">{{ $waste_qty ? $waste_qty."  ". $wkey : ''  }}</td>
+                                                                    <td class="border px-4 py-2 text-right">{{ $waste_price ? number_format((float)$waste_price, 2, '.', '') : '' }}</td>
+                                                                    
                                                         </tr>
                                                 @endforeach
                                         @endforeach
+                                        <tr> 
+                                            <td colspan="3"></td>
+                                            <td class="border px-4 py-2 text-right">{{ number_format((float)$total_used_price, 2, '.', '')  }}</td>
+                                            <td ></td>
+                                            <td class="border px-4 py-2 text-right">{{ number_format((float)$total_waste_price, 2, '.', '')  }}</td>
+                                        </tr>
                                     @else
                                           <tr>
                                               <td colspan="4"> No Records Found </td>
