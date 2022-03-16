@@ -3,7 +3,7 @@
 namespace App\Exports;
   
 use App\Models\Sale;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromCollection; 
 use Carbon\Carbon;
   
 class ExportReports implements FromCollection
@@ -113,14 +113,14 @@ class ExportReports implements FromCollection
                                         $used_qty =  $used_qty."  ". $ukey;
                                         $used_price = number_format((float)$used_price, 2, ".", "");
 
-                                        $report .='<tr>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">'. $no++ .'</td>
-                                                    <td class="border px-4 py-2">'.isset($item) ? $item : "" .'</td>
-                                                    <td class="border px-4 py-2">ll</td>
-                                                    <td class="border px-4 py-2 text-right">'.$used_price.'</td>
-                                                    <td class="border px-4 py-2">'. $waste_qty ? $waste_qty."  ". $wkey : "" .'</td>
-                                                    <td class="border px-4 py-2 text-right">'.$waste_price ? number_format((float)$waste_price, 2, '.', '') : "".'</td>
-                                                </tr>';
+                                        // $report .='<tr>
+                                        //             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">'. $no++ .'</td>
+                                        //             <td class="border px-4 py-2">'.isset($item) ? $item : "" .'</td>
+                                        //             <td class="border px-4 py-2">ll</td>
+                                        //             <td class="border px-4 py-2 text-right">'.$used_price.'</td>
+                                        //             <td class="border px-4 py-2">'. $waste_qty ? $waste_qty."  ". $wkey : "" .'</td>
+                                        //             <td class="border px-4 py-2 text-right">'.$waste_price ? number_format((float)$waste_price, 2, '.', '') : "".'</td>
+                                        //         </tr>';
                                         
                         }
                 }

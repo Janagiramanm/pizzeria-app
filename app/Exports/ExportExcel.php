@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\FromView;
 class ExportExcel implements FromView
 {
    
-    public function view(): View
+    public function view(): View 
     {
         
         return view('livewire.reports.excel', [
