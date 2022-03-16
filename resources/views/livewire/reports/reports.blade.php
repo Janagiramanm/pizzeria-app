@@ -38,7 +38,7 @@
                                         Reset
                                  </x-jet-button> 
                             </div>
-                            <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>
+                            <!-- <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a> -->
                             
                     </div>
                     <div wire:loading class="flex ml-24 justify-center items-center">
