@@ -66,25 +66,28 @@ class Sales extends Component
 
     public function store(){
         $this->validate([
-            'month' => 'required',
-            'item.0' => 'required',
-            'quantity.0' => 'required',
-            
-        ],
-        [
-                'item.*.required' => 'Item field is required',
-                'quantity.*.required' => 'Quantity field is required',
-                
-        ]
-    );
+                'month' => 'required',
+                'item.0' => 'required',
+                'quantity.0' => 'required',
+            ],
+            [
+                    'item.*.required' => 'Item field is required',
+                    'quantity.*.required' => 'Quantity field is required',
+            ]
+        );
 
         foreach ($this->item as $key => $value) {
             
-            Sale::create([
-                   'month' => $this->month,
-                   'recipe_id' => $this->item[$key],
-                   'quantity' => $this->quantity[$key],
-                ]);
+            $isExist = Sale::where('month','=', $this->month)
+            ->where('recipe_id','=', $this->item[$key])->first();
+            if(!$isExist){
+                        Sale::create([
+                            'month' => $this->month,
+                            'recipe_id' => $this->item[$key],
+                            'quantity' => $this->quantity[$key],
+                        ]);
+            }
+            
         }
         $this->createMode = false;
         $this->resetInput();
