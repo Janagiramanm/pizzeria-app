@@ -106,7 +106,10 @@
                                             @endphp 
                                         @endforeach
                                     @endforeach
+                                    @php 
+                                     
 
+                                    @endphp 
                                                                     
                                     @if(!empty($recipes))
                                       
@@ -121,7 +124,7 @@
                                                         $wkey =$key;
                                                         
                                                         if($value['ppl'] > 0){
-                                                           $waste_qty = (int) $value['used_qty'] * ( (int) $value['ppl'] / 100);
+                                                           $waste_qty = (int) $used_qty * ( (int) $value['ppl'] / 100);
                                                        
                                                         }
                                                         if($key == 'nos'){
@@ -146,7 +149,8 @@
                                                                 $wkey ='Ltr';
                                                             }
                                                         }
-                                                        if($key != 'nos'){
+                                                       
+                                                        if($key != 'nos' && $waste_qty !=''){
                                                                 $waste_price = $waste_qty * $value['price'];
                                                         }
 
