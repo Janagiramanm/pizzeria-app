@@ -184,12 +184,7 @@
               
         </div>
       
-<style>
-      #map{
-            height: 600px; 
-            width: 100%; 
-      }
-</style> 
+
 
 
 
